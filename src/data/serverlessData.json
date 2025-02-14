@@ -1,15 +1,15 @@
 {
-    "title": "Serverless Components",
-    "description": "Analysis of serverless architecture implementations and their effectiveness",
-    "metrics": [
-      { "name": "Latency", "description": "Response time measurement in milliseconds" },
-      { "name": "Cost", "description": "Resource usage efficiency and operational costs" },
-      { "name": "Reliability", "description": "System uptime and stability metrics" }
-    ],
-    "entries": [
-      { "name": "CloudTeam", "latency": 120, "cost": 0.95, "reliability": 0.99 },
-      { "name": "ServerlessX", "latency": 145, "cost": 0.92, "reliability": 0.98 },
-      { "name": "FaaSGroup", "latency": 133, "cost": 0.88, "reliability": 0.97 },
-      { "name": "LambdaPro", "latency": 150, "cost": 0.94, "reliability": 0.96 }
-    ]
-  }
+  "title": "Serverless Components",
+  "description": "Analysis of serverless architecture implementations and their effectiveness",
+  "metrics": [
+    { "name": "Latency", "description": "Response time measurement in milliseconds" },
+    { "name": "Cost", "description": "Resource usage efficiency and operational costs" },
+    { "name": "Reliability", "description": "System uptime and stability metrics" }
+  ],
+  "entries": [
+    { "name": "CloudTeam", "latency": 120, "cost": 0.95, "reliability": 0.99, "date": "2024-02-08", "link": "https://github.com/cloudteam/submission" },
+    { "name": "ServerlessX", "latency": 145, "cost": 0.92, "reliability": 0.98, "date": "2024-02-09", "link": "https://github.com/serverlessx/results" },
+    { "name": "FaaSGroup", "latency": 133, "cost": 0.88, "reliability": 0.97, "date": "2024-02-11", "link": "" },
+    { "name": "LambdaPro", "latency": 150, "cost": 0.94, "reliability": 0.96, "date": "2024-02-13", "link": "https://github.com/lambdapro/sub" }
+  ]
+}

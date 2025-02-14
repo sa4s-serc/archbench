@@ -1,15 +1,15 @@
 {
-    "title": "Dynamic Service Generation",
-    "description": "Evaluation of dynamic service creation and management capabilities",
-    "metrics": [
-      { "name": "Flexibility", "description": "Adaptation to changing requirements" },
-      { "name": "Integration", "description": "Ease of system integration with existing services" },
-      { "name": "Efficiency", "description": "Resource utilization and processing speed speed speed speed" }
-    ],
-    "entries": [
-      {"name": "DynaTeam", "flexibility": 0.94, "integration": 0.92, "efficiency": 0.90 },
-      {"name": "ServiceX", "flexibility": 0.91, "integration": 0.89, "efficiency": 0.93 },
-      {"name": "GenPro", "flexibility": 0.88, "integration": 0.94, "efficiency": 0.87 },
-      {"name": "AutoServ", "flexibility": 0.90, "integration": 0.88, "efficiency": 0.89 }
-    ]
-  }
+  "title": "Dynamic Service Generation",
+  "description": "Evaluation of dynamic service creation and management capabilities",
+  "metrics": [
+    { "name": "Flexibility", "description": "Adaptation to changing requirements" },
+    { "name": "Integration", "description": "Ease of system integration with existing services" },
+    { "name": "Efficiency", "description": "Resource utilization and processing speed speed speed speed" }
+  ],
+  "entries": [
+    {"name": "DynaTeam", "flexibility": 0.94, "integration": 0.92, "efficiency": 0.90, "date": "2024-02-07", "link": "https://github.com/dynateam/submission" },
+    {"name": "ServiceX", "flexibility": 0.91, "integration": 0.89, "efficiency": 0.93, "date": "2024-02-10", "link": null },
+    {"name": "GenPro", "flexibility": 0.88, "integration": 0.94, "efficiency": 0.87, "date": "2024-02-12", "link": "https://github.com/genpro/results" },
+    {"name": "AutoServ", "flexibility": 0.90, "integration": 0.88, "efficiency": 0.89, "date": "2024-02-14", "link": "" }
+  ]
+}

@@ -5,7 +5,7 @@ const ThemeSelector = () => {
     
     const toggleTheme = (e) => {
         const isChecked = e.target.checked;
-        setTheme(isChecked ? 'dark' : 'cupcake');
+        setTheme(isChecked ? 'dark' : 'light');
     };
 
     // initially set the theme and "listen" for changes to apply them to the HTML tag

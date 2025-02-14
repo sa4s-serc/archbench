@@ -97,6 +97,13 @@ const Leaderboard = () => {
                     {getSortIcon(metric.name.toLowerCase(), sortConfig)}
                   </th>
                 ))}
+                <th
+                  className="cursor-pointer hover:bg-base-200 whitespace-nowrap"
+                  onClick={() => handleSort("date")}
+                >
+                  Date {getSortIcon("date", sortConfig)}
+                </th>
+                <th className="whitespace-nowrap">Link</th>
               </tr>
             </thead>
             <tbody>
@@ -108,6 +115,23 @@ const Leaderboard = () => {
                       {entry[metric.name.toLowerCase()]}
                     </td>
                   ))}
+                  <td className="whitespace-nowrap">
+                    {entry.date}
+                  </td>
+                  <td className="whitespace-nowrap">
+                    {entry.link ? (
+                      <a
+                        href={entry.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="hover:text-primary transition-colors"
+                      >
+                        🔗
+                      </a>
+                    ) : (
+                      "-"
+                    )}
+                  </td>
                 </tr>
               ))}
             </tbody>

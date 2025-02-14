@@ -1,15 +1,15 @@
 {
-    "title": "Architecture Design Decisions",
-    "description": "Evaluation of architectural design patterns and decisions in software systems",
-    "metrics": [
-      { "name": "Modularity", "description": "Measure of component independence and coupling" },
-      { "name": "Maintainability", "description": "Ease of system maintenance and updates" },
-      { "name": "Performance", "description": "Overall system efficiency and response time" }
-    ],
-    "entries": [
-      {"name": "Team Alpha", "modularity": 0.95, "maintainability": 0.88, "performance": 0.92 },
-      {"name": "Team Beta", "modularity": 0.92, "maintainability": 0.90, "performance": 0.89 },
-      {"name": "Team Gamma", "modularity": 0.88, "maintainability": 0.85, "performance": 0.94 },
-      {"name": "Team Delta", "modularity": 0.87, "maintainability": 0.92, "performance": 0.86 }
-    ]
-  }
+  "title": "Architecture Design Decisions",
+  "description": "Evaluation of architectural design patterns and decisions in software systems",
+  "metrics": [
+    { "name": "Modularity", "description": "Measure of component independence and coupling" },
+    { "name": "Maintainability", "description": "Ease of system maintenance and updates" },
+    { "name": "Performance", "description": "Overall system efficiency and response time" }
+  ],
+  "entries": [
+    {"name": "Team Alpha", "modularity": 0.95, "maintainability": 0.88, "performance": 0.92, "date": "2024-02-10", "link": "https://github.com/team-alpha/submission" },
+    {"name": "Team Beta", "modularity": 0.92, "maintainability": 0.90, "performance": 0.89, "date": "2024-02-11", "link": "" },
+    {"name": "Team Gamma", "modularity": 0.88, "maintainability": 0.85, "performance": 0.94, "date": "2024-02-12", "link": "https://github.com/gamma/results" },
+    {"name": "Team Delta", "modularity": 0.87, "maintainability": 0.92, "performance": 0.86, "date": "2024-02-14", "link": null }
+  ]
+}
