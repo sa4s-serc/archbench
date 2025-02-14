@@ -77,7 +77,7 @@ const About = () => {
       {/* Links Section */}
       <div className="flex flex-col sm:flex-row justify-center gap-4 items-center pb-8">
         <a
-          href="https://sa4s.iiitb.ac.in"
+          href="https://sa4s-serc.github.io/"
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-primary gap-2"
@@ -86,7 +86,7 @@ const About = () => {
           Visit SA4S Website
         </a>
         <a
-          href="https://sa4s-serc.github.io/"
+          href="https://github.com/sa4s-serc/archbench"
           target="_blank"
           rel="noopener noreferrer"
           className="btn btn-secondary gap-2"
