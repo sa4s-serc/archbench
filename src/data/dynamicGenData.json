@@ -1,15 +1,60 @@
 {
   "title": "Dynamic Service Generation",
-  "description": "Evaluation of dynamic service creation and management capabilities",
+  "short_description": "Evaluation of LLMs' capability to generate dynamic IoT services",
+  "long_description": "An empirical study exploring the effectiveness of Large Language Models in generating IoT services dynamically at runtime. The study evaluates different models using CodeBERTScore metrics and analyzes their token efficiency.",
+  "paper_link": "https://arxiv.org/abs/2502.00689",
   "metrics": [
-    { "name": "Flexibility", "description": "Adaptation to changing requirements" },
-    { "name": "Integration", "description": "Ease of system integration with existing services" },
-    { "name": "Efficiency", "description": "Resource utilization and processing speed speed speed speed" }
+    { 
+      "name": "Precision", 
+      "description": "CodeBERTScore precision measuring code correctness" 
+    },
+    { 
+      "name": "Recall", 
+      "description": "CodeBERTScore recall measuring code completeness" 
+    },
+    {
+      "name": "F1",
+      "description": "CodeBERTScore F1 measuring overall code similarity"
+    },
+    {
+      "name": "F3",
+      "description": "CodeBERTScore F3 emphasizing code completeness"
+    },
+    { 
+      "name": "Tokens", 
+      "description": "Total token usage for service generation" 
+    }
   ],
   "entries": [
-    {"name": "DynaTeam", "flexibility": 0.94, "integration": 0.92, "efficiency": 0.90, "date": "2024-02-07", "link": "https://github.com/dynateam/submission" },
-    {"name": "ServiceX", "flexibility": 0.91, "integration": 0.89, "efficiency": 0.93, "date": "2024-02-10", "link": null },
-    {"name": "GenPro", "flexibility": 0.88, "integration": 0.94, "efficiency": 0.87, "date": "2024-02-12", "link": "https://github.com/genpro/results" },
-    {"name": "AutoServ", "flexibility": 0.90, "integration": 0.88, "efficiency": 0.89, "date": "2024-02-14", "link": "" }
+    {
+      "name": "CodeQwen1.5-7B",
+      "precision": 0.86,
+      "recall": 0.79,
+      "f1": 0.83,
+      "f3": 0.80,
+      "tokens": 3482.00,
+      "date": "2024-02-02",
+      "link": null
+    },
+    {
+      "name": "DeepSeek-V2.5",
+      "precision": 0.91,
+      "recall": 0.85,
+      "f1": 0.88,
+      "f3": 0.86,
+      "tokens": 4376.25,
+      "date": "2024-02-02",
+      "link": null
+    },
+    {
+      "name": "GPT-4o-mini",
+      "precision": 0.90,
+      "recall": 0.85,
+      "f1": 0.87,
+      "f3": 0.85,
+      "tokens": 2063.17,
+      "date": "2024-02-02",
+      "link": null
+    }
   ]
 }

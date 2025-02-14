@@ -7,17 +7,32 @@ import { sortData, getSortIcon } from "../utils/sorting";
 const Leaderboard = () => {
   const [selectedTask, setSelectedTask] = useState("architecture");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
-  const [tableData, setTableData] = useState(adrGeneration.entries);
-
+  
   const taskData = {
     architecture: adrGeneration,
     serverless: serverlessData,
     dynamic: dynamicData,
   };
 
+  // Process entries based on task type
+  const processEntries = (task, entries) => {
+    if (task === "serverless") {
+      return entries.map(entry => ({
+        ...entry,
+        codebase_tests_no_intervention: entry.no_intervention.codebase_tests,
+        function_tests_no_intervention: entry.no_intervention.function_tests,
+        codebase_tests_with_intervention: entry.with_intervention.codebase_tests,
+        function_tests_with_intervention: entry.with_intervention.function_tests
+      }));
+    }
+    return entries;
+  };
+
+  const [tableData, setTableData] = useState(processEntries("architecture", adrGeneration.entries));
+
   const handleTaskChange = (task) => {
     setSelectedTask(task);
-    setTableData(taskData[task].entries);
+    setTableData(processEntries(task, taskData[task].entries));
     setSortConfig({ key: null, direction: "asc" });
   };
 
@@ -27,9 +42,24 @@ const Leaderboard = () => {
     setSortConfig(newSort);
   };
 
+  // Get metrics based on task type
+  const getMetrics = (task) => {
+    if (task === "serverless") {
+      return [
+        { name: "Codebase Tests (No Int.)", key: "codebase_tests_no_intervention" },
+        { name: "Function Tests (No Int.)", key: "function_tests_no_intervention" },
+        { name: "Codebase Tests (With Int.)", key: "codebase_tests_with_intervention" },
+        { name: "Function Tests (With Int.)", key: "function_tests_with_intervention" }
+      ];
+    }
+    return taskData[task].metrics.map(metric => ({
+      name: metric.name,
+      key: metric.name.toLowerCase().replace(/-/g, '_')
+    }));
+  };
+
   return (
     <div className="p-4 sm:p-8 max-w-7xl mx-auto">
-      {/* Task selection buttons - make them stack on mobile */}
       <div className="flex flex-col sm:flex-row justify-between mb-8 w-full gap-2 sm:gap-0">
         <button
           className={`sm:flex-1 mx-0 sm:mx-2 px-4 sm:px-6 py-2 rounded-lg border transition-all duration-200 ${
@@ -68,14 +98,14 @@ const Leaderboard = () => {
           {taskData[selectedTask].title}
         </h2>
         <p className="text-sm sm:text-base mb-4">
-          {taskData[selectedTask].description}
+          {taskData[selectedTask].short_description}
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {taskData[selectedTask].metrics.map((metric) => (
             <div key={metric.name} className="card bg-base-100 p-4">
               <h3 className="font-bold text-sm sm:text-base">{metric.name}</h3>
-              <p className="text-xs sm:text-sm">{metric.description}</p>
+              <p className="text-xs sm:text-sm text-base-content/70">{metric.description}</p>
             </div>
           ))}
         </div>
@@ -83,44 +113,43 @@ const Leaderboard = () => {
 
       <div className="overflow-x-auto -mx-4 sm:mx-0">
         <div className="min-w-full sm:min-w-0 px-4 sm:px-0">
-          <table className="table table-zebra w-full text-sm sm:text-base">
+          <table className="table table-zebra w-full">
             <thead>
               <tr>
-                <th className="w-12"></th>
-                <th className="whitespace-nowrap">Name</th>
-                {taskData[selectedTask].metrics.map((metric) => (
+                <th className="w-12 text-xs">#</th>
+                <th className="text-xs">Name</th>
+                {getMetrics(selectedTask).map(({ name, key }) => (
                   <th
-                    key={metric.name}
-                    className="cursor-pointer hover:bg-base-200 whitespace-nowrap"
-                    onClick={() => handleSort(metric.name.toLowerCase())}
+                    key={key}
+                    className="cursor-pointer hover:bg-base-200 text-xs whitespace-nowrap"
+                    onClick={() => handleSort(key)}
                   >
-                    {metric.name}{" "}
-                    {getSortIcon(metric.name.toLowerCase(), sortConfig)}
+                    {name} {getSortIcon(key, sortConfig)}
                   </th>
                 ))}
                 <th
-                  className="cursor-pointer hover:bg-base-200 whitespace-nowrap"
+                  className="cursor-pointer hover:bg-base-200 text-xs whitespace-nowrap"
                   onClick={() => handleSort("date")}
                 >
                   Date {getSortIcon("date", sortConfig)}
                 </th>
-                <th className="whitespace-nowrap">Link</th>
+                <th className="text-xs">Link</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="text-sm">
               {tableData.map((entry, index) => (
                 <tr key={index}>
-                  <td className="text-center text-sm text-base-content/70">
-                    {index + 1}
-                  </td>
-                  <td className="whitespace-nowrap">{entry.name}</td>
-                  {taskData[selectedTask].metrics.map((metric) => (
-                    <td key={metric.name} className="whitespace-nowrap">
-                      {entry[metric.name.toLowerCase()]}
+                  <td className="text-center text-base-content/70">{index + 1}</td>
+                  <td className="font-medium">{entry.name}</td>
+                  {getMetrics(selectedTask).map(({ key }) => (
+                    <td key={key}>
+                      {typeof entry[key] === 'number' 
+                        ? Number(entry[key]).toFixed(3)
+                        : entry[key]}
                     </td>
                   ))}
-                  <td className="whitespace-nowrap">{entry.date}</td>
-                  <td className="whitespace-nowrap">
+                  <td>{entry.date}</td>
+                  <td>
                     {entry.link ? (
                       <a
                         href={entry.link}

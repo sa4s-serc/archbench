@@ -43,12 +43,17 @@ const Tasks = () => {
                     {task.title}
                   </h2>
                   <p className="text-base sm:text-lg mb-4 sm:mb-6">
-                    {task.description}
+                    {task.long_description}
                   </p>
                 </div>
-                <button className="btn btn-primary self-start">
-                  📥 Download Dataset
-                </button>
+                <a
+                  href={task.paper_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-ghost self-start"
+                >
+                  📝 View Paper
+                </a>
               </div>
 
               <div className="divider">Evaluation Metrics</div>
@@ -89,10 +94,10 @@ const Tasks = () => {
 
               <div className="mt-6 flex flex-col sm:flex-row justify-end gap-4">
                 <button className="btn btn-outline w-full sm:w-auto">
-                  📖 View Documentation
-                </button>
-                <button className="btn btn-outline w-full sm:w-auto">
                   🔍 View Example
+                </button>
+                <button className="btn btn-primary w-full sm:w-auto">
+                  📥 Download Dataset
                 </button>
               </div>
             </div>

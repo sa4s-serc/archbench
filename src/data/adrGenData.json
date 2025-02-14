@@ -1,15 +1,78 @@
 {
-  "title": "Architecture Design Decisions",
-  "description": "Evaluation of architectural design patterns and decisions in software systems",
+  "title": "Architectural Design Records Generation",
+  "short_description": "Evaluation of Large Language Models' capability to generate Architectural Design Records from decision contexts",
+  "long_description": "An empirical study exploring the feasibility of using Large Language Models (LLMs) for generating Architecture Decision Records (ADRs). The study evaluates different approaches including zero-shot, few-shot, and fine-tuning to generate ADR Decisions from given Contexts. This research addresses the challenge of slow ADR adoption in software development by investigating how LLMs can assist in automating the documentation of architectural decisions, promoting better Architectural Knowledge Management (AKM).",
+  "paper_link": "https://arxiv.org/abs/2403.01709",
   "metrics": [
-    { "name": "Modularity", "description": "Measure of component independence and coupling" },
-    { "name": "Maintainability", "description": "Ease of system maintenance and updates" },
-    { "name": "Performance", "description": "Overall system efficiency and response time" }
+    { 
+      "name": "ROUGE-1", 
+      "description": "Measures the overlap of unigrams between generated and reference text" 
+    },
+    { 
+      "name": "BLEU", 
+      "description": "Evaluates the quality of machine-generated text against reference text" 
+    },
+    { 
+      "name": "METEOR", 
+      "description": "Metric for evaluation of text with explicit ordering consideration" 
+    },
+    { 
+      "name": "BERTScore-P", 
+      "description": "BERTScore precision: Semantic similarity using BERT embeddings" 
+    },
+    { 
+      "name": "BERTScore-R", 
+      "description": "BERTScore recall: Semantic similarity using BERT embeddings" 
+    },
+    { 
+      "name": "BERTScore-F1", 
+      "description": "BERTScore F1: Harmonic mean of precision and recall, correlates well with human judgment" 
+    }
   ],
   "entries": [
-    {"name": "Team Alpha", "modularity": 0.95, "maintainability": 0.88, "performance": 0.92, "date": "2024-02-10", "link": "https://github.com/team-alpha/submission" },
-    {"name": "Team Beta", "modularity": 0.92, "maintainability": 0.90, "performance": 0.89, "date": "2024-02-11", "link": "" },
-    {"name": "Team Gamma", "modularity": 0.88, "maintainability": 0.85, "performance": 0.94, "date": "2024-02-12", "link": "https://github.com/gamma/results" },
-    {"name": "Team Delta", "modularity": 0.87, "maintainability": 0.92, "performance": 0.86, "date": "2024-02-14", "link": null }
+    {
+      "name": "GPT-4 (0-shot)", 
+      "rouge1": 0.259, 
+      "bleu": 0.028, 
+      "meteor": 0.219, 
+      "bertscore_p": 0.847,
+      "bertscore_r": 0.851,
+      "bertscore_f1": 0.849,
+      "date": "2024-03-04",
+      "link": null
+    },
+    {
+      "name": "GPT-3.5-davinci-003 (few-shot)", 
+      "rouge1": 0.245, 
+      "bleu": 0.028, 
+      "meteor": 0.207, 
+      "bertscore_p": 0.849,
+      "bertscore_r": 0.851,
+      "bertscore_f1": 0.849,
+      "date": "2024-03-04",
+      "link": null
+    },
+    {
+      "name": "Flan-T5-base (fine-tuned)", 
+      "rouge1": 0.231, 
+      "bleu": 0.028, 
+      "meteor": 0.171, 
+      "bertscore_p": 0.842,
+      "bertscore_r": 0.841,
+      "bertscore_f1": 0.841,
+      "date": "2024-03-04",
+      "link": null
+    },
+    {
+      "name": "T0-3b (0-shot)", 
+      "rouge1": 0.187, 
+      "bleu": 0.005, 
+      "meteor": 0.122, 
+      "bertscore_p": 0.856,
+      "bertscore_r": 0.823,
+      "bertscore_f1": 0.839,
+      "date": "2024-03-04",
+      "link": null
+    }
   ]
 }

@@ -1,15 +1,83 @@
 {
-  "title": "Serverless Components",
-  "description": "Analysis of serverless architecture implementations and their effectiveness",
+  "title": "Architectural Component Generation",
+  "short_description": "Evaluation of LLMs' capability to generate architectural components for Functions as a Service (FaaS). Here, 'Int' reffers to intervention.",
+  "long_description": "An exploratory study evaluating the capability of Large Language Models to generate serverless functions, examining both functional correctness and code quality. The study utilizes various prompt types and measures performance with and without human intervention across different LLMs.",
+  "paper_link": "https://arxiv.org/abs/2502.02539",
   "metrics": [
-    { "name": "Latency", "description": "Response time measurement in milliseconds" },
-    { "name": "Cost", "description": "Resource usage efficiency and operational costs" },
-    { "name": "Reliability", "description": "System uptime and stability metrics" }
+    { 
+      "name": "Codebase Tests",
+      "description": "Percentage of test cases passed for the entire codebase" 
+    },
+    { 
+      "name": "Function Tests",
+      "description": "Percentage of test cases passed for individual functions" 
+    }
   ],
   "entries": [
-    { "name": "CloudTeam", "latency": 120, "cost": 0.95, "reliability": 0.99, "date": "2024-02-08", "link": "https://github.com/cloudteam/submission" },
-    { "name": "ServerlessX", "latency": 145, "cost": 0.92, "reliability": 0.98, "date": "2024-02-09", "link": "https://github.com/serverlessx/results" },
-    { "name": "FaaSGroup", "latency": 133, "cost": 0.88, "reliability": 0.97, "date": "2024-02-11", "link": "" },
-    { "name": "LambdaPro", "latency": 150, "cost": 0.94, "reliability": 0.96, "date": "2024-02-13", "link": "https://github.com/lambdapro/sub" }
+    {
+      "name": "DeepSeek-Coder-V2", 
+      "no_intervention": {
+        "codebase_tests": 81,
+        "function_tests": 13
+      },
+      "with_intervention": {
+        "codebase_tests": 90,
+        "function_tests": 71
+      },
+      "date": "2024-02-04",
+      "link": null
+    },
+    {
+      "name": "GPT-4",
+      "no_intervention": {
+        "codebase_tests": 79,
+        "function_tests": 10
+      },
+      "with_intervention": {
+        "codebase_tests": 90,
+        "function_tests": 50
+      },
+      "date": "2024-02-04",
+      "link": null
+    },
+    {
+      "name": "GPT-3.5-Turbo",
+      "no_intervention": {
+        "codebase_tests": 68,
+        "function_tests": 4
+      },
+      "with_intervention": {
+        "codebase_tests": 89,
+        "function_tests": 64
+      },
+      "date": "2024-02-04",
+      "link": null
+    },
+    {
+      "name": "CodeQwen1.5-7B-Chat",
+      "no_intervention": {
+        "codebase_tests": 69,
+        "function_tests": 7
+      },
+      "with_intervention": {
+        "codebase_tests": 80,
+        "function_tests": 33
+      },
+      "date": "2024-02-04",
+      "link": null
+    },
+    {
+      "name": "Artigenz-Coder-DS-6.7B",
+      "no_intervention": {
+        "codebase_tests": 67,
+        "function_tests": 0
+      },
+      "with_intervention": {
+        "codebase_tests": 74,
+        "function_tests": 0
+      },
+      "date": "2024-02-04",
+      "link": null
+    }
   ]
 }
