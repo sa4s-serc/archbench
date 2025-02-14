@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import Leaderboard from '../pages/Leaderboard';
 
 const Introduction = () => {
   const navigate = useNavigate();
@@ -33,12 +34,6 @@ const Introduction = () => {
               onClick={() => navigate('/tasks')}
             >
               ✅ Tasks
-            </button>
-            <button 
-              className="btn btn-outline btn-warning"
-              onClick={() => navigate('/')}
-            >
-              📤 Submit
             </button>
             <button 
               className="btn btn-outline btn-error"
