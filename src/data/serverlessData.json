@@ -7,9 +7,9 @@
       { "name": "Reliability", "description": "System uptime and stability metrics" }
     ],
     "entries": [
-      { "rank": 1, "name": "CloudTeam", "latency": 120, "cost": 0.95, "reliability": 0.99 },
-      { "rank": 2, "name": "ServerlessX", "latency": 145, "cost": 0.92, "reliability": 0.98 },
-      { "rank": 3, "name": "FaaSGroup", "latency": 133, "cost": 0.88, "reliability": 0.97 },
-      { "rank": 4, "name": "LambdaPro", "latency": 150, "cost": 0.94, "reliability": 0.96 }
+      { "name": "CloudTeam", "latency": 120, "cost": 0.95, "reliability": 0.99 },
+      { "name": "ServerlessX", "latency": 145, "cost": 0.92, "reliability": 0.98 },
+      { "name": "FaaSGroup", "latency": 133, "cost": 0.88, "reliability": 0.97 },
+      { "name": "LambdaPro", "latency": 150, "cost": 0.94, "reliability": 0.96 }
     ]
   }

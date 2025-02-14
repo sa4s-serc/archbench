@@ -86,7 +86,6 @@ const Leaderboard = () => {
           <table className="table table-zebra w-full text-sm sm:text-base">
             <thead>
               <tr>
-                <th className="whitespace-nowrap">Rank</th>
                 <th className="whitespace-nowrap">Name</th>
                 {taskData[selectedTask].metrics.map((metric) => (
                   <th
@@ -103,7 +102,6 @@ const Leaderboard = () => {
             <tbody>
               {tableData.map((entry, index) => (
                 <tr key={index}>
-                  <td className="whitespace-nowrap">{entry.rank}</td>
                   <td className="whitespace-nowrap">{entry.name}</td>
                   {taskData[selectedTask].metrics.map((metric) => (
                     <td key={metric.name} className="whitespace-nowrap">

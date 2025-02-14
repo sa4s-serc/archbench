@@ -7,9 +7,9 @@
       { "name": "Performance", "description": "Overall system efficiency and response time" }
     ],
     "entries": [
-      { "rank": 1, "name": "Team Alpha", "modularity": 0.95, "maintainability": 0.88, "performance": 0.92 },
-      { "rank": 2, "name": "Team Beta", "modularity": 0.92, "maintainability": 0.90, "performance": 0.89 },
-      { "rank": 3, "name": "Team Gamma", "modularity": 0.88, "maintainability": 0.85, "performance": 0.94 },
-      { "rank": 4, "name": "Team Delta", "modularity": 0.87, "maintainability": 0.92, "performance": 0.86 }
+      {"name": "Team Alpha", "modularity": 0.95, "maintainability": 0.88, "performance": 0.92 },
+      {"name": "Team Beta", "modularity": 0.92, "maintainability": 0.90, "performance": 0.89 },
+      {"name": "Team Gamma", "modularity": 0.88, "maintainability": 0.85, "performance": 0.94 },
+      {"name": "Team Delta", "modularity": 0.87, "maintainability": 0.92, "performance": 0.86 }
     ]
   }

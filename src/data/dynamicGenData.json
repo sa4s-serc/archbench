@@ -7,9 +7,9 @@
       { "name": "Efficiency", "description": "Resource utilization and processing speed speed speed speed" }
     ],
     "entries": [
-      { "rank": 1, "name": "DynaTeam", "flexibility": 0.94, "integration": 0.92, "efficiency": 0.90 },
-      { "rank": 2, "name": "ServiceX", "flexibility": 0.91, "integration": 0.89, "efficiency": 0.93 },
-      { "rank": 3, "name": "GenPro", "flexibility": 0.88, "integration": 0.94, "efficiency": 0.87 },
-      { "rank": 4, "name": "AutoServ", "flexibility": 0.90, "integration": 0.88, "efficiency": 0.89 }
+      {"name": "DynaTeam", "flexibility": 0.94, "integration": 0.92, "efficiency": 0.90 },
+      {"name": "ServiceX", "flexibility": 0.91, "integration": 0.89, "efficiency": 0.93 },
+      {"name": "GenPro", "flexibility": 0.88, "integration": 0.94, "efficiency": 0.87 },
+      {"name": "AutoServ", "flexibility": 0.90, "integration": 0.88, "efficiency": 0.89 }
     ]
   }
