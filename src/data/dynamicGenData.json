@@ -1,0 +1,15 @@
+{
+    "title": "Dynamic Service Generation",
+    "description": "Evaluation of dynamic service creation and management capabilities",
+    "metrics": [
+      { "name": "Flexibility", "description": "Adaptation to changing requirements" },
+      { "name": "Integration", "description": "Ease of system integration with existing services" },
+      { "name": "Efficiency", "description": "Resource utilization and processing speed" }
+    ],
+    "entries": [
+      { "rank": 1, "name": "DynaTeam", "flexibility": 0.94, "integration": 0.92, "efficiency": 0.90 },
+      { "rank": 2, "name": "ServiceX", "flexibility": 0.91, "integration": 0.89, "efficiency": 0.93 },
+      { "rank": 3, "name": "GenPro", "flexibility": 0.88, "integration": 0.94, "efficiency": 0.87 },
+      { "rank": 4, "name": "AutoServ", "flexibility": 0.90, "integration": 0.88, "efficiency": 0.89 }
+    ]
+  }
