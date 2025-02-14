@@ -4,7 +4,7 @@
     "metrics": [
       { "name": "Flexibility", "description": "Adaptation to changing requirements" },
       { "name": "Integration", "description": "Ease of system integration with existing services" },
-      { "name": "Efficiency", "description": "Resource utilization and processing speed" }
+      { "name": "Efficiency", "description": "Resource utilization and processing speed speed speed speed" }
     ],
     "entries": [
       { "rank": 1, "name": "DynaTeam", "flexibility": 0.94, "integration": 0.92, "efficiency": 0.90 },

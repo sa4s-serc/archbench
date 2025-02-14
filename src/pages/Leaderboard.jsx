@@ -28,10 +28,11 @@ const Leaderboard = () => {
   };
 
   return (
-    <div className="p-8 max-w-7xl mx-auto">
-      <div className="flex justify-between mb-8 w-full">
+    <div className="p-4 sm:p-8 max-w-7xl mx-auto">
+      {/* Task selection buttons - make them stack on mobile */}
+      <div className="flex flex-col sm:flex-row justify-between mb-8 w-full gap-2 sm:gap-0">
         <button
-          className={`flex-1 mx-2 px-6 py-2 rounded-lg border transition-all duration-200 ${
+          className={`sm:flex-1 mx-0 sm:mx-2 px-4 sm:px-6 py-2 rounded-lg border transition-all duration-200 ${
             selectedTask === "architecture"
               ? "bg-base-200 border-primary text-primary font-medium"
               : "border-base-300 hover:border-primary hover:text-primary"
@@ -41,7 +42,7 @@ const Leaderboard = () => {
           ADR Generation
         </button>
         <button
-          className={`flex-1 mx-2 px-6 py-2 rounded-lg border transition-all duration-200 ${
+          className={`sm:flex-1 mx-0 sm:mx-2 px-4 sm:px-6 py-2 rounded-lg border transition-all duration-200 ${
             selectedTask === "serverless"
               ? "bg-base-200 border-primary text-primary font-medium"
               : "border-base-300 hover:border-primary hover:text-primary"
@@ -51,7 +52,7 @@ const Leaderboard = () => {
           Serverless
         </button>
         <button
-          className={`flex-1 mx-2 px-6 py-2 rounded-lg border transition-all duration-200 ${
+          className={`sm:flex-1 mx-0 sm:mx-2 px-4 sm:px-6 py-2 rounded-lg border transition-all duration-200 ${
             selectedTask === "dynamic"
               ? "bg-base-200 border-primary text-primary font-medium"
               : "border-base-300 hover:border-primary hover:text-primary"
@@ -61,52 +62,59 @@ const Leaderboard = () => {
           Dynamic Service
         </button>
       </div>
-      <div className="card bg-base-200 mb-8 p-6">
-        <h2 className="text-2xl font-bold mb-4">
+
+      <div className="card bg-base-200 mb-8 p-4 sm:p-6">
+        <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4">
           {taskData[selectedTask].title}
         </h2>
-        <p className="mb-4">{taskData[selectedTask].description}</p>
+        <p className="text-sm sm:text-base mb-4">
+          {taskData[selectedTask].description}
+        </p>
 
-        <div className="grid grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {taskData[selectedTask].metrics.map((metric) => (
             <div key={metric.name} className="card bg-base-100 p-4">
-              <h3 className="font-bold">{metric.name}</h3>
-              <p className="text-sm">{metric.description}</p>
+              <h3 className="font-bold text-sm sm:text-base">{metric.name}</h3>
+              <p className="text-xs sm:text-sm">{metric.description}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <div className="overflow-x-auto">
-        <table className="table table-zebra w-full">
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Name</th>
-              {taskData[selectedTask].metrics.map((metric) => (
-                <th
-                  key={metric.name}
-                  className="cursor-pointer hover:bg-base-200"
-                  onClick={() => handleSort(metric.name.toLowerCase())}
-                >
-                  {metric.name}{" "}
-                  {getSortIcon(metric.name.toLowerCase(), sortConfig)}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {tableData.map((entry, index) => (
-              <tr key={index}>
-                <td>{entry.rank}</td>
-                <td>{entry.name}</td>
+      <div className="overflow-x-auto -mx-4 sm:mx-0">
+        <div className="min-w-full sm:min-w-0 px-4 sm:px-0">
+          <table className="table table-zebra w-full text-sm sm:text-base">
+            <thead>
+              <tr>
+                <th className="whitespace-nowrap">Rank</th>
+                <th className="whitespace-nowrap">Name</th>
                 {taskData[selectedTask].metrics.map((metric) => (
-                  <td key={metric.name}>{entry[metric.name.toLowerCase()]}</td>
+                  <th
+                    key={metric.name}
+                    className="cursor-pointer hover:bg-base-200 whitespace-nowrap"
+                    onClick={() => handleSort(metric.name.toLowerCase())}
+                  >
+                    {metric.name}{" "}
+                    {getSortIcon(metric.name.toLowerCase(), sortConfig)}
+                  </th>
                 ))}
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {tableData.map((entry, index) => (
+                <tr key={index}>
+                  <td className="whitespace-nowrap">{entry.rank}</td>
+                  <td className="whitespace-nowrap">{entry.name}</td>
+                  {taskData[selectedTask].metrics.map((metric) => (
+                    <td key={metric.name} className="whitespace-nowrap">
+                      {entry[metric.name.toLowerCase()]}
+                    </td>
+                  ))}
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   );

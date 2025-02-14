@@ -6,11 +6,12 @@ export default {
   ],
   theme: {
     extend: {},
-    daisyui: {
-      themes: ["light", "dark", "cupcake"],
-    },
+  },
+  daisyui: {
+    themes: ["light", "dark", "cupcake"],
   },
   plugins: [
+    require("@tailwindcss/typography"),
     require('daisyui'),
   ],
 }
