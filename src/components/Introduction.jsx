@@ -8,7 +8,7 @@ const Introduction = () => {
     <div className="hero bg-base-100">
       <div className="hero-content flex-col lg:flex-row">
         <img
-          src="./src/assets/sa4s_logo_final.svg"
+          src="/sa4s_logo_final.svg"
           className="w-53 rounded-lg shadow-lg" 
         />
         <div>
