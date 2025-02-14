@@ -7,36 +7,53 @@ const Navbar = () => {
   const location = useLocation();
   const isHome = location.pathname === '/';
 
+  const isActive = (path) => location.pathname === path;
+
   return (
     <div className="navbar bg-base-100 shadow-md border-b border-base-300">
       <div className="navbar-start">
-        <ul className="menu menu-horizontal px-1">
+        <div className="flex flex-row gap-2">
           {!isHome && (
             <>
-              <li>
-                <a onClick={() => navigate('/leaderboard')}>Leaderboard</a>
-              </li>
-              <li>
-                <a onClick={() => navigate('/tasks')}>Tasks</a>
-              </li>
+              <button 
+                className={`btn btn-sm btn-ghost ${isActive('/leaderboard') 
+                  ? 'text-primary border-b-2 border-primary' 
+                  : ''}`}
+                onClick={() => navigate('/leaderboard')}
+              >
+                Leaderboard
+              </button>
+              <button 
+                className={`btn btn-sm btn-ghost ${isActive('/tasks') 
+                  ? 'text-primary border-b-2 border-primary' 
+                  : ''}`}
+                onClick={() => navigate('/tasks')}
+              >
+                Tasks
+              </button>
             </>
           )}
-        </ul>
+        </div>
       </div>
       <div className="navbar-center">
-        <a 
-          className="btn btn-ghost text-xl"
+        <button 
+          className={`btn btn-ghost text-xl normal-case ${isActive('/') 
+            ? 'font-bold text-primary' 
+            : ''}`}
           onClick={() => navigate('/')}
         >
           Archbench
-        </a>
+        </button>
       </div>
       <div className="navbar-end">
-        <ul className="menu menu-horizontal px-1">
-          <li>
-            <a onClick={() => navigate('/about')}>About</a>
-          </li>
-        </ul>
+        <button 
+          className={`btn btn-sm btn-ghost ${isActive('/about') 
+            ? 'text-primary border-b-2 border-primary' 
+            : ''} mr-2`}
+          onClick={() => navigate('/about')}
+        >
+          About
+        </button>
         <ThemeSelector />
       </div>
     </div>
