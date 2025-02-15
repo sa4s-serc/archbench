@@ -1,6 +1,5 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import Leaderboard from '../pages/Leaderboard';
 
 const Introduction = () => {
   const navigate = useNavigate();
@@ -13,7 +12,7 @@ const Introduction = () => {
           className="w-53 rounded-lg shadow-lg" 
         />
         <div>
-          <h1 className="text-5xl font-bold">Architecture Benchmark</h1>
+          <h1 className="text-5xl font-bold"> ArchBench: LLMs for Software Architecture Tasks</h1>
           <p className="py-6">
             Archbench is a leaderboard focused on software architecture benchmarking.<br />
             Our categories include:<br />
