@@ -4,8 +4,10 @@ import adrGeneration from "../data/adrGenData.json";
 import dynamicData from "../data/dynamicGenData.json";
 import serverlessData from "../data/serverlessData.json";
 import Footer from "../components/Footer";
+import { useNavigate } from "react-router-dom";
 
 const Homepage = () => {
+  const navigate = useNavigate();
   return (
     <>
       <div className="min-h-screen bg-base-100">
