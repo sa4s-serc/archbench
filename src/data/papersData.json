@@ -1,0 +1,47 @@
+{
+    "papers": [
+      {
+        "id": 1,
+        "title": "Leveraging LLMs for Dynamic IoT Systems Generation through Mixed-Initiative Interaction",
+        "authors": [
+          "Bassam Adnan",
+          "Sathvika Miryala",
+          "Aneesh Sambu",
+          "Karthik Vaidhyanathan",
+          "Martina De Sanctis",
+          "Romina Spalazzese"
+        ],
+        "year": "2025",
+        "abstract": "IoT systems face significant challenges in adapting to user needs, which are often under-specified and evolve with changing environmental contexts. To address these complexities, users should be able to explore possibilities, while IoT systems must learn and support users in the process of providing proper services, e.g., to serve novel experiences. The IoT-Together paradigm aims to meet this demand through the Mixed-Initiative Interaction (MII) paradigm that facilitates a collaborative synergy between users and IoT systems, enabling the co-creation of intelligent and adaptive solutions that are precisely aligned with user-defined goals...",
+        "arxivLink": "https://arxiv.org/abs/2502.00689",
+        "githubLink": "https://github.com/sa4s-serc/SAS_llm_query"
+      },
+      {
+        "id": 2,
+        "title": "LLMs for Generation of Architectural Components: An Exploratory Empirical Study in the Serverless World",
+        "authors": [
+          "Shrikara Arun",
+          "Meghana Tedla",
+          "Karthik Vaidhyanathan"
+        ],
+        "year": "2025",
+        "abstract": "Recently, the exponential growth in capability and pervasiveness of Large Language Models (LLMs) has led to significant work done in the field of code generation. However, this generation has been limited to code snippets. Going one step further, our desideratum is to automatically generate architectural components. This would not only speed up development time, but would also enable us to eventually completely skip the development phase, moving directly from design decisions to deployment...",
+        "arxivLink": "https://arxiv.org/abs/2502.02539",
+        "githubLink": "#",
+        "conference": "IEEE International Conference on Software Architecture (ICSA) 2025"
+      },
+      {
+        "id": 3,
+        "title": "Can LLMs Generate Architectural Design Decisions? -An Exploratory Empirical study",
+        "authors": [
+          "Rudra Dhar",
+          "Karthik Vaidhyanathan",
+          "Vasudeva Varma"
+        ],
+        "year": "2024",
+        "abstract": "Architectural Knowledge Management (AKM) involves the organized handling of information related to architectural decisions and design within a project or organization. An essential artifact of AKM is the Architecture Decision Records (ADR), which documents key design decisions. ADRs are documents that capture decision context, decision made and various aspects related to a design decision, thereby promoting transparency, collaboration, and understanding...",
+        "arxivLink": "https://arxiv.org/abs/2403.01709",
+        "githubLink": "#"
+      }
+    ]
+  }
