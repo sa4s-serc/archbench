@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import adrGeneration from "../data/adrGenData.json";
 import serverlessData from "../data/serverlessData.json";
 import dynamicData from "../data/dynamicGenData.json";
 import { sortData, getSortIcon } from "../utils/sorting";
 
 const Leaderboard = () => {
+  const navigate = useNavigate();
   const [selectedTask, setSelectedTask] = useState("architecture");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   
@@ -42,7 +44,6 @@ const Leaderboard = () => {
     setSortConfig(newSort);
   };
 
-  // Get metrics based on task type
   const getMetrics = (task) => {
     if (task === "serverless") {
       return [
@@ -94,12 +95,22 @@ const Leaderboard = () => {
       </div>
 
       <div className="card bg-base-200 mb-8 p-4 sm:p-6">
-        <h2 className="text-xl sm:text-2xl font-bold mb-2 sm:mb-4">
-          {taskData[selectedTask].title}
-        </h2>
-        <p className="text-sm sm:text-base mb-4">
-          {taskData[selectedTask].short_description}
-        </p>
+        <div className="flex justify-between items-start mb-4">
+          <div>
+            <h2 className="text-xl sm:text-2xl font-bold mb-2">
+              {taskData[selectedTask].title}
+            </h2>
+            <p className="text-sm sm:text-base mb-4">
+              {taskData[selectedTask].short_description}
+            </p>
+          </div>
+          <button 
+            onClick={() => navigate(`/tasks`)}
+            className="btn btn-primary btn-sm gap-2"
+          >
+            <span>📋</span> View Task
+          </button>
+        </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {taskData[selectedTask].metrics.map((metric) => (
