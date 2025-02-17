@@ -74,5 +74,10 @@
       "date": "2024-03-04",
       "link": null
     }
-  ]
+  ],
+  "type": "adr",
+  "dataset_size": "1000",
+  "time_limit": "2 hours",
+  "example_available": true,
+  "dataset_download": true
 }

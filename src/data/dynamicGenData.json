@@ -56,5 +56,10 @@
       "date": "2024-02-02",
       "link": null
     }
-  ]
+  ],
+  "type": "dynamic",
+  "token_limit": "8K",
+  "response_time": "30 seconds",
+  "example_available": true,
+  "dataset_download": true
 }
