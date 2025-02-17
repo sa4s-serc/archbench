@@ -19,11 +19,11 @@ const Tasks = () => {
   const getExampleFileName = (taskType) => {
     switch (taskType) {
       case "adr":
-        return "adrExample.md";
+        return "/examples/adr_example.md";
       case "serverless":
-        return "adrExample.md";
+        return "/examples/serverless_example.md";
       case "dynamic":
-        return "dynamicExample.md";
+        return "/examples/dynamic_example.md";
       default:
         return null;
     }
@@ -130,7 +130,7 @@ const Tasks = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
             <div className="bg-base-200 p-4 rounded-lg">
               <span className="font-semibold">Input Format:</span>
-              <p className="mt-1 opacity-90">Query specification defining service requirements</p>
+              <p className="mt-1 opacity-90">CQuery specification defining service requirements</p>
             </div>
             <div className="bg-base-200 p-4 rounded-lg">
               <span className="font-semibold">Output Format:</span>
@@ -227,9 +227,14 @@ const Tasks = () => {
                     </button>
                   )}
                   {task.dataset_download && (
-                    <button className="btn btn-primary w-full sm:w-auto">
+                    <a
+                      href={task.dataset_link}
+                      target="_blank"
+                      rel="noopener noreferrer" 
+                      className="btn btn-primary w-full sm:w-auto"
+                    >
                       📥 Download Dataset
-                    </button>
+                    </a>
                   )}
                 </div>
               </div>

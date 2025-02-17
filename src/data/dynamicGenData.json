@@ -61,5 +61,6 @@
   "token_limit": "8K",
   "response_time": "30 seconds",
   "example_available": true,
-  "dataset_download": true
+  "dataset_download": true,
+  "dataset_link": "https://github.com/sa4s-serc/SAS_llm_query/blob/iot-prototype/dataset.csv"
 }
