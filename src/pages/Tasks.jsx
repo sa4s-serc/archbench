@@ -19,11 +19,11 @@ const Tasks = () => {
   const getExampleFileName = (taskType) => {
     switch (taskType) {
       case "adr":
-        return "/examples/adr_example.md";
+        return "adrExample.md";
       case "serverless":
-        return "/examples/serverless_example.md";
+        return "serverlessExample.md";
       case "dynamic":
-        return "/examples/dynamic_example.md";
+        return "dynamicExample.md";
       default:
         return null;
     }
@@ -256,7 +256,6 @@ const Tasks = () => {
           </div>
           <div className="prose max-w-none">
             <ReactMarkdown
-              children={markdownContent}
               components={{
                 code({ node, inline, className, children, ...props }) {
                   const match = /language-(\w+)/.exec(className || "");
@@ -276,7 +275,9 @@ const Tasks = () => {
                   );
                 },
               }}
-            />
+            >
+              {markdownContent}
+            </ReactMarkdown>
           </div>
         </div>
       </dialog>
