@@ -1,7 +1,7 @@
 {
   "title": "Dynamic Service Generation",
   "short_description": "Evaluation of LLMs' capability to generate dynamic IoT services, given some context.",
-  "long_description": "An empirical study exploring the effectiveness of Large Language Models in generating IoT services dynamically at runtime. The study evaluates different models using CodeBERTScore metrics and analyzes their token efficiency.",
+  "long_description": "We test the effectiveness of Large Language Models in generating IoT services dynamically at runtime given the description of the task. The study evaluates different models using CodeBERTScore metrics to assess the semantic similarity between generated and reference implementation and analyzes the efficiency of the generation using tokens. We also provide some baseline context associated to existing schemas.",
   "paper_link": "https://arxiv.org/abs/2502.00689",
   "metrics": [
     { 
