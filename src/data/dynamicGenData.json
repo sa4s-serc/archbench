@@ -1,6 +1,6 @@
 {
   "title": "Dynamic Service Generation",
-  "short_description": "Evaluation of LLMs' capability to generate dynamic IoT services",
+  "short_description": "Evaluation of LLMs' capability to generate dynamic IoT services, given some context.",
   "long_description": "An empirical study exploring the effectiveness of Large Language Models in generating IoT services dynamically at runtime. The study evaluates different models using CodeBERTScore metrics and analyzes their token efficiency.",
   "paper_link": "https://arxiv.org/abs/2502.00689",
   "metrics": [
@@ -34,7 +34,7 @@
       "f3": 0.80,
       "tokens": 3482.00,
       "date": "2024-02-02",
-      "link": null
+      "link": "https://github.com/sa4s-serc/SAS_llm_query"
     },
     {
       "name": "DeepSeek-V2.5",
@@ -44,7 +44,7 @@
       "f3": 0.86,
       "tokens": 4376.25,
       "date": "2024-02-02",
-      "link": null
+      "link": "https://github.com/sa4s-serc/SAS_llm_query"
     },
     {
       "name": "GPT-4o-mini",
@@ -54,7 +54,7 @@
       "f3": 0.85,
       "tokens": 2063.17,
       "date": "2024-02-02",
-      "link": null
+      "link": "https://github.com/sa4s-serc/SAS_llm_query"
     }
   ],
   "type": "dynamic",

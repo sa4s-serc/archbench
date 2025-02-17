@@ -53,6 +53,20 @@ const Leaderboard = () => {
         { name: "Function Tests (With Int.)", key: "function_tests_with_intervention" }
       ];
     }
+  
+    // Add mapping for ADR metrics
+    if (task === "architecture") {
+      return [
+        { name: "ROUGE-1", key: "rouge1" },
+        { name: "BLEU", key: "bleu" },
+        { name: "METEOR", key: "meteor" },
+        { name: "BERTScore-P", key: "bertscore_p" },
+        { name: "BERTScore-R", key: "bertscore_r" },
+        { name: "BERTScore-F1", key: "bertscore_f1" }
+      ];
+    }
+  
+    // For other tasks, use the default mapping
     return taskData[task].metrics.map(metric => ({
       name: metric.name,
       key: metric.name.toLowerCase().replace(/-/g, '_')
