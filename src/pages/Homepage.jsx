@@ -44,7 +44,7 @@ const Homepage = () => {
               <div className="stat-title">Categories</div>
               <div className="stat-value">3</div>
               <div className="stat-desc">
-                ADR, Serverless & Dynamic Service Generation
+                ADR, Serverless Architectural Component & Dynamic Service Generation
               </div>
             </div>
           </div>
