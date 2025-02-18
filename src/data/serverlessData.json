@@ -1,7 +1,7 @@
 {
   "title": "Architectural Component Generation",
   "short_description": "Evaluation of LLMs' capability to generate architectural components for Functions as a Service (FaaS). Here, 'Int' reffers to intervention.",
-  "long_description": "An exploratory study evaluating the capability of Large Language Models to generate serverless functions, examining both functional correctness and code quality. The study utilizes various prompt types and measures performance with and without human intervention across different LLMs.",
+  "long_description": "This exploratory study examines the potential of Large Language Models (LLMs) to generate architectural components, specifically Functions as a Service (FaaS) or serverless functions. The primary goal of the study is to extend the application of LLM-generated code from simple snippets to complete architectural components. Using the Wonderless dataset, this study filters repositories based on test coverage, GitHub stars, and forks, ensuring representation in JavaScript, TypeScript, and Python. To generate serverless functions, it employs structured prompts, codebase summaries, and function descriptions created using Gemini. The study explores multiple LLMs and generation approaches, including zero-shot with README, zero-shot with codebase summarization, and few-shot with codebase summarization. This research aims to investigate the feasibility of LLM-driven architectural component generation based on architectural design decisions, demonstrating its potential to streamline serverless application development while maintaining functionality and quality.",
   "paper_link": "https://arxiv.org/abs/2502.02539",
   "metrics": [
     { 
