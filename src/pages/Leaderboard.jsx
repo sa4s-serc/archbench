@@ -24,7 +24,12 @@ const Leaderboard = () => {
         codebase_tests_no_intervention: entry.no_intervention.codebase_tests,
         function_tests_no_intervention: entry.no_intervention.function_tests,
         codebase_tests_with_intervention: entry.with_intervention.codebase_tests,
-        function_tests_with_intervention: entry.with_intervention.function_tests
+        function_tests_with_intervention: entry.with_intervention.function_tests,
+        source_lines_of_code: entry.no_intervention.source_lines_of_code,
+        cyclomatic_complexity: entry.no_intervention.cyclomatic_complexity,
+        cognitive_complexity: entry.no_intervention.cognitive_complexity,
+        halstead_volume: entry.no_intervention.halstead_volume,
+        codebleu: entry.no_intervention.codebleu
       }));
     }
     return entries;
@@ -50,7 +55,12 @@ const Leaderboard = () => {
         { name: "Codebase Tests (No Int.)", key: "codebase_tests_no_intervention" },
         { name: "Function Tests (No Int.)", key: "function_tests_no_intervention" },
         { name: "Codebase Tests (With Int.)", key: "codebase_tests_with_intervention" },
-        { name: "Function Tests (With Int.)", key: "function_tests_with_intervention" }
+        { name: "Function Tests (With Int.)", key: "function_tests_with_intervention" },
+        { name: "Average Source Lines of Code (No Int.)", key: "source_lines_of_code"},
+        { name: "Average Cyclomatic Complexity (No Int.)", key: "cyclomatic_complexity"},
+        { name: "Average Cognitive Complexity (No Int.)", key: "cognitive_complexity"},
+        { name: "Average Halstead Volume (No Int.)", key: "halstead_volume"},
+        { name: "Average CodeBLEU Score (No Int.)", key: "codebleu"},
       ];
     }
   
