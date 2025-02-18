@@ -20,14 +20,14 @@
         "id": 2,
         "title": "LLMs for Generation of Architectural Components: An Exploratory Empirical Study in the Serverless World",
         "authors": [
-          "Shrikara Arun",
-          "Meghana Tedla",
+          "Shrikara Arun*",
+          "Meghana Tedla*",
           "Karthik Vaidhyanathan"
         ],
         "year": "2025",
         "abstract": "Recently, the exponential growth in capability and pervasiveness of Large Language Models (LLMs) has led to significant work done in the field of code generation. However, this generation has been limited to code snippets. Going one step further, our desideratum is to automatically generate architectural components. This would not only speed up development time, but would also enable us to eventually completely skip the development phase, moving directly from design decisions to deployment...",
         "arxivLink": "https://arxiv.org/abs/2502.02539",
-        "githubLink": "#",
+        "githubLink": "https://github.com/Meghanatedla/LLM-ComponentGen",
         "conference": "IEEE International Conference on Software Architecture (ICSA) 2025"
       },
       {

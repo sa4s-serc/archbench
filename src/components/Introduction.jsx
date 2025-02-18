@@ -29,7 +29,7 @@ const Introduction = () => {
             <br />
             1. Architecture Design Decisions
             <br />
-            2. Serverless Components
+            2. Architectural Component Generation (Serverless Functions)
             <br />
             3. Dynamic Service Generation
             <br />

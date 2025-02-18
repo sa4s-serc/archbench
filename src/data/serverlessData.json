@@ -10,7 +10,27 @@
     },
     { 
       "name": "Function Tests",
-      "description": "Percentage of test cases passed for individual functions" 
+      "description": "Percentage of test cases passed for individual serverless functions" 
+    },
+    {
+      "name": "Source Lines of Code",
+      "description": "The number of lines with source code in the serverless function"
+    },
+    {
+      "name": "Halstead's Volume",
+      "description": "A measure of the size of the serverless function as a collection of operators and operands"
+    },
+    {
+      "name": "Cyclomatic Complexity",
+      "description": "A measure of the complexity of the serverless functions control flow"
+    },
+    {
+      "name": "Cognitive Complexity",
+      "description": "A measure of the understandability of the serverless function"
+    },
+    {
+      "name": "CodeBLEU",
+      "description": "A measure of similarity between the original and generated serverless functions"
     }
   ],
   "entries": [
@@ -82,9 +102,9 @@
   ],
   "type": "serverless",
   "test_cases": {
-    "description": "Comprehensive test suite covering both function-level and codebase-level functionality"
+    "description": "Comprehensive test suite covering both function-level and codebase-level functionality, code quality metrics and CodeBLEU score between original and generated serverless function"
   },
-  "intervention_details": "Human review and modification of generated code with 24-hour response window",
+  "intervention_details": "Human review and modification of generated code",
   "example_available": true,
   "dataset_download": true,
   "dataset_link": "https://hugging?face?.???"
