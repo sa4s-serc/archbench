@@ -1,0 +1,318 @@
+## Generating Serverless Function with LLMs
+
+This is an example for generating a serverless function using Large Language Models (LLMs). The example uses the `process-card-payments.js` function from the `laconiajs_laconia` repository. 
+
+
+### Configuration Files
+A configuration file is required to guide the function generation process. Below is an example:
+
+```json
+{
+    "language": "JS",
+
+    "summarize_codebase": true,
+    "codebase_readme_path": "laconiajs_laconia/README.md",
+    "files_to_summarize_paths": "laconiajs_laconia/function3/context-files-paths.txt",
+
+    "codebase_summary_prompt_template": "prompt-templates/codebase-summarization-prompt-template.txt",
+    "codebase_summary_prompt_save_path": "laconiajs_laconia/function3/prompts/codebase-summarization-prompt.txt",
+    "codebase_summary_save_path": "laconiajs_laconia/function3/codebase-summary.txt",
+    
+    "function_description_prompt_template": "prompt-templates/function-description-prompt-template.txt",
+    "function_description_prompt_save_path": "laconiajs_laconia/function3/prompts/function-description-prompt.txt",
+    "function_description_save_path": "laconiajs_laconia/function3/function-description.txt",
+
+    "function_generation_prompt_template_type1": "prompt-templates/function-generation-prompt-template/type1.txt",
+    "function_generation_prompt_type1_save_path": "laconiajs_laconia/function3/prompts/function-generation-prompt/type1.txt",
+    
+    "function_generation_prompt_template_type2": "prompt-templates/function-generation-prompt-template/type2.txt",
+    "function_generation_prompt_type2_save_path": "laconiajs_laconia/function3/prompts/function-generation-prompt/type2.txt",
+    
+    "function_generation_prompt_template_type3": "prompt-templates/function-generation-prompt-template/type3.txt",
+    "function_generation_prompt_type3_save_path": "laconiajs_laconia/function3/prompts/function-generation-prompt/type3.txt",
+   
+    "chosen_function_path": "/home/userName/SERC/LMM+Serverless/serverless_repos_with_test/laconiajs_laconia/packages/laconia-acceptance-test/src/process-card-payments.js",
+    "chosen_function": "process-card-payments.js",
+    "original_function_save_path": "laconiajs_laconia/function3/ORIGINAL-process-card-payments.js",
+    
+    "example_function_description1": "laconiajs_laconia/function1/function-description.txt",
+    "example_function_code1": "laconiajs_laconia/function1/ORIGINAL-capture-card-payment.js",
+    "example_function_description2": "laconiajs_laconia/function2/function-description.txt",
+    "example_function_code2": "laconiajs_laconia/function2/ORIGINAL-place-order.js",
+    
+    "generated_function_type1_save_dir": "laconiajs_laconia/function3/GENERATED/type1",
+    "generated_function_type2_save_dir": "laconiajs_laconia/function3/GENERATED/type2",
+    "generated_function_type3_save_dir": "laconiajs_laconia/function3/GENERATED/type3",
+
+    "run_codebleu": true,
+    "codebleu_type1_save_dir": "laconiajs_laconia/function3/codebleu-results/type1",
+    "codebleu_type2_save_dir": "laconiajs_laconia/function3/codebleu-results/type2",
+    "codebleu_type3_save_dir": "laconiajs_laconia/function3/codebleu-results/type3"
+}
+```
+Giving `runner.ipynb` the above configuration file will guide the function generation process.
+
+### Codebase Summary and Function Description Generation
+To facilitate meaningful function generation, we employ **Gemini-1.5-Pro** to generate a codebase summary and function description for the target serverless function. 
+
+The approach involves masking the target function (`process-card-payments.js`), ensuring that the summary is derived from the rest of the codebase. This allows the model to generate a function without directly copying the existing implementation, instead reconstructing its logic based on the broader architectural context.
+
+A description of the target serverless function is also generated to provide insights into its purpose, inputs, outputs, and dependencies.
+
+
+#### Codebase Summarization Prompt Template 
+>**Role Definition**\
+>**Task Definition**\
+>Here is the codebase, with the path name of the file followed by the contents of the file in triple backticks:
+>
+>**FUNCTION PATH 1**\
+>**FUNCTION CODE 1**
+>
+>**FUNCTION PATH 2**\
+>**FUNCTION CODE 2**\
+>...
+
+
+#### Function description Prompt
+>**Role Definition**\
+>**Task Definition**\
+>The function path and the function code itself (enclosed in triple backticks) are provided below:
+>
+>**MASKED FUNCTION PATH**\
+>**MASKED FUNCTION CODE**
+
+Here is the link to the final [Codebase Summarization Prompt](https://github.com/Meghanatedla/LLM-ComponentGen/blob/main/experiments/laconiajs_laconia/function3/prompts/codebase-summarization-prompt.txt) and [Function Description Prompt](https://github.com/Meghanatedla/LLM-ComponentGen/blob/main/experiments/laconiajs_laconia/function3/prompts/function-description-prompt.txt)
+
+<!-- The codebase summary and function description generated by gemini are present here -->
+#### Codebase Summary
+The codebase summary generated by Gemini-1.5-Pro using the prompt above is present [here](https://github.com/Meghanatedla/LLM-ComponentGen/blob/main/experiments/laconiajs_laconia/function3/codebase-summary.txt).
+
+#### Function Description
+The function description for `process-card-payments` generated by Gemini-1.5-Pro is present [here](https://github.com/Meghanatedla/LLM-ComponentGen/blob/main/experiments/laconiajs_laconia/function3/function-description.txt).
+
+
+### Function Generation Prompts
+#### 1. Zero Shot with README (Type 1 Prompt)
+>**Role Definition**: You are a ...\
+>You are working with a FaaS codebase whose README is as follows:\
+>{**README**}
+>
+>**Task Definition**\
+>The function should have the following functionality:\
+>{**FUNCTION DESCRIPTION**}\
+>*Detailed Instructions Including Formatting*
+
+For this example the final prompt for zero-shot function generation using README is present [here](https://github.com/Meghanatedla/LLM-ComponentGen/blob/main/experiments/laconiajs_laconia/function3/prompts/function-generation-prompt/type1.txt)
+
+#### 2. Zero Shot with Codebase Summarization (Type 2 Prompt)
+>**Role Definition**: You are a ...\
+>You are working with a FaaS codebase...:\
+>{**CODEBASE SUMMARY**}
+>
+>**Task Definition**\
+>The function should have the following functionality:\
+>{**FUNCTION DESCRIPTION**}\
+>*Detailed Instructions Including Formatting*
+
+For this example the final prompt for zero-shot function generation using codebase summarization is present [here](https://github.com/Meghanatedla/LLM-ComponentGen/blob/main/experiments/laconiajs_laconia/function3/prompts/function-generation-prompt/type2.txt)
+
+#### 3. Few Shot with Codebase Summarization (Type 3 Prompt)
+<!-- >```MD -->
+>**Role Definition**: You are a ...\
+>You are working with a FaaS codebase...:\
+>{**CODEBASE SUMMARY**}
+>
+>**Task Definition**\
+>Here are some examples.\
+>{**EXAMPLE FUNCTION DESCRIPTION 1**}\
+>{**EXAMPLE FUNCTION CODE 1**}\
+>{**EXAMPLE FUNCTION DESCRIPTION 2**}\
+{**EXAMPLE FUNCTION CODE 2**}
+>
+>The function you generate should have the following functionality:\
+>{**FUNCTION DESCRIPTION**}\
+>*Detailed Instructions Including Formatting*
+
+For this example the final prompt for few-shot function generation using codebase summarization is present [here](https://github.com/Meghanatedla/LLM-ComponentGen/blob/main/experiments/laconiajs_laconia/function3/prompts/function-generation-prompt/type3.txt)
+
+
+### Function Generation 
+Functions are generated using five different LLMs, and each approach’s outputs are stored in distinct directories:
+- [Functions generated using **Zero Shot with README** Prompt](https://github.com/Meghanatedla/LLM-ComponentGen/tree/main/experiments/laconiajs_laconia/function3/GENERATED/type1)
+- [Functions generated using **Zero Shot with Codebase Summarization** Prompt](https://github.com/Meghanatedla/LLM-ComponentGen/tree/main/experiments/laconiajs_laconia/function3/GENERATED/type2)
+- [Functions generated using **Few Shot with Codebase Summarization** Prompt](https://github.com/Meghanatedla/LLM-ComponentGen/tree/main/experiments/laconiajs_laconia/function3/GENERATED/type3)
+
+
+### Example Generated Functions
+#### Original Function (`process-card-payments.js`)
+```javascript
+// @ts-check
+const invoker = require("@laconia/invoker");
+const xray = require("@laconia/xray");
+const laconiaBatch = require("@laconia/batch");
+
+exports.handler = laconiaBatch(
+  _ =>
+    laconiaBatch.dynamoDb({
+      operation: "SCAN",
+      dynamoDbParams: {
+        TableName: process.env.ORDER_TABLE_NAME
+      }
+    }),
+  { itemsPerSecond: 2 }
+)
+  .register(invoker.envVarInstances())
+  .postProcessor(xray.postProcessor())
+  .on("item", ({ captureCardPayment }, item) =>
+    captureCardPayment.fireAndForget({
+      paymentReference: item.paymentReference
+    })
+  );
+```
+
+#### Generated Function
+1. Function generated by DeepSeek-Coder-V2 using **Zero Shot with README** Prompt
+```javascript
+const laconia = require('@laconia/core');
+const laconiaBatch = require('@laconia/batch');
+const laconiaInvoker = require('@laconia/invoker');
+const laconiaXray = require('@laconia/xray');
+const AWS = require('aws-sdk');
+
+// Environment variables
+const ORDER_TABLE_NAME = process.env.ORDER_TABLE_NAME;
+
+// Initialize DynamoDB client
+const dynamoDb = new AWS.DynamoDB.DocumentClient();
+
+// Function to capture card payment asynchronously
+const captureCardPayment = laconiaInvoker.fireAndForget(
+  laconiaInvoker.envVarInstances()
+);
+
+// Main function to process card payments in batches
+const processCardPayments = async (event, laconiaContext) => {
+  // Configure DynamoDB scan operation
+  const scanConfig = {
+    TableName: ORDER_TABLE_NAME,
+    ProjectionExpression: 'paymentReference'
+  };
+
+  // Configure Laconia Batch for DynamoDB scan
+  const batchProcessor = laconiaBatch.dynamoDb(scanConfig, { itemsPerSecond: 2 });
+
+  // Register invokers
+  batchProcessor.register(laconiaInvoker.envVarInstances());
+
+  // Add X-Ray post-processor for tracing
+  batchProcessor.postProcessor(laconiaXray.postProcessor());
+
+  // Process each item in the batch
+  batchProcessor.on("item", async (item) => {
+    const { paymentReference } = item;
+    await captureCardPayment(paymentReference);
+  });
+
+  // Start batch processing
+  await batchProcessor.process();
+};
+
+// Export the Laconia handler
+exports.handler = laconia(processCardPayments);
+```
+
+2. Function generated by DeepSeek-Coder-V2 using **Zero Shot with Codebase Summarization** Prompt
+```javascript
+// File: /process-card-payments-batch.js
+
+const laconia = require('@laconia/core');
+const laconiaBatch = require('@laconia/batch');
+const laconiaInvoker = require('@laconia/invoker');
+const laconiaXray = require('@laconia/xray');
+const AWS = require('aws-sdk');
+
+// Environment variables
+const ORDER_TABLE_NAME = process.env.ORDER_TABLE_NAME;
+
+// Laconia invoker setup
+const invoker = laconiaInvoker({
+  captureCardPayment: {
+    functionName: process.env.CAPTURE_CARD_PAYMENT_FUNCTION_NAME,
+    fireAndForget: true
+  }
+});
+
+// DynamoDB client setup
+const dynamoDb = new AWS.DynamoDB.DocumentClient();
+
+// Main function handler
+exports.handler = laconia(async (event, laconiaContext) => {
+  const batchProcessor = laconiaBatch.dynamoDb(dynamoDb, {
+    tableName: ORDER_TABLE_NAME,
+    itemsPerSecond: 2 // Process 2 items per second
+  });
+
+  batchProcessor.on("item", async (item) => {
+    const paymentReference = item.paymentReference;
+    if (!paymentReference) {
+      console.warn(`Payment reference missing for order: ${item.orderId}`);
+      return;
+    }
+
+    try {
+      await invoker.captureCardPayment({ paymentReference });
+      console.log(`Triggered payment capture for order: ${item.orderId}`);
+    } catch (error) {
+      console.error(`Failed to trigger payment capture for order: ${item.orderId}`, error);
+    }
+  });
+
+  await batchProcessor.process();
+}).register(invoker.envVarInstances())
+  .postProcessor(laconiaXray.postProcessor());
+```
+
+3. Function generated by DeepSeek-Coder-V2 using **Few Shot with Codebase Summarization** Prompt
+```javascript
+// @ts-check
+const laconia = require("@laconia/core");
+const laconiaBatch = require("@laconia/batch");
+const invoker = require("@laconia/invoker");
+const xray = require("@laconia/xray");
+const { DynamoDB } = require("aws-sdk");
+
+// Assuming the environment variable ORDER_TABLE_NAME is set to the DynamoDB table name
+const ORDER_TABLE_NAME = process.env.ORDER_TABLE_NAME;
+
+// Function to process each item in the batch
+const processItem = async (item, { captureCardPayment }) => {
+  const paymentReference = item.paymentReference;
+  if (paymentReference) {
+    await captureCardPayment.fireAndForget({ paymentReference });
+  }
+};
+
+// Laconia batch configuration for DynamoDB scan
+const batchProcessor = laconiaBatch.dynamoDb(
+  new DynamoDB.DocumentClient(),
+  ORDER_TABLE_NAME,
+  { itemsPerSecond: 2 }
+);
+
+// Laconia handler configuration
+const handler = laconia(batchProcessor)
+  .register(invoker.envVarInstances())
+  .postProcessor(xray.postProcessor());
+
+// Register the item processing logic
+handler.on("item", processItem);
+
+// Export the handler
+exports.handler = handler;
+```
+
+### Evaluation Metrics
+The generated functions are evaluated in 3 different ways:
+1. Functional Correctness Through Testing
+2. Code Quality through Code Metrics
+3. Code Similarity through CodeBLEU
