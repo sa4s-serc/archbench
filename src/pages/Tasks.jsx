@@ -130,7 +130,7 @@ const Tasks = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
             <div className="bg-base-200 p-4 rounded-lg">
               <span className="font-semibold">Input Format:</span>
-              <p className="mt-1 opacity-90">CQuery specification defining service requirements</p>
+              <p className="mt-1 opacity-90">Query specification defining service requirements</p>
             </div>
             <div className="bg-base-200 p-4 rounded-lg">
               <span className="font-semibold">Output Format:</span>
@@ -192,14 +192,14 @@ const Tasks = () => {
                       {task.long_description}
                     </p>
                   </div>
-                  <a
+                  {/* <a
                     href={task.paper_link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="btn btn-ghost self-start"
                   >
                     📝 View Paper
-                  </a>
+                  </a> */}
                 </div>
 
                 <div className="divider">Evaluation Metrics</div>

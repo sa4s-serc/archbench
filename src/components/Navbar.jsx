@@ -27,6 +27,9 @@ const Navbar = () => {
                 <li>
                   <button onClick={() => navigate('/tasks')}>Tasks</button>
                 </li>
+                <li>
+                  <button onClick={() => navigate('/papers')}>Papers</button>
+                </li>
               </>
             )}
             <li>
@@ -52,6 +55,14 @@ const Navbar = () => {
                 onClick={() => navigate('/tasks')}
               >
                 Tasks
+              </button>
+              <button 
+                className={`btn btn-sm btn-ghost ${isActive('/papers') 
+                  ? 'text-primary border-b-2 border-primary' 
+                  : ''}`}
+                onClick={() => navigate('/papers')}
+              >
+                Papers
               </button>
             </>
           )}

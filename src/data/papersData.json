@@ -41,7 +41,7 @@
         "year": "2024",
         "abstract": "Architectural Knowledge Management (AKM) involves the organized handling of information related to architectural decisions and design within a project or organization. An essential artifact of AKM is the Architecture Decision Records (ADR), which documents key design decisions. ADRs are documents that capture decision context, decision made and various aspects related to a design decision, thereby promoting transparency, collaboration, and understanding...",
         "arxivLink": "https://arxiv.org/abs/2403.01709",
-        "githubLink": "#"
+        "githubLink": "https://github.com/sa4s-serc/ArchAI_ADR/tree/main/"
       }
     ]
   }
