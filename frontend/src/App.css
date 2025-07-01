@@ -1,0 +1,76 @@
+/* Base layout styles */
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-size: 16px;
+}
+
+/* Responsive text scaling */
+@media (max-width: 640px) {
+    body {
+        font-size: 14px;
+    }
+
+    h1 {
+        font-size: 1.5rem;
+    }
+
+    h2 {
+        font-size: 1.25rem;
+    }
+}
+
+/* Sidebar styles - left side positioning */
+.sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    width: 16rem;
+    z-index: 50;
+    transition: transform 0.3s ease;
+}
+
+/* Mobile sidebar is hidden by default (pushed off-screen to the left) */
+@media (max-width: 1024px) {
+    .sidebar {
+        transform: translateX(-100%);
+    }
+
+    /* When visible class is applied, bring it back into view */
+    .sidebar.mobile-visible {
+        transform: translateX(0);
+    }
+}
+
+/* On large screens, ensure sidebar is always visible */
+@media (min-width: 1025px) {
+    .sidebar {
+        transform: translateX(0);
+    }
+}
+
+/* Responsive images */
+.responsive-image {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Card and container responsive styles */
+.responsive-container {
+    width: 100%;
+    padding: 1rem;
+}
+
+@media (min-width: 768px) {
+    .responsive-container {
+        padding: 1.5rem;
+    }
+}
+
+/* Table responsiveness */
+.responsive-table {
+    overflow-x: auto;
+    width: 100%;
+}
