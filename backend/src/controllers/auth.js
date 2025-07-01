@@ -160,3 +160,66 @@ export const restrictToAuthLevel = (maxLevel) => {
         next();
     };
 };
+
+// Update current user (self)
+export const updateMe = async (req, res) => {
+    try {
+        // Filter out fields that shouldn't be updated directly
+        const filteredBody = { ...req.body };
+        const allowedFields = ['email']; // Can only update email, not username or role
+        Object.keys(filteredBody).forEach(key => {
+            if (!allowedFields.includes(key)) delete filteredBody[key];
+        });
+
+        // Update user document
+        const updatedUser = await User.findByIdAndUpdate(
+            req.user.id,
+            filteredBody,
+            {
+                new: true,
+                runValidators: true
+            }
+        );
+
+        res.status(200).json({
+            status: 'success',
+            data: {
+                user: updatedUser
+            }
+        });
+    } catch (err) {
+        res.status(400).json({
+            status: 'fail',
+            message: err.message
+        });
+    }
+};
+
+// Update current user password
+export const updatePassword = async (req, res) => {
+    try {
+        // 1) Get user from collection
+        const user = await User.findById(req.user.id).select('+password');
+
+        // 2) Check if POSTed current password is correct
+        if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
+            return res.status(401).json({
+                status: 'fail',
+                message: 'Your current password is incorrect'
+            });
+        }
+
+        // 3) If so, update password
+        user.password = req.body.password;
+        user.passwordConfirm = req.body.passwordConfirm;
+        await user.save();
+
+        // 4) Log user in, send JWT
+        createSendToken(user, 200, res);
+    } catch (err) {
+        res.status(400).json({
+            status: 'fail',
+            message: err.message
+        });
+    }
+};

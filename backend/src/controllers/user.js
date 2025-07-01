@@ -52,7 +52,7 @@ export const updateUser = async (req, res) => {
     try {
         // Filter out fields that shouldn't be updated directly
         const filteredBody = { ...req.body };
-        const allowedFields = ['username', 'email', 'authLevel', 'verified'];
+        const allowedFields = ['username', 'email', 'authLevel'];
         Object.keys(filteredBody).forEach(key => {
             if (!allowedFields.includes(key)) delete filteredBody[key];
         });

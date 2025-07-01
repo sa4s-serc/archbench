@@ -13,7 +13,8 @@ import {
     faSignOutAlt,
     faHome,
     faGlobe,
-    faUserShield
+    faUserShield,
+    faUserCircle
 } from "@fortawesome/free-solid-svg-icons";
 import {
     faGithub,
@@ -116,6 +117,13 @@ const Sidebar = () => {
                 ) : (
                     <div className="flex flex-col gap-2">
                         <span className="text-sm font-medium">Hi, {user.username || user.name}</span>
+                        <button
+                            className={`btn btn-sm w-full flex items-center justify-center gap-2 ${isActive('/profile') ? 'btn-primary' : 'btn-outline btn-primary'}`}
+                            onClick={() => handleNavigate('/profile')}
+                        >
+                            <FontAwesomeIcon icon={faUserCircle} />
+                            My Profile
+                        </button>
                         <button
                             className="btn btn-sm btn-outline btn-error w-full flex items-center justify-center gap-2"
                             onClick={handleLogout}

@@ -12,7 +12,7 @@ const About = () => {
               <img
                 src="/sa4s_logo_final.svg"
                 alt="SA4S Logo"
-                className="w-64 max-w-full h-auto object-contain rounded-lg transition-all duration-300 hover:scale-105"
+                className="w-48 max-w-full h-auto object-contain rounded-lg transition-all duration-300 hover:scale-105"
               />
             </div>
             <div className="md:w-2/3">
@@ -89,7 +89,7 @@ const About = () => {
           </div>
         </div>
       </section>
-      
+
       {/* Footer */}
       <Footer />
     </div>

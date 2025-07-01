@@ -10,6 +10,7 @@ import Homepage from "./pages/Homepage";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import Admin from "./pages/Admin";
+import Profile from "./pages/Profile";
 import { Analytics } from '@vercel/analytics/react';
 import "./App.css";
 
@@ -46,6 +47,7 @@ function AppContent() {
           <Route path="/papers" element={<Papers />} />
           <Route path="/about" element={<About />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </Layout>
       <Analytics />

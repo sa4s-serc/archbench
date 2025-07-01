@@ -23,7 +23,10 @@ import {
     faPlus,
     faEdit,
     faArrowLeft,
-    faBook
+    faBook,
+    faTicketAlt,
+    faUserTimes,
+    faInfoCircle
 } from "@fortawesome/free-solid-svg-icons";
 
 const Admin = () => {
@@ -73,10 +76,22 @@ const Admin = () => {
     const [paperToDelete, setPaperToDelete] = useState(null);
     const [showPaperDeleteModal, setShowPaperDeleteModal] = useState(false);
 
+    // Verification ticket management state
+    const [tickets, setTickets] = useState([]);
+    const [ticketsLoading, setTicketsLoading] = useState(false);
+    const [ticketFilter, setTicketFilter] = useState('pending');
+    const [ticketSuccess, setTicketSuccess] = useState(null);
+    const [ticketError, setTicketError] = useState(null);
+    const [reviewTicketId, setReviewTicketId] = useState(null);
+    const [reviewAction, setReviewAction] = useState('');
+    const [reviewNote, setReviewNote] = useState('');
+    const [showTicketReviewModal, setShowTicketReviewModal] = useState(false);
+    const [ticketToDelete, setTicketToDelete] = useState(null);
+    const [showTicketDeleteModal, setShowTicketDeleteModal] = useState(false);
+
     // Search and filter state
     const [searchTerm, setSearchTerm] = useState('');
     const [authLevelFilter, setAuthLevelFilter] = useState('all');
-    const [verifiedFilter, setVerifiedFilter] = useState('all');
     const [sortConfig, setSortConfig] = useState({ key: 'username', direction: 'asc' });
 
     // Modal state
@@ -97,8 +112,17 @@ const Admin = () => {
             fetchTasks();
         } else if (currentTab === 'papers') {
             fetchPapers();
+        } else if (currentTab === 'tickets') {
+            fetchTickets();
         }
     }, [currentTab]);
+
+    // New useEffect to refetch tickets when filter changes
+    useEffect(() => {
+        if (currentTab === 'tickets') {
+            fetchTickets();
+        }
+    }, [ticketFilter]);
 
     useEffect(() => {
         // Apply filters and search whenever the source data or filter criteria change
@@ -118,11 +142,6 @@ const Admin = () => {
             result = result.filter(user => user.authLevel === parseInt(authLevelFilter));
         }
 
-        // Apply verified filter
-        if (verifiedFilter !== 'all') {
-            result = result.filter(user => user.verified === (verifiedFilter === 'true'));
-        }
-
         // Apply sorting
         if (sortConfig.key) {
             result.sort((a, b) => {
@@ -137,7 +156,7 @@ const Admin = () => {
         }
 
         setFilteredUsers(result);
-    }, [users, searchTerm, authLevelFilter, verifiedFilter, sortConfig]);
+    }, [users, searchTerm, authLevelFilter, sortConfig]);
 
     const fetchUsers = async () => {
         try {
@@ -209,6 +228,31 @@ const Admin = () => {
             setError(err.message);
         } finally {
             setPaperLoading(false);
+        }
+    };
+
+    const fetchTickets = async () => {
+        try {
+            setTicketsLoading(true);
+            const response = await fetch(`${API_URL}/tickets?status=${ticketFilter}`, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch tickets');
+            }
+
+            const data = await response.json();
+            setTickets(data.data.tickets);
+        } catch (err) {
+            setTicketError(err.message);
+            setTimeout(() => setTicketError(null), 3000);
+        } finally {
+            setTicketsLoading(false);
         }
     };
 
@@ -310,7 +354,6 @@ const Admin = () => {
     const resetFilters = () => {
         setSearchTerm('');
         setAuthLevelFilter('all');
-        setVerifiedFilter('all');
     };
 
     // Task management functions
@@ -659,6 +702,82 @@ const Admin = () => {
         }
     };
 
+    const openReviewModal = (ticketId, action) => {
+        setReviewTicketId(ticketId);
+        setReviewAction(action);
+        setReviewNote('');
+        setShowTicketReviewModal(true);
+    };
+
+    const handleTicketReview = async () => {
+        try {
+            const response = await fetch(`${API_URL}/tickets/${reviewTicketId}/review`, {
+                method: 'PATCH',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    action: reviewAction,
+                    note: reviewNote
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to process ticket');
+            }
+
+            setTicketSuccess(`Ticket ${reviewAction === 'approve' ? 'approved' : 'rejected'} successfully`);
+            setTimeout(() => setTicketSuccess(null), 3000);
+
+            // Refresh tickets
+            fetchTickets();
+
+            // Close modal
+            setShowTicketReviewModal(false);
+            setReviewTicketId(null);
+            setReviewAction('');
+            setReviewNote('');
+        } catch (err) {
+            setTicketError(err.message);
+            setTimeout(() => setTicketError(null), 3000);
+        }
+    };
+
+    const confirmTicketDelete = (ticketId) => {
+        setTicketToDelete(ticketId);
+        setShowTicketDeleteModal(true);
+    };
+
+    const handleTicketDelete = async () => {
+        if (!ticketToDelete) return;
+
+        try {
+            const response = await fetch(`${API_URL}/tickets/${ticketToDelete}`, {
+                method: 'DELETE',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to delete ticket');
+            }
+
+            setTicketSuccess('Ticket history deleted successfully');
+            setTimeout(() => setTicketSuccess(null), 3000);
+
+            // Refresh tickets
+            fetchTickets();
+            setShowTicketDeleteModal(false);
+            setTicketToDelete(null);
+        } catch (err) {
+            setTicketError(err.message);
+            setTimeout(() => setTicketError(null), 3000);
+        }
+    };
+
     if (loading && currentTab === 'users') {
         return (
             <div className="flex justify-center items-center min-h-[60vh]">
@@ -698,6 +817,19 @@ const Admin = () => {
         );
     }
 
+    if (ticketsLoading && currentTab === 'tickets') {
+        return (
+            <div className="flex justify-center items-center min-h-[60vh]">
+                <div className="card bg-base-100 p-8 shadow-xl border border-base-200">
+                    <div className="flex flex-col items-center gap-4">
+                        <div className="loading loading-spinner loading-lg text-primary"></div>
+                        <p className="font-medium text-lg">Loading ticket data...</p>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+
     return (
         <div className="flex flex-col min-h-screen">
             {/* Header Section */}
@@ -708,7 +840,7 @@ const Admin = () => {
                             <img
                                 src="/sa4s_logo_final.svg"
                                 alt="SA4S Logo"
-                                className="w-64 max-w-full h-auto object-contain rounded-lg transition-all duration-300 hover:scale-105"
+                                className="w-48 max-w-full h-auto object-contain rounded-lg transition-all duration-300 hover:scale-105"
                             />
                         </div>
                         <div className="md:w-2/3">
@@ -763,6 +895,13 @@ const Admin = () => {
                                 >
                                     <FontAwesomeIcon icon={faBook} className="mr-2" />
                                     Papers
+                                </button>
+                                <button
+                                    className={`tab tab-bordered ${currentTab === 'tickets' ? 'tab-active' : ''}`}
+                                    onClick={() => setCurrentTab('tickets')}
+                                >
+                                    <FontAwesomeIcon icon={faTicketAlt} className="mr-2" />
+                                    Verification Tickets
                                 </button>
                             </div>
                         </div>
@@ -854,22 +993,6 @@ const Admin = () => {
                                                 </select>
                                             </div>
 
-                                            {/* Verified Filter */}
-                                            <div className="form-control">
-                                                <label className="label pt-0">
-                                                    <span className="label-text">Status</span>
-                                                </label>
-                                                <select
-                                                    className="select select-bordered w-full"
-                                                    value={verifiedFilter}
-                                                    onChange={(e) => setVerifiedFilter(e.target.value)}
-                                                >
-                                                    <option value="all">All Status</option>
-                                                    <option value="true">Verified</option>
-                                                    <option value="false">Unverified</option>
-                                                </select>
-                                            </div>
-
                                             {/* Actions */}
                                             <div className="form-control">
                                                 <label className="label pt-0">
@@ -879,7 +1002,7 @@ const Admin = () => {
                                                     <button
                                                         onClick={resetFilters}
                                                         className="join-item btn btn-outline flex-1"
-                                                        disabled={!searchTerm && authLevelFilter === 'all' && verifiedFilter === 'all'}
+                                                        disabled={!searchTerm && authLevelFilter === 'all'}
                                                         title="Clear all filters"
                                                     >
                                                         <FontAwesomeIcon icon={faTimes} className="mr-1" />
@@ -912,7 +1035,7 @@ const Admin = () => {
                                         )}
                                     </div>
 
-                                    {(searchTerm || authLevelFilter !== 'all' || verifiedFilter !== 'all') && (
+                                    {(searchTerm || authLevelFilter !== 'all') && (
                                         <button
                                             onClick={resetFilters}
                                             className="btn btn-sm btn-ghost btn-active"
@@ -943,11 +1066,6 @@ const Admin = () => {
                                             <th className="cursor-pointer hover:bg-base-300 text-center" onClick={() => handleSort('authLevel')}>
                                                 <div className="flex items-center justify-center gap-1">
                                                     Role {getSortIcon('authLevel')}
-                                                </div>
-                                            </th>
-                                            <th className="cursor-pointer hover:bg-base-300 text-center" onClick={() => handleSort('verified')}>
-                                                <div className="flex items-center justify-center gap-1">
-                                                    Status {getSortIcon('verified')}
                                                 </div>
                                             </th>
                                             <th className="cursor-pointer hover:bg-base-300 text-center" onClick={() => handleSort('createdAt')}>
@@ -1010,32 +1128,6 @@ const Admin = () => {
                                                                 user.authLevel === 1 ? 'Moderator' :
                                                                     user.authLevel === 2 ? 'Verified User' : 'Unverified User'}
                                                         </span>
-                                                    )}
-                                                </td>
-                                                <td className="text-center">
-                                                    {editingUser === user._id ? (
-                                                        <label className="cursor-pointer label justify-center gap-2">
-                                                            <input
-                                                                type="checkbox"
-                                                                name="verified"
-                                                                checked={formData.verified || false}
-                                                                onChange={(e) => setFormData({ ...formData, verified: e.target.checked })}
-                                                                className="toggle toggle-success toggle-sm"
-                                                            />
-                                                            <span className="label-text">{formData.verified ? "Verified" : "Unverified"}</span>
-                                                        </label>
-                                                    ) : (
-                                                        user.verified ? (
-                                                            <div className="badge badge-success gap-1">
-                                                                <FontAwesomeIcon icon={faUserCheck} className="mr-1" />
-                                                                Verified
-                                                            </div>
-                                                        ) : (
-                                                            <div className="badge badge-ghost gap-1">
-                                                                <FontAwesomeIcon icon={faUserClock} className="mr-1" />
-                                                                Unverified
-                                                            </div>
-                                                        )
                                                     )}
                                                 </td>
                                                 <td className="text-center">
@@ -1679,6 +1771,204 @@ const Admin = () => {
                     </>
                 )}
 
+                {currentTab === 'tickets' && (
+                    <>
+                        {/* Success and error messages */}
+                        {ticketSuccess && (
+                            <div className="alert alert-success mb-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                                <span>{ticketSuccess}</span>
+                                <div className="ml-auto">
+                                    <button className="btn btn-sm btn-ghost" onClick={() => setTicketSuccess(null)}>Dismiss</button>
+                                </div>
+                            </div>
+                        )}
+
+                        {ticketError && (
+                            <div className="alert alert-error mb-6">
+                                <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24">
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                </svg>
+                                <span>{ticketError}</span>
+                                <div className="ml-auto">
+                                    <button className="btn btn-sm btn-ghost" onClick={() => setTicketError(null)}>Dismiss</button>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Filter section */}
+                        <div className="card bg-base-100 shadow-xl mb-6 border border-base-200">
+                            <div className="card-body p-5">
+                                <h2 className="card-title text-lg mb-4 flex items-center">
+                                    <FontAwesomeIcon icon={faFilter} className="mr-2 text-primary" />
+                                    Filter Tickets
+                                </h2>
+
+                                <div className="flex flex-wrap gap-2">
+                                    <button
+                                        className={`btn ${ticketFilter === 'pending' ? 'btn-primary' : 'btn-outline'}`}
+                                        onClick={() => setTicketFilter('pending')}
+                                    >
+                                        Pending
+                                    </button>
+                                    <button
+                                        className={`btn ${ticketFilter === 'approved' ? 'btn-primary' : 'btn-outline'}`}
+                                        onClick={() => setTicketFilter('approved')}
+                                    >
+                                        Approved
+                                    </button>
+                                    <button
+                                        className={`btn ${ticketFilter === 'rejected' ? 'btn-primary' : 'btn-outline'}`}
+                                        onClick={() => setTicketFilter('rejected')}
+                                    >
+                                        Rejected
+                                    </button>
+                                    <button
+                                        className={`btn ${ticketFilter === 'all' ? 'btn-primary' : 'btn-outline'}`}
+                                        onClick={() => setTicketFilter('all')}
+                                    >
+                                        All
+                                    </button>
+
+                                    <button
+                                        onClick={fetchTickets}
+                                        className="btn btn-outline ml-auto"
+                                        title="Refresh tickets"
+                                    >
+                                        <FontAwesomeIcon icon={faRefresh} className="mr-1" />
+                                        Refresh
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Tickets table */}
+                        <div className="card bg-base-100 shadow-xl overflow-hidden border border-base-200">
+                            <div className="card-body p-0">
+                                {ticketsLoading ? (
+                                    <div className="flex justify-center items-center py-20">
+                                        <div className="loading loading-spinner loading-lg text-primary"></div>
+                                    </div>
+                                ) : tickets.length === 0 ? (
+                                    <div className="flex flex-col items-center justify-center py-20 px-4 text-center">
+                                        <div className="avatar placeholder mb-4">
+                                            <div className="bg-base-300 text-base-content rounded-full w-24">
+                                                <span className="text-3xl">
+                                                    <FontAwesomeIcon icon={faTicketAlt} />
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <h3 className="text-2xl font-bold mb-2">No tickets found</h3>
+                                        <p className="text-base-content/60 max-w-md mb-6">
+                                            {ticketFilter === 'pending'
+                                                ? "There are no pending verification requests at this time."
+                                                : ticketFilter === 'all'
+                                                    ? "There are no verification requests in the system."
+                                                    : `No ${ticketFilter} tickets found.`
+                                            }
+                                        </p>
+                                    </div>
+                                ) : (
+                                    <div className="overflow-x-auto">
+                                        <table className="table table-zebra w-full">
+                                            <thead className="bg-base-200 text-base-content">
+                                                <tr>
+                                                    <th>User</th>
+                                                    <th>Submitted</th>
+                                                    <th>Reason</th>
+                                                    <th>Status</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                {tickets.map(ticket => (
+                                                    <tr key={ticket._id} className="hover:bg-base-200/50">
+                                                        <td>
+                                                            <div className="font-medium">{ticket.user.username}</div>
+                                                            <div className="text-xs opacity-70">{ticket.user.email}</div>
+                                                        </td>
+                                                        <td>
+                                                            <div>
+                                                                {new Date(ticket.createdAt).toLocaleDateString()}
+                                                            </div>
+                                                            <div className="text-xs opacity-70">
+                                                                {new Date(ticket.createdAt).toLocaleTimeString()}
+                                                            </div>
+                                                        </td>
+                                                        <td>
+                                                            <div className="whitespace-pre-wrap max-w-md">{ticket.reason}</div>
+                                                        </td>
+                                                        <td>
+                                                            <div className="flex items-center gap-2">
+                                                                {ticket.status === 'approved' ? (
+                                                                    <span className="badge badge-success">Approved</span>
+                                                                ) : ticket.status === 'rejected' ? (
+                                                                    <span className="badge badge-error">Rejected</span>
+                                                                ) : (
+                                                                    <span className="badge badge-warning">Pending</span>
+                                                                )}
+                                                            </div>
+                                                            {(ticket.status === 'approved' || ticket.status === 'rejected') && ticket.reviewedBy && (
+                                                                <div className="text-xs opacity-70 mt-1">
+                                                                    by {ticket.reviewedBy.username || 'Unknown'}
+                                                                </div>
+                                                            )}
+                                                        </td>
+                                                        <td>
+                                                            {ticket.status === 'pending' ? (
+                                                                <div className="flex gap-2">
+                                                                    <button
+                                                                        onClick={() => openReviewModal(ticket._id, 'approve')}
+                                                                        className="btn btn-sm btn-success"
+                                                                        title="Approve verification request"
+                                                                    >
+                                                                        <FontAwesomeIcon icon={faUserCheck} />
+                                                                    </button>
+                                                                    <button
+                                                                        onClick={() => openReviewModal(ticket._id, 'reject')}
+                                                                        className="btn btn-sm btn-error"
+                                                                        title="Reject verification request"
+                                                                    >
+                                                                        <FontAwesomeIcon icon={faUserTimes} />
+                                                                    </button>
+                                                                </div>
+                                                            ) : (
+                                                                <div className="flex gap-2 items-center">
+                                                                    {ticket.reviewNote ? (
+                                                                        <div className="tooltip tooltip-left" data-tip={ticket.reviewNote}>
+                                                                            <FontAwesomeIcon
+                                                                                icon={faInfoCircle}
+                                                                                className="text-info cursor-help mr-2"
+                                                                            />
+                                                                        </div>
+                                                                    ) : (
+                                                                        <FontAwesomeIcon
+                                                                            icon={faInfoCircle}
+                                                                            className="text-base-300 mr-2"
+                                                                            title="No review note"
+                                                                        />
+                                                                    )}
+                                                                    <button
+                                                                        onClick={() => confirmTicketDelete(ticket._id)}
+                                                                        className="btn btn-sm btn-outline btn-error"
+                                                                        title="Delete ticket history"
+                                                                    >
+                                                                        <FontAwesomeIcon icon={faTrash} />
+                                                                    </button>
+                                                                </div>
+                                                            )}
+                                                        </td>
+                                                    </tr>
+                                                ))}
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </>
+                )}
+
                 {/* Delete user confirmation modal */}
                 {showDeleteModal && (
                     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
@@ -1743,6 +2033,85 @@ const Admin = () => {
                                 <button
                                     className="btn btn-error"
                                     onClick={handlePaperDelete}
+                                >
+                                    Delete
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Ticket review confirmation modal */}
+                {showTicketReviewModal && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div className="modal-box max-w-xl">
+                            <h3 className="text-xl font-bold mb-4 flex items-center gap-2">
+                                <FontAwesomeIcon
+                                    icon={reviewAction === 'approve' ? faUserCheck : faUserTimes}
+                                    className={reviewAction === 'approve' ? "text-success" : "text-error"}
+                                />
+                                {reviewAction === 'approve' ? 'Approve' : 'Reject'} Verification Request
+                            </h3>
+
+                            <p className="mb-4">
+                                Are you sure you want to {reviewAction === 'approve' ? 'approve' : 'reject'} this verification request?
+                                {reviewAction === 'approve'
+                                    ? " The user will be promoted to verified user status."
+                                    : " The user will remain unverified."}
+                            </p>
+
+                            <div className="form-control mb-6">
+                                <label className="label">
+                                    <span className="label-text font-medium">
+                                        {reviewAction === 'approve' ? 'Approval Note (Optional)' : 'Rejection Reason (Required)'}
+                                    </span>
+                                </label>
+                                <textarea
+                                    value={reviewNote}
+                                    onChange={(e) => setReviewNote(e.target.value)}
+                                    placeholder={reviewAction === 'approve'
+                                        ? "Optional note about why this user is being verified"
+                                        : "Explain why the verification request is being rejected"
+                                    }
+                                    className="textarea textarea-bordered w-full min-h-[100px]"
+                                ></textarea>
+                            </div>
+
+                            <div className="modal-action">
+                                <button
+                                    className="btn btn-ghost"
+                                    onClick={() => setShowTicketReviewModal(false)}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    className={`btn ${reviewAction === 'approve' ? 'btn-success' : 'btn-error'}`}
+                                    onClick={handleTicketReview}
+                                    disabled={reviewAction === 'reject' && !reviewNote.trim()}
+                                >
+                                    {reviewAction === 'approve' ? 'Approve' : 'Reject'}
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {/* Delete ticket confirmation modal */}
+                {showTicketDeleteModal && (
+                    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                        <div className="modal-box">
+                            <h3 className="text-xl font-bold mb-4 text-error">Confirm Ticket Deletion</h3>
+                            <p className="mb-6">Are you sure you want to delete this ticket? This action cannot be undone.</p>
+                            <div className="modal-action">
+                                <button
+                                    className="btn btn-ghost"
+                                    onClick={() => setShowTicketDeleteModal(false)}
+                                >
+                                    Cancel
+                                </button>
+                                <button
+                                    className="btn btn-error"
+                                    onClick={handleTicketDelete}
                                 >
                                     Delete
                                 </button>

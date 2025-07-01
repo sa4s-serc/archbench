@@ -91,6 +91,60 @@ export const authService = {
         }
     },
 
+    async updateProfile(userData) {
+        try {
+            const response = await fetch(`${API_URL}/auth/updateMe`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(userData),
+            });
+
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.message || 'Profile update failed');
+            }
+
+            // Update the stored user data
+            const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+            const updatedUser = { ...currentUser, ...data.data.user };
+            localStorage.setItem('user', JSON.stringify(updatedUser));
+
+            return data;
+        } catch (error) {
+            console.error('Update profile error:', error);
+            throw error;
+        }
+    },
+
+    async updatePassword(passwordData) {
+        try {
+            const response = await fetch(`${API_URL}/auth/updateMyPassword`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                credentials: 'include',
+                body: JSON.stringify(passwordData),
+            });
+
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.message || 'Password update failed');
+            }
+
+            // Update stored user with the new token data
+            localStorage.setItem('user', JSON.stringify(data.data.user));
+
+            return data;
+        } catch (error) {
+            console.error('Update password error:', error);
+            throw error;
+        }
+    },
+
     isAuthenticated() {
         const user = localStorage.getItem('user');
         return !!user;

@@ -67,8 +67,41 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
+    const updateProfile = async (userData) => {
+        setLoading(true);
+        try {
+            const response = await authService.updateProfile(userData);
+            setUser(response.data.user);
+            return response;
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const updatePassword = async (passwordData) => {
+        setLoading(true);
+        try {
+            const response = await authService.updatePassword(passwordData);
+            setUser(response.data.user);
+            return response;
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return (
-        <AuthContext.Provider value={{ user, loading, login, register, logout, isAuthenticated: !!user }}>
+        <AuthContext.Provider
+            value={{
+                user,
+                loading,
+                login,
+                register,
+                logout,
+                updateProfile,
+                updatePassword,
+                isAuthenticated: !!user
+            }}
+        >
             {loading && storedUser ? <div>Loading...</div> : children}
         </AuthContext.Provider>
     );
