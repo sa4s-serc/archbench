@@ -18,7 +18,7 @@ export const getTaskLeaderboard = async (req, res) => {
 
         // Get all entries for this task, sort by creation date (newest first)
         const entries = await LeaderboardEntry.find({ task: taskId })
-            .populate('submitted_by', 'name email')
+            .populate('submitted_by', 'username name email')
             .sort({ createdAt: -1 });
 
         res.status(200).json({
@@ -40,7 +40,7 @@ export const getTaskLeaderboard = async (req, res) => {
 export const getLeaderboardEntry = async (req, res) => {
     try {
         const entry = await LeaderboardEntry.findById(req.params.id)
-            .populate('submitted_by', 'name email')
+            .populate('submitted_by', 'username name email')
             .populate('task');
 
         if (!entry) {
@@ -157,7 +157,7 @@ export const updateLeaderboardEntry = async (req, res) => {
         const updatedEntry = await LeaderboardEntry.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
             runValidators: true
-        }).populate('submitted_by', 'name email');
+        }).populate('submitted_by', 'username name email');
 
         res.status(200).json({
             status: 'success',
@@ -212,7 +212,7 @@ export const getAllLeaderboardEntries = async (req, res) => {
     try {
         const entries = await LeaderboardEntry.find()
             .populate('task', 'title')
-            .populate('submitted_by', 'name email')
+            .populate('submitted_by', 'username name email')
             .sort({ createdAt: -1 });
 
         res.status(200).json({

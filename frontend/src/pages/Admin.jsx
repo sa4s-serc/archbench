@@ -8,11 +8,13 @@ import AdminUsers from '../components/AdminUsers';
 import AdminTasks from '../components/AdminTasks';
 import AdminPapers from '../components/AdminPapers';
 import AdminTickets from '../components/AdminTickets';
+import AdminLeaderboard from '../components/AdminLeaderboard';
 import {
     faUsers,
     faTasks,
     faBook,
-    faTicketAlt
+    faTicketAlt,
+    faMedal
 } from "@fortawesome/free-solid-svg-icons";
 
 const Admin = () => {
@@ -35,6 +37,10 @@ const Admin = () => {
     const [ticketFilter, setTicketFilter] = useState('pending');
     const [ticketSuccess, setTicketSuccess] = useState(null);
     const [ticketError, setTicketError] = useState(null);
+
+    // Leaderboard entries state
+    const [leaderboardEntries, setLeaderboardEntries] = useState([]);
+    const [leaderboardLoading, setLeaderboardLoading] = useState(false);
 
     // Shared state
     const [error, setError] = useState(null);
@@ -59,6 +65,8 @@ const Admin = () => {
             fetchPapers();
         } else if (currentTab === 'tickets') {
             fetchTickets();
+        } else if (currentTab === 'leaderboard') {
+            fetchLeaderboardEntries();
         }
     }, [currentTab]);
 
@@ -167,6 +175,31 @@ const Admin = () => {
         }
     };
 
+    const fetchLeaderboardEntries = async () => {
+        try {
+            setLeaderboardLoading(true);
+            const response = await fetch(`${API_URL}/leaderboard`, {
+                method: 'GET',
+                credentials: 'include',
+                headers: {
+                    'Content-Type': 'application/json',
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error('Failed to fetch leaderboard entries');
+            }
+
+            const data = await response.json();
+            setLeaderboardEntries(data.data.entries);
+            setError(null);
+        } catch (err) {
+            setError(err.message);
+        } finally {
+            setLeaderboardLoading(false);
+        }
+    };
+
     return (
         <div className="flex flex-col min-h-screen">
             {/* Header Section */}
@@ -212,11 +245,18 @@ const Admin = () => {
                                         Papers
                                     </button>
                                     <button
-                                        className={`tab tab-bordered ${currentTab === 'tickets' ? 'tab-active' : ''}`}
+                                        className={`tab ${currentTab === 'tickets' ? 'tab-active' : ''}`}
                                         onClick={() => setCurrentTab('tickets')}
                                     >
                                         <FontAwesomeIcon icon={faTicketAlt} className="mr-2" />
                                         Verification Tickets
+                                    </button>
+                                    <button
+                                        className={`tab ${currentTab === 'leaderboard' ? 'tab-active' : ''}`}
+                                        onClick={() => setCurrentTab('leaderboard')}
+                                    >
+                                        <FontAwesomeIcon icon={faMedal} className="mr-2" />
+                                        Leaderboard
                                     </button>
                                 </div>
                             </div>
@@ -294,6 +334,16 @@ const Admin = () => {
                         ticketError={ticketError}
                         setTicketError={setTicketError}
                         fetchTickets={fetchTickets}
+                    />
+                )}
+
+                {currentTab === 'leaderboard' && (
+                    <AdminLeaderboard
+                        entries={leaderboardEntries}
+                        loading={leaderboardLoading}
+                        setError={setError}
+                        setSuccess={setSuccess}
+                        fetchEntries={fetchLeaderboardEntries}
                     />
                 )}
             </div>

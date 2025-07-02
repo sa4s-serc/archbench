@@ -1,6 +1,6 @@
 // filepath: /home/avilol/Downloads/GitHub/archbench/frontend/src/pages/Profile.jsx
 import React, { useState, useEffect } from 'react';
-import { Navigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { useAuth } from '../utils/AuthContext';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Footer from "../components/Footer";
@@ -13,11 +13,15 @@ import {
     faTimesCircle,
     faExclamationCircle,
     faUserCheck,
-    faHistory
+    faHistory,
+    faMedal,
+    faTimes,
+    faCloudUploadAlt
 } from '@fortawesome/free-solid-svg-icons';
 
 const Profile = () => {
     const { user, isAuthenticated, updateProfile, updatePassword } = useAuth();
+    const navigate = useNavigate();
     const API_URL = 'http://localhost:5000/api';
 
     // States for form data
@@ -235,6 +239,17 @@ const Profile = () => {
                 return <span className="badge badge-error">Rejected</span>;
             default:
                 return <span className="badge badge-warning">Pending</span>;
+        }
+    };
+
+    const openSubmitModal = () => {
+        document.getElementById("submit_modal").showModal();
+    };
+
+    const closeModal = (e) => {
+        const modal = document.getElementById("submit_modal");
+        if (e.target === modal) {
+            modal.close();
         }
     };
 
@@ -530,6 +545,27 @@ const Profile = () => {
                             </form>
                         </div>
                     </div>
+
+
+                    {/* Contact Section */}
+                    {/* <section className="py-8 px-4 bg-base-200"> */}
+                        <div className="max-w-6xl mx-auto">
+                            <div className="card bg-base-100 shadow-md border border-base-300">
+                                <div className="card-body p-6">
+                                    <div className="flex flex-col md:flex-row items-center justify-between">
+                                        <div className="flex items-center mb-4 md:mb-0">
+                                            <FontAwesomeIcon icon={faEnvelope} className="text-primary text-2xl mr-4" />
+                                            <div>
+                                                <h3 className="font-semibold text-lg">Need help?</h3>
+                                                <p>For more information, please contact us at:</p>
+                                                <p className="font-medium text-primary">bassam.adnan@research.iiit.ac.in</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {/* </section> */}
                 </div>
             </div>
 

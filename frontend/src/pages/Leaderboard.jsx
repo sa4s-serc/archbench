@@ -308,6 +308,15 @@ const Leaderboard = () => {
                             <span className="text-xs opacity-80">{getSortIcon("createdAt", sortConfig)}</span>
                           </div>
                         </th>
+                        <th
+                          className="cursor-pointer hover:bg-base-300 whitespace-nowrap"
+                          onClick={() => handleSort("submitted_by.username")}
+                        >
+                          <div className="flex items-center gap-1">
+                            Submitted By
+                            <span className="text-xs opacity-80">{getSortIcon("submitted_by.username", sortConfig)}</span>
+                          </div>
+                        </th>
                         <th>Proof</th>
                       </tr>
                     </thead>
@@ -334,6 +343,12 @@ const Leaderboard = () => {
                             );
                           })}
                           <td className="whitespace-nowrap">{formatDate(entry.createdAt)}</td>
+                          <td className="whitespace-nowrap">
+                            {entry.submitted_by && typeof entry.submitted_by === 'object'
+                              ? entry.submitted_by.username || 'Anonymous User'
+                              : 'Unknown'}
+                            {console.log(entry.submitted_by)}
+                          </td>
                           <td>
                             {entry.proof_link ? (
                               <a
