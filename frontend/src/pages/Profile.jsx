@@ -558,7 +558,8 @@ const Profile = () => {
                                             <div>
                                                 <h3 className="font-semibold text-lg">Need help?</h3>
                                                 <p>For more information, please contact us at:</p>
-                                                <p className="font-medium text-primary">bassam.adnan@research.iiit.ac.in</p>
+                                            <p className="font-medium text-primary">bassam.adnan@research.iiit.ac.in</p>
+                                            <p className="font-medium text-primary">aviral.gupta@research.iiit.ac.in</p>
                                             </div>
                                         </div>
                                     </div>
