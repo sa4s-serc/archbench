@@ -1,0 +1,154 @@
+{
+  "title": "Architecture Traceability Link Recovery",
+  "short_description": "Evaluation of LLMs' capability to recover traceability links between software architecture documentation and source code using component name extraction",
+  "long_description": "This benchmark evaluates the effectiveness of Large Language Models in recovering traceability links between Software Architecture Documentation (SAD) and source code. The approach leverages LLMs to extract component names as simple Software Architecture Models (SAMs) to bridge the semantic gap between documentation and code. Using the TransArC methodology, the benchmark tests whether LLM-extracted component names can enable transitive traceability link recovery without requiring manually created architecture models. The evaluation covers four distinct traceability scenarios: direct documentation-to-code linking, documentation-to-component model linking, component model-to-code linking, and transitive documentation-to-code linking with intermediate models.",
+  "paper_link": "https://ieeexplore.ieee.org/document/10752847",
+  "github_link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss",
+  "metrics": [
+    { 
+      "name": "Precision", 
+      "description": "The ratio of correctly identified trace links to the total number of identified trace links" 
+    },
+    { 
+      "name": "Recall", 
+      "description": "The ratio of correctly identified trace links to the total number of actual trace links in the gold standard" 
+    },
+    {
+      "name": "F1-Score",
+      "description": "The harmonic mean of precision and recall, providing a balanced measure of traceability performance"
+    },
+    {
+      "name": "Weighted Average F1",
+      "description": "F1-score weighted by the number of expected trace links in the gold standard for each project"
+    }
+  ],
+  "entries": [
+    {
+      "name": "GPT-4o (SAD-extracted SAM)",
+      "precision": 0.81,
+      "recall": 0.93,
+      "f1": 0.86,
+      "weighted_avg_f1": 0.86,
+      "approach": "LLM component extraction from documentation",
+      "date": "2024-11-15",
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+    },
+    {
+      "name": "TransArC (Manual SAM)",
+      "precision": 0.81,
+      "recall": 0.94,
+      "f1": 0.82,
+      "weighted_avg_f1": 0.87,
+      "approach": "Manual architecture model creation",
+      "date": "2024-11-15",
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+    },
+    {
+      "name": "GPT-4 Turbo (SAD-extracted SAM)",
+      "precision": 0.80,
+      "recall": 0.92,
+      "f1": 0.73,
+      "weighted_avg_f1": 0.86,
+      "approach": "LLM component extraction from documentation",
+      "date": "2024-11-15",
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+    },
+    {
+      "name": "GPT-4 (SAD-extracted SAM)",
+      "precision": 0.80,
+      "recall": 0.93,
+      "f1": 0.76,
+      "weighted_avg_f1": 0.86,
+      "approach": "LLM component extraction from documentation",
+      "date": "2024-11-15",
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+    },
+    {
+      "name": "GPT-4o mini (SAD-extracted SAM)",
+      "precision": 0.80,
+      "recall": 0.92,
+      "f1": 0.74,
+      "weighted_avg_f1": 0.85,
+      "approach": "LLM component extraction from documentation",
+      "date": "2024-11-15",
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+    },
+    {
+      "name": "GPT-3.5 Turbo (SAD-extracted SAM)",
+      "precision": 0.81,
+      "recall": 0.91,
+      "f1": 0.73,
+      "weighted_avg_f1": 0.85,
+      "approach": "LLM component extraction from documentation",
+      "date": "2024-11-15",
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+    },
+    {
+      "name": "Llama 3.1 70b (Code-extracted SAM)",
+      "precision": 0.74,
+      "recall": 0.93,
+      "f1": 0.59,
+      "weighted_avg_f1": 0.81,
+      "approach": "LLM component extraction from source code",
+      "date": "2024-11-15",
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+    },
+    {
+      "name": "Codellama 13b (SAD-extracted SAM)",
+      "precision": 0.73,
+      "recall": 0.72,
+      "f1": 0.60,
+      "weighted_avg_f1": 0.71,
+      "approach": "LLM component extraction from documentation",
+      "date": "2024-11-15",
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+    },
+    {
+      "name": "Llama 3.1 8b (SAD-extracted SAM)",
+      "precision": 0.75,
+      "recall": 0.67,
+      "f1": 0.56,
+      "weighted_avg_f1": 0.68,
+      "approach": "LLM component extraction from documentation",
+      "date": "2024-11-15",
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+    },
+    {
+      "name": "ArDoCode (Direct SAD-to-Code)",
+      "precision": 0.47,
+      "recall": 0.92,
+      "f1": 0.37,
+      "weighted_avg_f1": 0.62,
+      "approach": "Direct documentation to code linking without intermediate models",
+      "date": "2024-11-15",
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+    }
+  ],
+  "type": "traceability",
+  "dataset_info": {
+    "name": "ArDoCo Benchmark Dataset",
+    "projects": ["MediaStore", "TeaStore", "TEAMMATES", "BigBlueButton", "JabRef"],
+    "description": "Benchmark dataset comprising Software Architecture Documentation to Software Architecture Model trace links, extended with trace links between SAD and source code"
+  },
+  "task_types": [
+    {
+      "name": "Documentation to Code TLR",
+      "description": "Direct traceability link recovery between architecture documentation sentences and source code artifacts"
+    },
+    {
+      "name": "Documentation to Component Model TLR", 
+      "description": "Traceability link recovery between architecture documentation sentences and architecture component model elements"
+    },
+    {
+      "name": "Component Model to Code TLR",
+      "description": "Traceability link recovery between architecture component model elements and source code artifacts"
+    },
+    {
+      "name": "Documentation to Code TLR with Intermediate Model",
+      "description": "Transitive traceability link recovery from documentation to code using architecture component models as intermediates"
+    }
+  ],
+  "example_available": true,
+  "dataset_download": true,
+  "dataset_link": "https://github.com/ardoco/benchmark"
+}

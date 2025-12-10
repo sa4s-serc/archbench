@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import adrGeneration from "../data/adrGenData.json";
 import serverlessData from "../data/serverlessData.json";
 import dynamicData from "../data/dynamicGenData.json";
+import traceabilityData from "../data/traceabilityData.json";
 import { sortData, getSortIcon } from "../utils/sorting";
 
 const Leaderboard = () => {
@@ -14,6 +15,7 @@ const Leaderboard = () => {
     architecture: adrGeneration,
     serverless: serverlessData,
     dynamic: dynamicData,
+    traceability: traceabilityData,
   };
 
   // Process entries based on task type
@@ -76,6 +78,16 @@ const Leaderboard = () => {
       ];
     }
   
+    // Add mapping for Traceability metrics
+    if (task === "traceability") {
+      return [
+        { name: "Precision", key: "precision" },
+        { name: "Recall", key: "recall" },
+        { name: "F1-Score", key: "f1" },
+        { name: "Weighted Avg F1", key: "weighted_avg_f1" }
+      ];
+    }
+  
     // For other tasks, use the default mapping
     return taskData[task].metrics.map(metric => ({
       name: metric.name,
@@ -115,6 +127,16 @@ const Leaderboard = () => {
           onClick={() => handleTaskChange("dynamic")}
         >
           Dynamic Service
+        </button>
+        <button
+          className={`sm:flex-1 mx-0 sm:mx-2 px-4 sm:px-6 py-2 rounded-lg border transition-all duration-200 ${
+            selectedTask === "traceability"
+              ? "bg-base-200 border-primary text-primary font-medium"
+              : "border-base-300 hover:border-primary hover:text-primary"
+          }`}
+          onClick={() => handleTaskChange("traceability")}
+        >
+          Architecture Traceability
         </button>
       </div>
 

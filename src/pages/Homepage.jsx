@@ -3,6 +3,7 @@ import Introduction from "../components/Introduction";
 import adrGeneration from "../data/adrGenData.json";
 import dynamicData from "../data/dynamicGenData.json";
 import serverlessData from "../data/serverlessData.json";
+import traceabilityData from "../data/traceabilityData.json";
 import Footer from "../components/Footer";
 import { useNavigate } from "react-router-dom";
 
@@ -30,7 +31,7 @@ const Homepage = () => {
             <div className="stat">
               <div className="stat-title">Total Submissions</div>
               <div className="stat-value">
-                {adrGeneration.entries.length + dynamicData.entries.length}
+                {adrGeneration.entries.length + dynamicData.entries.length + serverlessData.entries.length + traceabilityData.entries.length}
               </div>
               <div className="stat-desc">Across all categories</div>
             </div>
@@ -49,6 +50,9 @@ const Homepage = () => {
                       ),
                       ...dynamicData.entries.map((e) =>
                         new Date(e.date).getTime()
+                      ),
+                      ...traceabilityData.entries.map((e) =>
+                        new Date(e.date).getTime()
                       )
                     )
                   )
@@ -60,10 +64,10 @@ const Homepage = () => {
 
             <div className="stat">
               <div className="stat-title">Categories</div>
-              <div className="stat-value">3</div>
+              <div className="stat-value">4</div>
               <div className="stat-desc">
-                ADR, Serverless Architectural Component & Dynamic Service
-                Generation
+                ADR Generation, Serverless Component Generation, Dynamic Service
+                Generation & Architecture Traceability
               </div>
             </div>
           </div>
@@ -115,7 +119,7 @@ const Homepage = () => {
             </p>
             <ul>
               <li>
-                Task category (ADR, Serverless, or Dynamic Service Generation)
+                Task category (ADR Generation, Serverless Component Generation, Dynamic Service Generation, or Architecture Traceability)
               </li>
               <li>Team or organization name</li>
               <li>Brief description of your approach</li>

@@ -5,9 +5,10 @@ import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
 import adrGeneration from "../data/adrGenData.json";
 import serverlessData from "../data/serverlessData.json";
 import dynamicData from "../data/dynamicGenData.json";
+import traceabilityData from "../data/traceabilityData.json";
 
 const Tasks = () => {
-  const tasks = [adrGeneration, serverlessData, dynamicData];
+  const tasks = [adrGeneration, serverlessData, dynamicData, traceabilityData];
   const taskRefs = useRef([]);
   const [markdownContent, setMarkdownContent] = useState("");
   const [modalTitle, setModalTitle] = useState("Example");
@@ -24,6 +25,8 @@ const Tasks = () => {
         return "serverlessExample.md";
       case "dynamic":
         return "dynamicExample.md";
+      case "traceability":
+        return "traceabilityExample.md";
       default:
         return null;
     }
@@ -37,6 +40,8 @@ const Tasks = () => {
         return "Example Serverless Function";
       case "dynamic":
         return "Example IoT Service";
+      case "traceability":
+        return "Example Traceability Task";
       default:
         return "Example";
     }
@@ -143,6 +148,32 @@ const Tasks = () => {
             <div className="bg-base-200 p-4 rounded-lg">
               <span className="font-semibold">Evaluation Method:</span>
               <p className="mt-1 opacity-90">CodeBERTScore metrics (Precision, Recall, F1, F3)</p>
+            </div>
+          </div>
+        );
+
+      case "traceability":
+        return (
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+            <div className="bg-base-200 p-4 rounded-lg">
+              <span className="font-semibold">Input Format:</span>
+              <p className="mt-1 opacity-90">Architecture documentation (SAD), Architecture models (SAMs), Source code (ACM)</p>
+            </div>
+            <div className="bg-base-200 p-4 rounded-lg">
+              <span className="font-semibold">Output Format:</span>
+              <p className="mt-1 opacity-90">CSV files with trace links (sentence-component or sentence-code pairs)</p>
+            </div>
+            <div className="bg-base-200 p-4 rounded-lg">
+              <span className="font-semibold">Task Types:</span>
+              <p className="mt-1 opacity-90">
+                {task.task_types ? task.task_types.length : 4} different traceability scenarios covered
+              </p>
+            </div>
+            <div className="bg-base-200 p-4 rounded-lg">
+              <span className="font-semibold">Dataset:</span>
+              <p className="mt-1 opacity-90">
+                {task.dataset_info ? `${task.dataset_info.projects.length} projects (${task.dataset_info.projects.join(', ')})` : "ArDoCo benchmark with 5 open-source projects"}
+              </p>
             </div>
           </div>
         );
