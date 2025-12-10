@@ -8,4 +8,4 @@ npm i
 npm run dev
 ```
 
-By default, website should start up at 5173. 
+By default, website should start up at 5173.
