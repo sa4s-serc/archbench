@@ -214,8 +214,8 @@ const Leaderboard = () => {
         </aside>
 
         {/* Mobile category selector */}
-        <div className="md:hidden fixed bottom-16 left-0 right-0 z-40 bg-base-200/90 backdrop-blur-xl border-t border-base-300/50 px-2 py-2 flex gap-1 overflow-x-auto">
-          {filteredByCategory.map((meta) => {
+        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-base-200/90 backdrop-blur-xl border-t border-base-300/50 px-2 py-2 flex gap-1 overflow-x-auto scrollbar-hide">
+          {taskMeta.map((meta) => {
             const Icon = meta.icon;
             const active = meta.key === displayTask.key;
             return (
@@ -228,7 +228,8 @@ const Leaderboard = () => {
                     }`}
                 >
                   <Icon size={14} />
-                  {meta.data.title.split(" ")[0]}
+                  <span className="hidden sm:inline">{meta.data.title}</span>
+                  <span className="sm:hidden">{meta.data.title.split(" ")[0]}</span>
                 </button>
               </div>
             );
@@ -236,7 +237,7 @@ const Leaderboard = () => {
         </div>
 
         {/* Main content */}
-        <div className="flex-1 p-4 sm:p-6 lg:p-8 overflow-x-auto">
+        <div className="flex-1 p-4 sm:p-6 lg:p-8 overflow-x-auto pb-20 md:pb-8">
           {hasNoCategoryResults ? (
             <div className="flex items-center justify-center h-full min-h-[calc(100vh-8rem)]">
               <div className="text-center">
@@ -254,17 +255,17 @@ const Leaderboard = () => {
             </div>
           ) : (
             <>
-          {/* Summary card */}
-          <div className="rounded-2xl bg-base-200/50 border border-base-300/50 p-5 mb-6">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center">
-                <Medal size={22} className="text-primary" />
-              </div>
-              <div>
-                <h2 className="text-lg font-bold">{displayTask.data.title}</h2>
-                <p className="text-sm text-base-content/50">
-                  {displayTask.data.short_description}
-                </p>
+            {/* Summary card */}
+            <div className="rounded-2xl bg-base-200/50 border border-base-300/50 p-5 mb-6">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
+                  <Medal size={22} className="text-primary" />
+                </div>
+                <div>
+                  <h2 className="text-lg font-bold">{displayTask.data.title}</h2>
+                  <p className="text-sm text-base-content/50">
+                    {displayTask.data.short_description}
+                  </p>
               </div>
             </div>
           </div>
@@ -297,8 +298,8 @@ const Leaderboard = () => {
 
           {/* Table */}
           <div className="rounded-2xl border border-base-300/50 overflow-hidden">
-            <div className="overflow-x-auto">
-              <table className="table w-full">
+            <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
+              <table className="table w-full min-w-[640px]">
                 <thead>
                   <tr className="bg-base-200/50">
                     <th className="w-14 text-xs font-semibold text-base-content/50">#</th>

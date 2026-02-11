@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useRef, useEffect } from "react";
 import adrGeneration from "../data/adrGenData.json";
 import dynamicData from "../data/dynamicGenData.json";
 import serverlessData from "../data/serverlessData.json";
@@ -21,6 +21,18 @@ import {
 
 const Homepage = () => {
   const navigate = useNavigate();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const menuRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (menuRef.current && !menuRef.current.contains(e.target)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
 
   const totalSubmissions =
     adrGeneration.entries.length +
@@ -68,18 +80,64 @@ const Homepage = () => {
         {/* Floating navbar */}
         <nav className="fixed top-0 left-0 right-0 z-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
-            <div className="flex items-center justify-between bg-base-200/70 backdrop-blur-xl rounded-2xl px-6 py-3 border border-base-300/50 shadow-lg">
+            <div className="flex items-center justify-between bg-base-200/70 backdrop-blur-xl rounded-2xl px-4 sm:px-6 py-3 border border-base-300/50 shadow-lg">
               <div className="flex items-center gap-2">
                 <img
                   src="/sa4s_logo_final.svg"
                   alt="SA4S Logo"
                   className="h-8 w-8 rounded-lg"
                 />
-                <span className="font-bold text-lg tracking-tight">
+                <span className="font-bold text-base sm:text-lg tracking-tight">
                   ArchBench
                 </span>
               </div>
               <div className="flex items-center gap-2">
+                {/* Mobile menu dropdown */}
+                <div className="relative sm:hidden" ref={menuRef}>
+                  <button
+                    onClick={() => setMenuOpen(!menuOpen)}
+                    className="btn btn-ghost btn-sm btn-circle"
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" />
+                    </svg>
+                  </button>
+                  {menuOpen && (
+                    <ul className="menu menu-sm absolute right-0 mt-6 z-[1] p-2 shadow bg-base-200 backdrop-blur-xl rounded-box w-52 border border-base-300/50">
+                      <li>
+                        <button className="text-md font-semibold py-2" onClick={() => { navigate("/leaderboard"); setMenuOpen(false); }}>
+                          Leaderboard
+                        </button>
+                      </li>
+                      <li>
+                        <button className="text-md font-semibold py-2" onClick={() => { navigate("/tasks"); setMenuOpen(false); }}>
+                          Tasks
+                        </button>
+                      </li>
+                      <li>
+                        <button className="text-md font-semibold py-2" onClick={() => { navigate("/papers"); setMenuOpen(false); }}>
+                          Papers
+                        </button>
+                      </li>
+                      <li>
+                        <button className="text-md font-semibold py-2" onClick={() => { navigate("/about"); setMenuOpen(false); }}>
+                          About
+                        </button>
+                      </li>
+                      <li>
+                        <button className="text-md font-semibold py-2" onClick={() => { navigate("/contribute"); setMenuOpen(false); }}>
+                          Contribute
+                        </button>
+                      </li>
+                      <li className="border-t border-base-300/50 mt-1 pt-1">
+                        <div className="flex items-center justify-between px-2 py-1">
+                          <span className="text-xs">Theme</span>
+                          <ThemeSelector />
+                        </div>
+                      </li>
+                    </ul>
+                  )}
+                </div>
                 <button
                   onClick={() => navigate("/leaderboard")}
                   className="hidden sm:inline-flex btn btn-ghost btn-sm rounded-xl"
@@ -110,7 +168,9 @@ const Homepage = () => {
                 >
                   Contribute
                 </button>
-                <ThemeSelector />
+                <div className="hidden ml-4 sm:block">
+                  <ThemeSelector />
+                </div>
               </div>
             </div>
           </div>
@@ -140,66 +200,67 @@ const Homepage = () => {
             </div> */}
 
             {/* Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/8 border border-primary/15 text-primary text-sm font-medium mb-8 animate-fade-in-up animation-delay-200">
-              <Sparkles size={14} />
-              Software Architecture Research Benchmark
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-2 rounded-full bg-primary/8 border border-primary/15 text-primary text-xs sm:text-sm font-medium mb-6 sm:mb-8 animate-fade-in-up animation-delay-200">
+              <Sparkles size={14} className="hidden xs:block" />
+              <span className="text-center">Software Architecture Research Benchmark</span>
             </div>
 
             {/* Main heading */}
-            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 animate-fade-in-up animation-delay-400">
+            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-4 sm:mb-6 animate-fade-in-up animation-delay-400">
               <span className="text-base-content">
                 ArchBench
               </span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-lg sm:text-xl text-base-content/50 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in-up animation-delay-600">
+            <p className="text-base sm:text-lg lg:text-xl text-base-content/50 max-w-2xl mx-auto mb-8 sm:mb-10 leading-relaxed px-4 animate-fade-in-up animation-delay-600">
               A comprehensive benchmark for software architecture tasks.
-              <br />
+              <br className="hidden sm:block" />
+              <span className="sm:hidden"> </span>
               Explore leaderboards, compare approaches, and advance the field.
             </p>
 
             {/* CTA buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up animation-delay-800">
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4 animate-fade-in-up animation-delay-800">
               <button
-                className="btn btn-primary btn-lg rounded-2xl gap-2 px-8 shadow-md hover:shadow-lg transition-shadow"
+                className="btn btn-primary btn-md sm:btn-lg rounded-2xl gap-2 px-6 sm:px-8 shadow-md hover:shadow-lg transition-shadow w-full sm:w-auto"
                 onClick={() => navigate("/leaderboard")}
               >
-                <Trophy size={20} />
+                <Trophy size={18} className="sm:w-5 sm:h-5" />
                 Explore Leaderboard
               </button>
               <button
-                className="btn btn-ghost btn-lg rounded-2xl gap-2 border border-base-300 hover:border-base-content/20 bg-base-100"
+                className="btn btn-ghost btn-md sm:btn-lg rounded-2xl gap-2 border border-base-300 hover:border-base-content/20 bg-base-100 w-full sm:w-auto"
                 onClick={() => navigate("/tasks")}
               >
                 View Tasks
-                <ArrowRight size={18} />
+                <ArrowRight size={16} className="sm:w-[18px] sm:h-[18px]" />
               </button>
             </div>
 
             {/* Stats row */}
-            <div className="flex justify-center gap-4 max-w-lg mx-auto mt-16 animate-fade-in-up animation-delay-800">
-              <div className="text-center px-4 flex-shrink-0">
-                <div className="text-3xl sm:text-4xl font-extrabold text-base-content">
+            <div className="flex justify-center gap-2 sm:gap-4 max-w-lg mx-auto mt-12 sm:mt-16 px-4 animate-fade-in-up animation-delay-800">
+              <div className="text-center px-2 sm:px-4 flex-shrink-0">
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-base-content">
                   {totalSubmissions}
                 </div>
-                <div className="text-xs text-base-content/40 mt-1 uppercase tracking-wider">
-                  Total Submissions
+                <div className="text-[10px] sm:text-xs text-base-content/40 mt-1 uppercase tracking-wider">
+                  Total<span className="hidden xs:inline"> Submissions</span>
                 </div>
               </div>
-              <div className="text-center px-4 border-x border-base-content/10 flex-shrink-0">
-                <div className="text-3xl sm:text-4xl font-extrabold text-base-content">
+              <div className="text-center px-2 sm:px-4 border-x border-base-content/10 flex-shrink-0">
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-base-content">
                   4
                 </div>
-                <div className="text-xs text-base-content/40 mt-1 uppercase tracking-wider">
+                <div className="text-[10px] sm:text-xs text-base-content/40 mt-1 uppercase tracking-wider">
                   Categories
                 </div>
               </div>
-              <div className="text-center px-4 whitespace-nowrap flex-shrink-0">
-                <div className="text-3xl sm:text-4xl font-extrabold text-base-content">
+              <div className="text-center px-2 sm:px-4 flex-shrink-0">
+                <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-base-content">
                   {new Date(latestDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
                 </div>
-                <div className="text-xs text-base-content/40 mt-1 uppercase tracking-wider">
+                <div className="text-[10px] sm:text-xs text-base-content/40 mt-1 uppercase tracking-wider whitespace-nowrap">
                   Last Updated
                 </div>
               </div>

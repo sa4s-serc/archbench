@@ -5,19 +5,19 @@ import ThemeSelector from "./ThemeSelector";
 const TopBar = ({ title, subtitle, searchValue, onSearchChange, searchPlaceholder, children }) => {
     return (
         <header className="sticky top-0 z-30 bg-base-100/80 backdrop-blur-xl border-b border-base-300/50">
-            <div className="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between min-h-[4rem] px-4 sm:px-6 lg:px-8 py-3">
                 {/* Left: Title */}
-                <div className="flex items-center gap-3 min-w-0">
-                    <div>
-                        <h1 className="text-lg font-bold truncate leading-tight">{title}</h1>
+                <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                    <div className="min-w-0">
+                        <h1 className="text-base sm:text-lg font-bold truncate leading-tight">{title}</h1>
                         {subtitle && (
-                            <p className="text-xs text-base-content/50 truncate">{subtitle}</p>
+                            <p className="text-[10px] sm:text-xs text-base-content/50 truncate hidden sm:block">{subtitle}</p>
                         )}
                     </div>
                 </div>
 
                 {/* Center/Right: Search + actions */}
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-2 sm:gap-3 flex-shrink-0">
                     {onSearchChange !== undefined && (
                         <div className="relative hidden sm:block">
                             <Search
@@ -29,7 +29,7 @@ const TopBar = ({ title, subtitle, searchValue, onSearchChange, searchPlaceholde
                                 value={searchValue || ""}
                                 onChange={(e) => onSearchChange(e.target.value)}
                                 placeholder={searchPlaceholder || "Search..."}
-                                className="input input-sm input-bordered pl-9 pr-8 w-64 bg-base-200/50 focus:bg-base-100 transition-colors rounded-xl"
+                                className="input input-sm input-bordered pl-9 pr-8 w-48 lg:w-64 bg-base-200/50 focus:bg-base-100 transition-colors rounded-xl"
                             />
                             {searchValue && (
                                 <button
@@ -41,7 +41,9 @@ const TopBar = ({ title, subtitle, searchValue, onSearchChange, searchPlaceholde
                             )}
                         </div>
                     )}
-                    {children}
+                    <div className="hidden sm:flex items-center gap-2">
+                        {children}
+                    </div>
                     <div className="lg:hidden">
                         <ThemeSelector />
                     </div>

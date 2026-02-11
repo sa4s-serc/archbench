@@ -35,18 +35,18 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
             >
                 {/* Brand */}
                 <a href="/" className="flex items-center gap-3 px-4 h-16 border-b border-base-300/50">
-                <div className="flex items-center gap-3 px-4 h-16 border-b border-base-300/50">
-                    <img
-                        src="/sa4s_logo_final.svg"
-                        alt="SA4S"
-                        className="h-8 w-8 shrink-0 object-contain"
-                    />
-                    {!collapsed && (
-                        <span className="font-bold text-lg tracking-tight">
-                            ArchBench
-                        </span>
-                    )}
-                </div>
+                    <div className="flex items-center gap-3 h-16 border-b border-base-300/50">
+                        <img
+                            src="/sa4s_logo_final.svg"
+                            alt="SA4S"
+                            className="h-8 w-8 shrink-0 object-contain"
+                        />
+                        {!collapsed && (
+                            <span className="font-bold text-lg tracking-tight">
+                                ArchBench
+                            </span>
+                        )}
+                    </div>
                 </a>
 
                 {/* Nav items */}
