@@ -3,10 +3,45 @@ import React from 'react'
 const ThemeSelector = () => {
     const [theme, setTheme] = React.useState('dark');
     
+    const getSystemTheme = () => {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            return 'dark';
+        }
+        return 'light';
+    };
+
+    const getCookie = (name) => {
+        const nameEQ = name + "=";
+        const cookies = document.cookie.split(';');
+        for (let cookie of cookies) {
+            cookie = cookie.trim();
+            if (cookie.indexOf(nameEQ) === 0) {
+                return cookie.substring(nameEQ.length);
+            }
+        }
+        return null;
+    };
+
+    const setCookie = (name, value, days = 365) => {
+        const expires = new Date();
+        expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000);
+        document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+    };
+
     const toggleTheme = (e) => {
         const isChecked = e.target.checked;
-        setTheme(isChecked ? 'dark' : 'light');
+        const newTheme = isChecked ? 'dark' : 'light';
+        setTheme(newTheme);
+        setCookie('theme', newTheme);
     };
+
+    React.useEffect(() => {
+        // Initialize theme from cookie or system preference
+        const savedTheme = getCookie('theme');
+        const initialTheme = savedTheme || getSystemTheme();
+        setTheme(initialTheme);
+        document.querySelector('html').setAttribute('data-theme', initialTheme);
+    }, []);
 
     React.useEffect(() => {
         document.querySelector('html').setAttribute('data-theme', theme);

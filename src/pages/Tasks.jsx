@@ -1,4 +1,5 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { dracula } from "react-syntax-highlighter/dist/esm/styles/prism";
@@ -6,51 +7,70 @@ import adrGeneration from "../data/adrGenData.json";
 import serverlessData from "../data/serverlessData.json";
 import dynamicData from "../data/dynamicGenData.json";
 import traceabilityData from "../data/traceabilityData.json";
+import TopBar from "../components/TopBar";
+import {
+  Layers,
+  GitBranch,
+  Sparkles,
+  BarChart3,
+  Download,
+  Eye,
+  ChevronRight,
+  Medal,
+} from "lucide-react";
+
+const taskMeta = [
+  { key: "adr", icon: Layers, color: "from-blue-500 to-cyan-400", data: adrGeneration },
+  { key: "serverless", icon: GitBranch, color: "from-purple-500 to-pink-400", data: serverlessData },
+  { key: "dynamic", icon: Sparkles, color: "from-orange-500 to-yellow-400", data: dynamicData },
+  { key: "traceability", icon: BarChart3, color: "from-green-500 to-emerald-400", data: traceabilityData },
+];
 
 const Tasks = () => {
-  const tasks = [adrGeneration, serverlessData, dynamicData, traceabilityData];
-  const taskRefs = useRef([]);
+  const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
   const [markdownContent, setMarkdownContent] = useState("");
   const [modalTitle, setModalTitle] = useState("Example");
 
-  const scrollToTask = (index) => {
-    taskRefs.current[index]?.scrollIntoView({ behavior: "smooth" });
-  };
+  // Filter task categories by search
+  const filteredTasks = taskMeta.filter((meta) =>
+    meta.data.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    meta.data.short_description.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+
+  // Check if search has no results
+  const hasNoResults = searchQuery && filteredTasks.length === 0;
+
+  // Use first filtered task or first task if no filter
+  const selectedIdx = filteredTasks.length > 0 ? taskMeta.indexOf(filteredTasks[0]) : 0;
+  const task = taskMeta[selectedIdx].data;
+
+  // Show all metrics and details for the selected task (not filtered by search)
+  const filteredMetrics = task.metrics;
 
   const getExampleFileName = (taskType) => {
     switch (taskType) {
-      case "adr":
-        return "adrExample.md";
-      case "serverless":
-        return "serverlessExample.md";
-      case "dynamic":
-        return "dynamicExample.md";
-      case "traceability":
-        return "traceabilityExample.md";
-      default:
-        return null;
+      case "adr": return "adrExample.md";
+      case "serverless": return "serverlessExample.md";
+      case "dynamic": return "dynamicExample.md";
+      case "traceability": return "traceabilityExample.md";
+      default: return null;
     }
   };
 
   const getModalTitle = (taskType) => {
     switch (taskType) {
-      case "adr":
-        return "Example ADR Document";
-      case "serverless":
-        return "Example Serverless Function";
-      case "dynamic":
-        return "Example IoT Service";
-      case "traceability":
-        return "Example Traceability Task";
-      default:
-        return "Example";
+      case "adr": return "Example ADR Document";
+      case "serverless": return "Example Serverless Function";
+      case "dynamic": return "Example IoT Service";
+      case "traceability": return "Example Traceability Task";
+      default: return "Example";
     }
   };
 
   const openModal = async (task) => {
     const fileName = getExampleFileName(task.type);
     if (!fileName) return;
-
     try {
       const response = await fetch(fileName);
       const text = await response.text();
@@ -66,9 +86,7 @@ const Tasks = () => {
 
   const closeModal = (e) => {
     const modal = document.getElementById("example_modal");
-    if (e.target === modal) {
-      modal.close();
-    }
+    if (e.target === modal) modal.close();
   };
 
   const copyToClipboard = async () => {
@@ -81,206 +99,224 @@ const Tasks = () => {
   };
 
   const renderTaskDetails = (task) => {
-    switch (task.type) {
-      case "adr":
-        return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-            <div className="bg-base-200 p-4 rounded-lg">
-              <span className="font-semibold">Input Format:</span>
-              <p className="mt-1 opacity-90">Architecture documentation in markdown format</p>
-            </div>
-            <div className="bg-base-200 p-4 rounded-lg">
-              <span className="font-semibold">Output Format:</span>
-              <p className="mt-1 opacity-90">Generated ADRs in markdown format</p>
-            </div>
-            <div className="bg-base-200 p-4 rounded-lg">
-              <span className="font-semibold">Dataset Size:</span>
-              <p className="mt-1 opacity-90">{task.dataset_size || "1000"} architecture documents</p>
-            </div>
-            <div className="bg-base-200 p-4 rounded-lg">
-              <span className="font-semibold">Time Limit:</span>
-              <p className="mt-1 opacity-90">{task.time_limit || "2 hours"} per submission</p>
-            </div>
-          </div>
-        );
-
-      case "serverless":
-        return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-            <div className="bg-base-200 p-4 rounded-lg">
-              <span className="font-semibold">Input Format:</span>
-              <p className="mt-1 opacity-90">Function specifications and requirements</p>
-            </div>
-            <div className="bg-base-200 p-4 rounded-lg">
-              <span className="font-semibold">Output Format:</span>
-              <p className="mt-1 opacity-90">Serverless function implementation</p>
-            </div>
-            <div className="bg-base-200 p-4 rounded-lg">
-              <span className="font-semibold">Test Cases:</span>
-              <p className="mt-1 opacity-90">
-                {task.test_cases?.description || "Automated test suite for functionality verification"}
-              </p>
-            </div>
-            <div className="bg-base-200 p-4 rounded-lg">
-              <span className="font-semibold">Intervention:</span>
-              <p className="mt-1 opacity-90">
-                {task.intervention_details || "Human review and modification of generated code"}
-              </p>
-            </div>
-          </div>
-        );
-
-      case "dynamic":
-        return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-            <div className="bg-base-200 p-4 rounded-lg">
-              <span className="font-semibold">Input Format:</span>
-              <p className="mt-1 opacity-90">Query specification defining service requirements</p>
-            </div>
-            <div className="bg-base-200 p-4 rounded-lg">
-              <span className="font-semibold">Output Format:</span>
-              <p className="mt-1 opacity-90">Generated IoT service implementation</p>
-            </div>
-            <div className="bg-base-200 p-4 rounded-lg">
-              <span className="font-semibold">Baseline Comparison:</span>
-              <p className="mt-1 opacity-90">Reference implementation provided for comparison</p>
-            </div>
-            <div className="bg-base-200 p-4 rounded-lg">
-              <span className="font-semibold">Evaluation Method:</span>
-              <p className="mt-1 opacity-90">CodeBERTScore metrics (Precision, Recall, F1, F3)</p>
-            </div>
-          </div>
-        );
-
-      case "traceability":
-        return (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
-            <div className="bg-base-200 p-4 rounded-lg">
-              <span className="font-semibold">Input Format:</span>
-              <p className="mt-1 opacity-90">Architecture documentation (SAD), Architecture models (SAMs), Source code (ACM)</p>
-            </div>
-            <div className="bg-base-200 p-4 rounded-lg">
-              <span className="font-semibold">Output Format:</span>
-              <p className="mt-1 opacity-90">CSV files with trace links (sentence-component or sentence-code pairs)</p>
-            </div>
-            <div className="bg-base-200 p-4 rounded-lg">
-              <span className="font-semibold">Task Types:</span>
-              <p className="mt-1 opacity-90">
-                {task.task_types ? task.task_types.length : 4} different traceability scenarios covered
-              </p>
-            </div>
-            <div className="bg-base-200 p-4 rounded-lg">
-              <span className="font-semibold">Dataset:</span>
-              <p className="mt-1 opacity-90">
-                {task.dataset_info ? `${task.dataset_info.projects.length} projects (${task.dataset_info.projects.join(', ')})` : "ArDoCo benchmark with 5 open-source projects"}
-              </p>
-            </div>
-          </div>
-        );
-
-      default:
-        return (
-          <div className="bg-base-200 p-4 rounded-lg">
-            <p className="opacity-90">Task details not available</p>
-          </div>
-        );
-    }
+    const detailsMap = {
+      adr: [
+        { label: "Input Format", value: "Architecture documentation in markdown format" },
+        { label: "Output Format", value: "Generated ADRs in markdown format" },
+        { label: "Dataset Size", value: `${task.dataset_size || "1000"} architecture documents` },
+        { label: "Time Limit", value: `${task.time_limit || "2 hours"} per submission` },
+      ],
+      serverless: [
+        { label: "Input Format", value: "Function specifications and requirements" },
+        { label: "Output Format", value: "Serverless function implementation" },
+        { label: "Test Cases", value: task.test_cases?.description || "Automated test suite for functionality verification" },
+        { label: "Intervention", value: task.intervention_details || "Human review and modification of generated code" },
+      ],
+      dynamic: [
+        { label: "Input Format", value: "Query specification defining service requirements" },
+        { label: "Output Format", value: "Generated IoT service implementation" },
+        { label: "Baseline Comparison", value: "Reference implementation provided for comparison" },
+        { label: "Evaluation Method", value: "CodeBERTScore metrics (Precision, Recall, F1, F3)" },
+      ],
+      traceability: [
+        { label: "Input Format", value: "Architecture documentation (SAD), Architecture models (SAMs), Source code (ACM)" },
+        { label: "Output Format", value: "CSV files with trace links (sentence-component or sentence-code pairs)" },
+        { label: "Task Types", value: `${task.task_types ? task.task_types.length : 4} different traceability scenarios covered` },
+        { label: "Dataset", value: task.dataset_info ? `${task.dataset_info.projects.length} projects (${task.dataset_info.projects.join(", ")})` : "ArDoCo benchmark with 5 open-source projects" },
+      ],
+    };
+    return detailsMap[task.type] || [];
   };
 
   return (
     <>
-      <div className="p-4 sm:p-8 max-w-7xl mx-auto relative">
-        <div className="fixed left-4 top-24 h-fit hidden lg:block w-40 p-3 card bg-base-100 border border-base-300 shadow-sm">
-          <h3 className="font-bold text-sm mb-2">Jump to: </h3>
-          <ul className="menu menu-sm p-0">
-            {tasks.map((task, index) => (
-              <li key={index}>
+      <TopBar
+        title="Tasks"
+        subtitle="Explore benchmark task categories and details"
+        searchValue={searchQuery}
+        onSearchChange={setSearchQuery}
+        searchPlaceholder="Search tasks by name..."
+      >
+        <button
+          onClick={() => navigate("/leaderboard")}
+          className="btn btn-sm btn-ghost rounded-xl gap-1.5 hidden sm:inline-flex"
+        >
+          <Medal size={14} />
+          View Leaderboard
+        </button>
+      </TopBar>
+
+      <div className="flex min-h-[calc(100vh-4rem)]">
+        {/* Left category panel */}
+        <aside className="hidden md:flex flex-col w-64 shrink-0 border-r border-base-300/50 bg-base-200/30 p-4 gap-2">
+          <p className="text-xs text-base-content/40 uppercase tracking-wider font-medium px-3 mb-2">
+            Categories
+          </p>
+          {filteredTasks.map((meta) => {
+            const Icon = meta.icon;
+            const active = meta.key === taskMeta[selectedIdx].key;
+            return (
+              <div key={meta.key} className="tooltip tooltip-right w-full" data-tip={meta.data.title}>
                 <button
-                  onClick={() => scrollToTask(index)}
-                  className="cursor-pointer hover:text-primary py-1 w-full text-left"
+                  onClick={() => {
+                    const idx = taskMeta.indexOf(meta);
+                    setSearchQuery("");
+                  }}
+                  className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl text-left transition-all duration-200 group ${active
+                      ? "bg-primary/10 text-primary font-semibold shadow-sm"
+                      : "text-base-content/60 hover:bg-base-300/50 hover:text-base-content"
+                    }`}
                 >
-                  {index + 1}. {task.title}
+                  <div
+                    className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 transition-all ${active ? "bg-primary/15" : "bg-base-300/50 group-hover:bg-primary/10"
+                      }`}
+                  >
+                    <Icon size={16} className={active ? "text-primary" : "text-base-content/50 group-hover:text-primary/70"} />
+                  </div>
+                  <span className="text-sm truncate">{meta.data.title}</span>
+                  {active && <ChevronRight size={14} className="ml-auto text-primary/50" />}
                 </button>
-              </li>
-            ))}
-          </ul>
+              </div>
+            );
+          })}
+        </aside>
+
+        {/* Mobile category selector */}
+        <div className="md:hidden fixed bottom-16 left-0 right-0 z-40 bg-base-200/90 backdrop-blur-xl border-t border-base-300/50 px-2 py-2 flex gap-1 overflow-x-auto">
+          {filteredTasks.map((meta) => {
+            const Icon = meta.icon;
+            const active = meta.key === taskMeta[selectedIdx].key;
+            return (
+              <div key={meta.key} className="tooltip tooltip-top" data-tip={meta.data.title}>
+                <button
+                  onClick={() => {
+                    const idx = taskMeta.indexOf(meta);
+                    setSearchQuery("");
+                  }}
+                  className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs whitespace-nowrap transition-all ${active
+                      ? "bg-primary/10 text-primary font-medium"
+                      : "text-base-content/50"
+                    }`}
+                >
+                  <Icon size={14} />
+                  {meta.data.title.split(" ")[0]}
+                </button>
+              </div>
+            );
+          })}
         </div>
 
-        <div className="grid gap-8 lg:ml-48">
-          {tasks.map((task, index) => (
-            <div
-              key={index}
-              ref={(el) => (taskRefs.current[index] = el)}
-              className="card bg-base-100 shadow-xl border border-base-400"
-            >
-              <div className="card-body">
-                <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4">
-                  <div className="flex-1">
-                    <h2 className="card-title text-xl sm:text-2xl mb-2 sm:mb-4">
-                      {task.title}
-                    </h2>
-                    <p className="text-base sm:text-lg mb-4 sm:mb-6">
-                      {task.long_description}
-                    </p>
-                  </div>
-                  {/* <a
-                    href={task.paper_link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-ghost self-start"
-                  >
-                    📝 View Paper
-                  </a> */}
-                </div>
-
-                <div className="divider">Evaluation Metrics</div>
-
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                  {task.metrics.map((metric, idx) => (
-                    <div key={idx} className="bg-base-200 p-6 rounded-lg">
-                      <h3 className="font-bold text-lg mb-2">{metric.name}</h3>
-                      <p className="text-sm opacity-90">{metric.description}</p>
-                    </div>
-                  ))}
-                </div>
-
-                <div className="divider">Task Details</div>
-
-                {renderTaskDetails(task)}
-
-                <div className="mt-6 flex flex-col sm:flex-row justify-end gap-4">
-                  {task.example_available && (
-                    <button
-                      onClick={() => openModal(task)}
-                      className="btn btn-outline w-full sm:w-auto"
-                    >
-                      🔍 View Example
-                    </button>
-                  )}
-                  {task.dataset_download && (
-                    <a
-                      href={task.dataset_link}
-                      target="_blank"
-                      rel="noopener noreferrer" 
-                      className="btn btn-primary w-full sm:w-auto"
-                    >
-                      📥 Download Dataset
-                    </a>
-                  )}
-                </div>
+        {/* Main content */}
+        <div className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+          {hasNoResults ? (
+            <div className="flex items-center justify-center h-full min-h-[calc(100vh-8rem)]">
+              <div className="text-center">
+                <p className="text-xl font-semibold text-base-content/60 mb-2">No tasks found</p>
+                <p className="text-sm text-base-content/40 mb-6">
+                  No tasks match "{searchQuery}". Try a different search term.
+                </p>
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="btn btn-sm btn-outline rounded-xl"
+                >
+                  Clear search
+                </button>
               </div>
             </div>
-          ))}
+          ) : (
+            <>
+          {/* Task header card */}
+          <div className="rounded-2xl bg-base-200/50 border border-base-300/50 p-6 sm:p-8 mb-8">
+            <div>
+              <div className="flex items-start justify-between gap-4 mb-4">
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-bold mb-2">
+                    {task.title}
+                  </h2>
+                  <p className="text-base-content/60 leading-relaxed max-w-2xl">
+                    {task.long_description}
+                  </p>
+                </div>
+              </div>
+              <div className="flex flex-wrap gap-3 mt-6">
+                {task.example_available && (
+                  <button
+                    onClick={() => openModal(task)}
+                    className="btn btn-sm btn-outline rounded-xl gap-2"
+                  >
+                    <Eye size={14} />
+                    View Example
+                  </button>
+                )}
+                {task.dataset_download && (
+                  <a
+                    href={task.dataset_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-sm btn-primary rounded-xl gap-2"
+                  >
+                    <Download size={14} />
+                    Download Dataset
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Metrics */}
+          <div className="mb-8">
+            <h3 className="text-sm font-semibold text-base-content/40 uppercase tracking-wider mb-4">
+              Evaluation Metrics
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {filteredMetrics.map((metric, idx) => (
+                <div
+                  key={idx}
+                  className="p-4 rounded-xl bg-base-200/50 border border-base-300/30 hover:border-primary/20 transition-colors"
+                >
+                  <h4 className="font-bold text-sm mb-1">{metric.name}</h4>
+                  <p className="text-xs text-base-content/50 leading-relaxed">
+                    {metric.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Task Details */}
+          <div>
+            <h3 className="text-sm font-semibold text-base-content/40 uppercase tracking-wider mb-4">
+              Task Details
+            </h3>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {renderTaskDetails(task).map((detail, idx) => (
+                <div
+                  key={idx}
+                  className="p-4 rounded-xl bg-base-200/50 border border-base-300/30"
+                >
+                  <span className="text-xs font-semibold text-primary uppercase tracking-wider">
+                    {detail.label}
+                  </span>
+                  <p className="mt-1 text-sm text-base-content/70">
+                    {detail.value}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+            </>
+          )}
         </div>
       </div>
 
+      {/* Example Modal */}
       <dialog id="example_modal" className="modal" onClick={closeModal}>
-        <div className="modal-box w-11/12 max-w-5xl">
+        <div className="modal-box w-11/12 max-w-5xl rounded-3xl">
           <div className="flex justify-between items-center mb-4">
-            <h3 className="text-xl font-semibold">{modalTitle}</h3>
+            <h3 className="text-xl font-bold">{modalTitle}</h3>
             <button
               onClick={copyToClipboard}
-              className="btn btn-sm btn-outline"
+              className="btn btn-sm btn-outline rounded-xl"
             >
               📋 Copy
             </button>

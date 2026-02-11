@@ -1,63 +1,67 @@
 {
-    "papers": [
-      {
-        "id": 1,
-        "title": "Leveraging LLMs for Dynamic IoT Systems Generation through Mixed-Initiative Interaction",
-        "authors": [
-          "Bassam Adnan",
-          "Sathvika Miryala",
-          "Aneesh Sambu",
-          "Karthik Vaidhyanathan",
-          "Martina De Sanctis",
-          "Romina Spalazzese"
-        ],
-        "year": "2025",
-        "abstract": "IoT systems face significant challenges in adapting to user needs, which are often under-specified and evolve with changing environmental contexts. To address these complexities, users should be able to explore possibilities, while IoT systems must learn and support users in the process of providing proper services, e.g., to serve novel experiences. The IoT-Together paradigm aims to meet this demand through the Mixed-Initiative Interaction (MII) paradigm that facilitates a collaborative synergy between users and IoT systems, enabling the co-creation of intelligent and adaptive solutions that are precisely aligned with user-defined goals...",
-        "arxivLink": "https://arxiv.org/abs/2502.00689",
-        "githubLink": "https://github.com/sa4s-serc/SAS_llm_query"
-      },
-      {
-        "id": 2,
-        "title": "LLMs for Generation of Architectural Components: An Exploratory Empirical Study in the Serverless World",
-        "authors": [
-          "Shrikara Arun*",
-          "Meghana Tedla*",
-          "Karthik Vaidhyanathan"
-        ],
-        "year": "2025",
-        "abstract": "Recently, the exponential growth in capability and pervasiveness of Large Language Models (LLMs) has led to significant work done in the field of code generation. However, this generation has been limited to code snippets. Going one step further, our desideratum is to automatically generate architectural components. This would not only speed up development time, but would also enable us to eventually completely skip the development phase, moving directly from design decisions to deployment...",
-        "arxivLink": "https://arxiv.org/abs/2502.02539",
-        "githubLink": "https://github.com/Meghanatedla/LLM-ComponentGen",
-        "conference": "IEEE International Conference on Software Architecture (ICSA) 2025"
-      },
-      {
-        "id": 3,
-        "title": "Can LLMs Generate Architectural Design Decisions? -An Exploratory Empirical study",
-        "authors": [
-          "Rudra Dhar",
-          "Karthik Vaidhyanathan",
-          "Vasudeva Varma"
-        ],
-        "year": "2024",
-        "abstract": "Architectural Knowledge Management (AKM) involves the organized handling of information related to architectural decisions and design within a project or organization. An essential artifact of AKM is the Architecture Decision Records (ADR), which documents key design decisions. ADRs are documents that capture decision context, decision made and various aspects related to a design decision, thereby promoting transparency, collaboration, and understanding...",
-        "arxivLink": "https://arxiv.org/abs/2403.01709",
-        "githubLink": "https://github.com/sa4s-serc/ArchAI_ADR/tree/main/"
-      },
-      {
-        "id": 4,
-        "title": "Enabling Architecture Traceability by LLM-based Architecture Component Name Extraction",
-        "authors": [
-          "Dominik Fuchß",
-          "Haoyu Liu", 
-          "Tobias Hey",
-          "Jan Keim",
-          "Anne Koziolek"
-        ],
-        "year": "2025",
-        "abstract": "Traceability Link Recovery (TLR) is an enabler for various software engineering tasks. One important task is the recovery of trace links between Software Architecture Documentation (SAD) and source code. Here, the main challenge is the semantic gap between the two artifact types. Recent research has shown that this semantic gap can be bridged by using Software Architecture Models (SAMs) as intermediates. However, the creation of SAMs is a manual and time-consuming task. This paper investigates the use of Large Language Models (LLMs) to extract component names as simple SAMs for TLR based on SAD and source code. By doing so, we aim to bridge the semantic gap between SAD and source code without the need for manual SAM creation. We compare our approach to the state-of-the-art TLR approaches TransArC and ArDoCode. TransArC is the currently best-performing approach for TLR between SAD and source code, but it requires SAMs as an additional artifact. Our evaluation shows that our approach performs comparable to TransArC (weighted average F1 with GPT-4o: 0.86 vs. TransArC's 0.87), while only needing the SAD and source code. Moreover, our approach significantly outperforms the best baseline that does not need SAMs (weighted average F1 with GPT-4o: 0.86 vs. ArDoCode's 0.62). In summary, our approach shows that LLMs can be used to make TLR between SAD and source code more applicable by extracting component names and omitting the need for manually created SAMs.",
-        "arxivLink": "https://ieeexplore.ieee.org/document/10752847",
-        "githubLink": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss",
-        "conference": "IEEE International Conference on Software Architecture (ICSA) 2025"
-      }
-    ]
-  }
+  "papers": [
+    {
+      "id": 1,
+      "title": "Leveraging LLMs for Dynamic IoT Systems Generation through Mixed-Initiative Interaction",
+      "authors": [
+        "Bassam Adnan",
+        "Sathvika Miryala",
+        "Aneesh Sambu",
+        "Karthik Vaidhyanathan",
+        "Martina De Sanctis",
+        "Romina Spalazzese"
+      ],
+      "year": "2025",
+      "abstract": "IoT systems face significant challenges in adapting to user needs, which are often under-specified and evolve with changing environmental contexts. To address these complexities, users should be able to explore possibilities, while IoT systems must learn and support users in the process of providing proper services, e.g., to serve novel experiences. The IoT-Together paradigm aims to meet this demand through the Mixed-Initiative Interaction (MII) paradigm that facilitates a collaborative synergy between users and IoT systems, enabling the co-creation of intelligent and adaptive solutions that are precisely aligned with user-defined goals...",
+      "arxivLink": "https://arxiv.org/abs/2502.00689",
+      "githubLink": "https://github.com/sa4s-serc/SAS_llm_query",
+      "citation": "@article{adnan2025leveraging,\n  title={Leveraging LLMs for Dynamic IoT Systems Generation through Mixed-Initiative Interaction},\n  author={Adnan, Bassam and Miryala, Sathvika and Sambu, Aneesh and Vaidhyanathan, Karthik and De Sanctis, Martina and Spalazzese, Romina},\n  journal={arXiv preprint arXiv:2502.00689},\n  year={2025}\n}"
+    },
+    {
+      "id": 2,
+      "title": "LLMs for Generation of Architectural Components: An Exploratory Empirical Study in the Serverless World",
+      "authors": [
+        "Shrikara Arun*",
+        "Meghana Tedla*",
+        "Karthik Vaidhyanathan"
+      ],
+      "year": "2025",
+      "abstract": "Recently, the exponential growth in capability and pervasiveness of Large Language Models (LLMs) has led to significant work done in the field of code generation. However, this generation has been limited to code snippets. Going one step further, our desideratum is to automatically generate architectural components. This would not only speed up development time, but would also enable us to eventually completely skip the development phase, moving directly from design decisions to deployment...",
+      "arxivLink": "https://arxiv.org/abs/2502.02539",
+      "githubLink": "https://github.com/Meghanatedla/LLM-ComponentGen",
+      "conference": "IEEE International Conference on Software Architecture (ICSA) 2025",
+      "citation": "@article{arun2025llms,\n  title={LLMs for Generation of Architectural Components: An Exploratory Empirical Study in the Serverless World},\n  author={Arun, Shrikara and Tedla, Meghana and Vaidhyanathan, Karthik},\n  journal={arXiv preprint arXiv:2502.02539},\n  year={2025}\n}"
+    },
+    {
+      "id": 3,
+      "title": "Can LLMs Generate Architectural Design Decisions? -An Exploratory Empirical study",
+      "authors": [
+        "Rudra Dhar",
+        "Karthik Vaidhyanathan",
+        "Vasudeva Varma"
+      ],
+      "year": "2024",
+      "abstract": "Architectural Knowledge Management (AKM) involves the organized handling of information related to architectural decisions and design within a project or organization. An essential artifact of AKM is the Architecture Decision Records (ADR), which documents key design decisions. ADRs are documents that capture decision context, decision made and various aspects related to a design decision, thereby promoting transparency, collaboration, and understanding...",
+      "arxivLink": "https://arxiv.org/abs/2403.01709",
+      "githubLink": "https://github.com/sa4s-serc/ArchAI_ADR",
+      "citation": "@inproceedings{dhar2024leveraging,\n  title={Leveraging Generative AI for Architecture Knowledge Management},\n  author={Dhar, Rudra and Vaidhyanathan, Karthik and Varma, Vasudeva},\n  booktitle={2024 IEEE 21st International Conference on Software Architecture Companion (ICSA-C)},\n  pages={163--166},\n  year={2024},\n  organization={IEEE}\n}"
+    },
+    {
+      "id": 4,
+      "title": "Enabling Architecture Traceability by LLM-based Architecture Component Name Extraction",
+      "authors": [
+        "Dominik Fuchß",
+        "Haoyu Liu",
+        "Tobias Hey",
+        "Jan Keim",
+        "Anne Koziolek"
+      ],
+      "year": "2025",
+      "abstract": "Traceability Link Recovery (TLR) is an enabler for various software engineering tasks. One important task is the recovery of trace links between Software Architecture Documentation (SAD) and source code. Here, the main challenge is the semantic gap between the two artifact types. Recent research has shown that this semantic gap can be bridged by using Software Architecture Models (SAMs) as intermediates. However, the creation of SAMs is a manual and time-consuming task. This paper investigates the use of Large Language Models (LLMs) to extract component names as simple SAMs for TLR based on SAD and source code...",
+      "arxivLink": "https://ieeexplore.ieee.org/document/10978943/",
+      "githubLink": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss",
+      "conference": "IEEE International Conference on Software Architecture (ICSA) 2025",
+      "citation": "D. Fuchß, H. Liu, T. Hey, J. Keim and A. Koziolek,\n  \"Enabling Architecture Traceability by LLM-based Architecture Component Name Extraction,\"\n  2025 IEEE 22nd International Conference on Software Architecture (ICSA),\n  Odense, Denmark, 2025, pp. 1-12, doi: 10.1109/ICSA65012.2025.00011.\n  keywords: {Bridges;Software architecture;Source coding;Large language models;Semantics;Manuals;Computer architecture;Documentation;Traceability Link Recovery;Large Language Models;Software Architecture;Model Extraction}"
+    }
+  ]
+}

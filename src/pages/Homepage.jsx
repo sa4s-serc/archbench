@@ -1,146 +1,299 @@
 import React from "react";
-import Introduction from "../components/Introduction";
 import adrGeneration from "../data/adrGenData.json";
 import dynamicData from "../data/dynamicGenData.json";
 import serverlessData from "../data/serverlessData.json";
 import traceabilityData from "../data/traceabilityData.json";
 import Footer from "../components/Footer";
+import ThemeSelector from "../components/ThemeSelector";
 import { useNavigate } from "react-router-dom";
+import {
+  Trophy,
+  ClipboardList,
+  BookOpen,
+  ArrowRight,
+  Sparkles,
+  BarChart3,
+  GitBranch,
+  Layers,
+  Send,
+  ChevronDown,
+} from "lucide-react";
 
 const Homepage = () => {
   const navigate = useNavigate();
 
-  const openSubmitModal = () => {
-    document.getElementById("submit_modal").showModal();
-  };
+  const totalSubmissions =
+    adrGeneration.entries.length +
+    dynamicData.entries.length +
+    serverlessData.entries.length +
+    traceabilityData.entries.length;
 
-  const closeModal = (e) => {
-    const modal = document.getElementById("submit_modal");
-    if (e.target === modal) {
-      modal.close();
-    }
-  };
+  const latestDate = new Date(
+    Math.max(
+      ...adrGeneration.entries.map((e) => new Date(e.date).getTime()),
+      ...serverlessData.entries.map((e) => new Date(e.date).getTime()),
+      ...dynamicData.entries.map((e) => new Date(e.date).getTime()),
+      ...traceabilityData.entries.map((e) => new Date(e.date).getTime())
+    )
+  )
+    .toISOString()
+    .split("T")[0];
+
+  const categories = [
+    {
+      icon: Layers,
+      title: "ADR Generation",
+      desc: "Evaluate LLMs on generating Architecture Decision Records from documentation.",
+    },
+    {
+      icon: GitBranch,
+      title: "Serverless Functions",
+      desc: "Benchmark code generation for serverless architectural components.",
+    },
+    {
+      icon: Sparkles,
+      title: "Dynamic Services",
+      desc: "Assess dynamic IoT service generation through mixed-initiative interaction.",
+    },
+    {
+      icon: BarChart3,
+      title: "Architecture Traceability",
+      desc: "Trace links between architecture documentation, models, and source code.",
+    },
+  ];
 
   return (
     <>
-      <div className="min-h-screen bg-base-100">
-        <Introduction />
-
-        <div className="max-w-7xl mx-auto px-4 py-12">
-          <div className="stats stats-vertical lg:stats-horizontal shadow w-full">
-            <div className="stat">
-              <div className="stat-title">Total Submissions</div>
-              <div className="stat-value">
-                {adrGeneration.entries.length + dynamicData.entries.length + serverlessData.entries.length + traceabilityData.entries.length}
+      <div className="min-h-screen bg-base-100 overflow-hidden">
+        {/* Floating navbar */}
+        <nav className="fixed top-0 left-0 right-0 z-50">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 py-4">
+            <div className="flex items-center justify-between bg-base-200/70 backdrop-blur-xl rounded-2xl px-6 py-3 border border-base-300/50 shadow-lg">
+              <div className="flex items-center gap-2">
+                <img
+                  src="/sa4s_logo_final.svg"
+                  alt="SA4S Logo"
+                  className="h-8 w-8 rounded-lg"
+                />
+                <span className="font-bold text-lg tracking-tight">
+                  ArchBench
+                </span>
               </div>
-              <div className="stat-desc">Across all categories</div>
-            </div>
-
-            <div className="stat">
-              <div className="stat-title">Latest Submission</div>
-              <div className="stat-value text-accent">
-                {
-                  new Date(
-                    Math.max(
-                      ...adrGeneration.entries.map((e) =>
-                        new Date(e.date).getTime()
-                      ),
-                      ...serverlessData.entries.map((e) =>
-                        new Date(e.date).getTime()
-                      ),
-                      ...dynamicData.entries.map((e) =>
-                        new Date(e.date).getTime()
-                      ),
-                      ...traceabilityData.entries.map((e) =>
-                        new Date(e.date).getTime()
-                      )
-                    )
-                  )
-                    .toISOString()
-                    .split("T")[0]
-                }
-              </div>
-            </div>
-
-            <div className="stat">
-              <div className="stat-title">Categories</div>
-              <div className="stat-value">4</div>
-              <div className="stat-desc">
-                ADR Generation, Serverless Component Generation, Dynamic Service
-                Generation & Architecture Traceability
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => navigate("/leaderboard")}
+                  className="hidden sm:inline-flex btn btn-ghost btn-sm rounded-xl"
+                >
+                  Leaderboard
+                </button>
+                <button
+                  onClick={() => navigate("/tasks")}
+                  className="hidden sm:inline-flex btn btn-ghost btn-sm rounded-xl"
+                >
+                  Tasks
+                </button>
+                <button
+                  onClick={() => navigate("/papers")}
+                  className="hidden sm:inline-flex btn btn-ghost btn-sm rounded-xl"
+                >
+                  Papers
+                </button>
+                <button
+                  onClick={() => navigate("/about")}
+                  className="hidden sm:inline-flex btn btn-ghost btn-sm rounded-xl"
+                >
+                  About
+                </button>
+                <button
+                  onClick={() => navigate("/contribute")}
+                  className="hidden sm:inline-flex btn btn-ghost btn-sm rounded-xl"
+                >
+                  Contribute
+                </button>
+                <ThemeSelector />
               </div>
             </div>
           </div>
-        </div>
-        <div className="bg-base-200 py-12 text-center">
-          <div className="text-center flex-1 order-1 lg:order-2">
-            <h2 className="text-3xl font-bold mb-6">Looking to Contribute?</h2>
-            <p className="mb-8 text-lg">
-              Join our benchmark and help advance software architecture research
+        </nav>
+
+        {/* Hero Section */}
+        <section className="relative min-h-screen flex items-center justify-center px-4 sm:px-6">
+          {/* Subtle dot grid background */}
+          <div className="absolute inset-0 pointer-events-none">
+            <div className="absolute inset-0 bg-[radial-gradient(circle,_oklch(var(--bc)/0.069)_2px,_transparent_1px)] bg-[size:32px_32px]" />
+          </div>
+
+          <div className="relative max-w-5xl mx-auto text-center">
+            {/* Logos row */}
+            {/* <div className="flex items-center justify-center gap-6 sm:gap-10 mb-10 animate-fade-in-up">
+              <a href="https://serc.iiit.ac.in/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                <img src="/serc_logo_final.svg" alt="SERC" className="h-14 sm:h-20 w-auto" />
+              </a>
+              <div className="w-px h-12 bg-base-content/10" />
+              <a href="https://sa4s-serc.github.io/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                <img src="/sa4s_logo_final.svg" alt="SA4S" className="h-14 sm:h-20 w-auto" />
+              </a>
+              <div className="w-px h-12 bg-base-content/10" />
+              <a href="https://www.iiit.ac.in/" target="_blank" rel="noopener noreferrer" className="hover:opacity-80 transition-opacity">
+                <img src="/iiit_logo_final.svg" alt="IIIT Hyderabad" className="h-14 sm:h-20 w-auto" />
+              </a>
+            </div> */}
+
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/8 border border-primary/15 text-primary text-sm font-medium mb-8 animate-fade-in-up animation-delay-200">
+              <Sparkles size={14} />
+              Software Architecture Research Benchmark
+            </div>
+
+            {/* Main heading */}
+            <h1 className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight mb-6 animate-fade-in-up animation-delay-400">
+              <span className="text-base-content">
+                ArchBench
+              </span>
+            </h1>
+
+            {/* Subtitle */}
+            <p className="text-lg sm:text-xl text-base-content/50 max-w-2xl mx-auto mb-10 leading-relaxed animate-fade-in-up animation-delay-600">
+              A comprehensive benchmark for software architecture tasks.
+              <br />
+              Explore leaderboards, compare approaches, and advance the field.
             </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <button className="btn btn-primary" onClick={openSubmitModal}>
-                Submit Results
-              </button>
+
+            {/* CTA buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4 animate-fade-in-up animation-delay-800">
               <button
-                className="btn btn-outline"
+                className="btn btn-primary btn-lg rounded-2xl gap-2 px-8 shadow-md hover:shadow-lg transition-shadow"
                 onClick={() => navigate("/leaderboard")}
               >
-                View Leaderboard →
+                <Trophy size={20} />
+                Explore Leaderboard
+              </button>
+              <button
+                className="btn btn-ghost btn-lg rounded-2xl gap-2 border border-base-300 hover:border-base-content/20 bg-base-100"
+                onClick={() => navigate("/tasks")}
+              >
+                View Tasks
+                <ArrowRight size={18} />
               </button>
             </div>
-          </div>
-        </div>
-      </div>
-      <Footer />
 
-      {/* Submission Modal */}
-      <dialog id="submit_modal" className="modal" onClick={closeModal}>
-        <div className="modal-box w-11/12 max-w-5xl">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-xl font-semibold">Submission Instructions</h3>
-            <form method="dialog">
-              <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                ✕
-              </button>
-            </form>
-          </div>
-          <div className="prose max-w-none">
-            <h3>How to Submit Your Results</h3>
-            <p>
-              To make a submission to our benchmark, please contact us via email
-              at:
-            </p>
-            <div className="bg-base-200 p-4 my-4 rounded-lg text-center">
-              <span className="font-semibold text-lg">bassam.adnan@research.iiit.ac.in</span>
+            {/* Stats row */}
+            <div className="flex justify-center gap-4 max-w-lg mx-auto mt-16 animate-fade-in-up animation-delay-800">
+              <div className="text-center px-4 flex-shrink-0">
+                <div className="text-3xl sm:text-4xl font-extrabold text-base-content">
+                  {totalSubmissions}
+                </div>
+                <div className="text-xs text-base-content/40 mt-1 uppercase tracking-wider">
+                  Total Submissions
+                </div>
+              </div>
+              <div className="text-center px-4 border-x border-base-content/10 flex-shrink-0">
+                <div className="text-3xl sm:text-4xl font-extrabold text-base-content">
+                  4
+                </div>
+                <div className="text-xs text-base-content/40 mt-1 uppercase tracking-wider">
+                  Categories
+                </div>
+              </div>
+              <div className="text-center px-4 whitespace-nowrap flex-shrink-0">
+                <div className="text-3xl sm:text-4xl font-extrabold text-base-content">
+                  {new Date(latestDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                </div>
+                <div className="text-xs text-base-content/40 mt-1 uppercase tracking-wider">
+                  Last Updated
+                </div>
+              </div>
             </div>
-            <p>
-              Please include the following information in your submission email:
-            </p>
-            <ul>
-              <li>
-                Task category (ADR Generation, Serverless Component Generation, Dynamic Service Generation, or Architecture Traceability)
-              </li>
-              <li>Team or organization name</li>
-              <li>Brief description of your approach</li>
-              <li>Performance metrics</li>
-              <li>Link to your implementation (if publicly available)</li>
-            </ul>
-            <p>
-              We review all submissions and will contact
-              you if we need any additional information.
-            </p>
-            <div className="mt-6 bg-base-200 p-4 rounded-lg">
-              <p className="font-semibold">Important Note:</p>
-              <p className="text-sm mt-2">
-                All submissions will be properly cited in our website. 
-                Please ensure your submission is original work and does not contain 
-                plagiarized material.
+          </div>
+
+          {/* Scroll indicator */}
+          <div className="absolute bottom-8 left-1/2 -translate-x-1/2">
+            <button
+              onClick={() =>
+                document.getElementById("categories").scrollIntoView({ behavior: "smooth" })
+              }
+              className="flex flex-col items-center gap-1 text-base-content/30 hover:text-base-content/50 transition-colors"
+            >
+              <span className="text-xs uppercase tracking-widest">Explore</span>
+              <ChevronDown size={18} className="animate-bounce" />
+            </button>
+          </div>
+        </section>
+
+        {/* Categories Section */}
+        <section id="categories" className="relative py-24 px-4 sm:px-6">
+          <div className="max-w-6xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-sm font-semibold text-primary uppercase tracking-widest mb-3">
+                What We Evaluate
+              </h2>
+              <h3 className="text-3xl sm:text-4xl font-bold mb-4">
+                Benchmark Categories
+              </h3>
+              <p className="text-base-content/50 max-w-xl mx-auto">
+                Evaluate approaches across the various dimensions of software architecture.
               </p>
             </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {categories.map((cat, idx) => {
+                const Icon = cat.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="group relative p-6 rounded-2xl bg-base-200/50 border border-base-300/50 hover:border-primary/20 hover:shadow-md transition-all duration-300 cursor-pointer"
+                    onClick={() => navigate("/tasks")}
+                  >
+                    <div className="w-11 h-11 rounded-xl bg-primary/10 flex items-center justify-center mb-4 group-hover:bg-primary/15 transition-colors">
+                      <Icon size={20} className="text-primary" />
+                    </div>
+                    <h4 className="text-lg font-bold mb-2">{cat.title}</h4>
+                    <p className="text-sm text-base-content/50 leading-relaxed">
+                      {cat.desc}
+                    </p>
+                    <ArrowRight
+                      size={16}
+                      className="absolute top-6 right-6 text-base-content/15 group-hover:text-primary group-hover:translate-x-1 transition-all"
+                    />
+                  </div>
+                );
+              })}
+            </div>
           </div>
-        </div>
-      </dialog>
+        </section>
+
+        {/* CTA Section */}
+        <section className="relative py-24 px-4 sm:px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="relative overflow-hidden rounded-3xl bg-base-200 border border-base-300/50 p-8 sm:p-12 text-center">
+              <div className="relative">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary/8 text-primary text-xs font-medium mb-6 border border-primary/20">
+                  <Send size={12} />
+                  Open for Submissions
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-bold mb-4">
+                  Ready to Contribute?
+                </h2>
+                <p className="text-base-content/50 max-w-lg mx-auto mb-8">
+                  Join the benchmark and help advance software architecture
+                  research. Submit your results and compare with state-of-the-art
+                  approaches.
+                </p>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                  <button
+                    className="btn btn-primary rounded-2xl gap-2 px-6"
+                    onClick={() => navigate("/contribute")}
+                  >
+                    <Send size={16} />
+                    Contribute
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <Footer />
     </>
   );
 };
