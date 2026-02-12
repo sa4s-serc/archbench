@@ -50,10 +50,6 @@ const Contribute = () => {
                         </ol>
                     </div>
 
-                    <div className="rounded-xl bg-base-200/30 border border-base-300/30 p-6">
-                        <h2 className="text-xl font-bold mb-3">Contact</h2>
-                        <p className="text-sm text-base-content/80">For questions or discussions, please open an issue on the appropriate GitHub repository or reach out to us at <a href="mailto:sa4s@gmail.com" className="link link-primary">sa4s@gmail.com</a>.</p>
-                    </div>
                 </div>
             </div>
         </>

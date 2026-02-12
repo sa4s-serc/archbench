@@ -1,7 +1,7 @@
 {
   "title": "Architecture Traceability Link Recovery",
-  "short_description": "Evaluation of LLMs' capability to recover traceability links between software architecture documentation and source code using component name extraction",
-  "long_description": "This benchmark evaluates the effectiveness of Large Language Models in recovering traceability links between Software Architecture Documentation (SAD) and source code. The approach leverages LLMs to extract component names as simple Software Architecture Models (SAMs) to bridge the semantic gap between documentation and code. Using the TransArC methodology, the benchmark tests whether LLM-extracted component names can enable transitive traceability link recovery without requiring manually created architecture models. The evaluation covers four distinct traceability scenarios: direct documentation-to-code linking, documentation-to-component model linking, component model-to-code linking, and transitive documentation-to-code linking with intermediate models.",
+  "short_description": "Recover traceability links between software architecture documentation and source code.",
+  "long_description": "Given Software Architecture Documentation (SAD) and a source code repository, recover the traceability links between documentation sentences and code artifacts. Approaches may extract component names from documentation (SAD-extracted), from source code (Code-extracted), or use manual/automated baselines. The benchmark covers four traceability scenarios: direct SAD-to-code linking, SAD-to-component model linking, component model-to-code linking, and transitive SAD-to-code linking with intermediate models. Submissions are evaluated on Precision, Recall, F1-Score, and Weighted Average F1 across 5 open-source projects.",
   "paper_link": "https://ieeexplore.ieee.org/document/10752847",
   "github_link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss",
   "metrics": [

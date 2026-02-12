@@ -1,7 +1,7 @@
 {
   "title": "Architectural Design Records Generation",
-  "short_description": "Evaluation of Large Language Models' capability to generate Architectural Design Records from decision contexts",
-  "long_description": "An empirical study exploring the feasibility of using Large Language Models (LLMs) for generating Architecture Decision Records (ADRs). The study evaluates different approaches including zero-shot, few-shot, and fine-tuning to generate ADR Decisions from given Contexts. This research addresses the challenge of slow ADR adoption in software development by investigating how LLMs can assist in automating the documentation of architectural decisions, promoting better Architectural Knowledge Management (AKM).",
+  "short_description": "Generate Architecture Decision Records (ADRs) from given decision contexts.",
+  "long_description": "Given an architectural decision context, generate the corresponding Architecture Decision Record (ADR) capturing the decision made, its rationale, and consequences. Submissions are evaluated using text similarity metrics (ROUGE, BLEU, METEOR) and semantic similarity (BERTScore) against ground-truth ADRs. Approaches may include zero-shot, few-shot, or fine-tuned generation strategies.",
   "paper_link": "https://arxiv.org/abs/2403.01709",
   "metrics": [
     { 
@@ -39,7 +39,7 @@
       "bertscore_r": 0.851,
       "bertscore_f1": 0.849,
       "date": "2024-03-04",
-      "link": null
+      "link": "https://github.com/sa4s-serc/ArchAI_ADR"
     },
     {
       "name": "GPT-3.5-davinci-003 (few-shot)", 
@@ -50,7 +50,7 @@
       "bertscore_r": 0.851,
       "bertscore_f1": 0.849,
       "date": "2024-03-04",
-      "link": null
+      "link": "https://github.com/sa4s-serc/ArchAI_ADR"
     },
     {
       "name": "Flan-T5-base (fine-tuned)", 
@@ -61,7 +61,7 @@
       "bertscore_r": 0.841,
       "bertscore_f1": 0.841,
       "date": "2024-03-04",
-      "link": null
+      "link": "https://github.com/sa4s-serc/ArchAI_ADR"
     },
     {
       "name": "T0-3b (0-shot)", 
@@ -72,7 +72,7 @@
       "bertscore_r": 0.823,
       "bertscore_f1": 0.839,
       "date": "2024-03-04",
-      "link": null
+      "link": "https://github.com/sa4s-serc/ArchAI_ADR"
     }
   ],
   "type": "adr",

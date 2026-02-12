@@ -1,7 +1,7 @@
 {
   "title": "Architectural Component Generation",
-  "short_description": "Evaluation of LLMs' capability to generate architectural components for Functions as a Service (FaaS). Here, 'Int' reffers to intervention.",
-  "long_description": "This exploratory study examines the potential of Large Language Models (LLMs) to generate architectural components, specifically Functions as a Service (FaaS) or serverless functions. The primary goal of the study is to extend the application of LLM-generated code from simple snippets to complete architectural components. Using the Wonderless dataset, this study filters repositories based on test coverage, GitHub stars, and forks, ensuring representation in JavaScript, TypeScript, and Python. To generate serverless functions, it employs structured prompts, codebase summaries, and function descriptions created using Gemini. The study explores multiple LLMs and generation approaches, including zero-shot with README, zero-shot with codebase summarization, and few-shot with codebase summarization. This research aims to investigate the feasibility of LLM-driven architectural component generation based on architectural design decisions, demonstrating its potential to streamline serverless application development while maintaining functionality and quality.",
+  "short_description": "Generate complete serverless functions (FaaS) from specifications and codebase context.",
+  "long_description": "Given a serverless function specification, codebase summary, and function description, generate a complete Functions-as-a-Service (FaaS) implementation. The dataset spans repositories in JavaScript, TypeScript, and Python from the Wonderless dataset. Submissions are evaluated in two settings: without human intervention (testing generated code directly) and with intervention (after human review and modification). Metrics include codebase-level and function-level test pass rates, code quality measures (SLOC, cyclomatic/cognitive complexity, Halstead volume), and CodeBLEU similarity to the original implementation.",
   "paper_link": "https://arxiv.org/abs/2502.02539",
   "metrics": [
     { 
@@ -50,7 +50,7 @@
         "function_tests": 71
       },
       "date": "2024-02-04",
-      "link": null
+      "link": "https://github.com/Meghanatedla/LLM-ComponentGen"
     },
     {
       "name": "GPT-4",
@@ -68,7 +68,7 @@
         "function_tests": 50
       },
       "date": "2024-02-04",
-      "link": null
+      "link": "https://github.com/Meghanatedla/LLM-ComponentGen"
     },
     {
       "name": "GPT-3.5-Turbo",
@@ -86,7 +86,7 @@
         "function_tests": 64
       },
       "date": "2024-02-04",
-      "link": null
+      "link": "https://github.com/Meghanatedla/LLM-ComponentGen"
     },
     {
       "name": "CodeQwen1.5-7B-Chat",
@@ -104,7 +104,7 @@
         "function_tests": 33
       },
       "date": "2024-02-04",
-      "link": null
+      "link": "https://github.com/Meghanatedla/LLM-ComponentGen"
     },
     {
       "name": "Artigenz-Coder-DS-6.7B",
@@ -122,7 +122,7 @@
         "function_tests": 0
       },
       "date": "2024-02-04",
-      "link": null
+      "link": "https://github.com/Meghanatedla/LLM-ComponentGen"
     }
   ],
   "type": "serverless",

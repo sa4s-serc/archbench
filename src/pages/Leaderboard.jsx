@@ -4,6 +4,7 @@ import adrGeneration from "../data/adrGenData.json";
 import serverlessData from "../data/serverlessData.json";
 import dynamicData from "../data/dynamicGenData.json";
 import traceabilityData from "../data/traceabilityData.json";
+import microserviceData from "../data/microserviceData.json";
 import { sortData, getSortIcon } from "../utils/sorting";
 import TopBar from "../components/TopBar";
 import {
@@ -11,6 +12,7 @@ import {
   GitBranch,
   Sparkles,
   BarChart3,
+  Boxes,
   ChevronRight,
   ExternalLink,
   ClipboardList,
@@ -24,11 +26,15 @@ const taskMeta = [
   { key: "serverless", icon: GitBranch, color: "from-purple-500 to-pink-400", data: serverlessData },
   { key: "dynamic", icon: Sparkles, color: "from-orange-500 to-yellow-400", data: dynamicData },
   { key: "traceability", icon: BarChart3, color: "from-green-500 to-emerald-400", data: traceabilityData },
+  { key: "microservice", icon: Boxes, color: "from-red-500 to-rose-400", data: microserviceData },
 ];
 
 const Leaderboard = () => {
   const navigate = useNavigate();
   const [selectedIdx, setSelectedIdx] = useState(0);
+  const [microserviceView, setMicroserviceView] = useState("incremental");
+  const [serverlessView, setServerlessView] = useState("no_intervention");
+  const [traceabilityView, setTraceabilityView] = useState("all");
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [searchQuery, setSearchQuery] = useState("");
   const [categorySearchQuery, setCategorySearchQuery] = useState("");
@@ -51,6 +57,17 @@ const Leaderboard = () => {
         codebleu: entry.no_intervention.codebleu,
       }));
     }
+    if (key === "microservice") {
+      return entries.map((entry) => ({
+        ...entry,
+        inc_p1: entry.incremental.test_pass_rate_p1,
+        inc_p2: entry.incremental.test_pass_rate_p2,
+        cs_p1: entry.clean_state.test_pass_rate_p1,
+        cs_p2: entry.clean_state.test_pass_rate_p2,
+        avg_time_min: entry.avg_time_min,
+        avg_cost_usd: entry.avg_cost_usd,
+      }));
+    }
     return entries;
   };
 
@@ -65,6 +82,9 @@ const Leaderboard = () => {
     setSortConfig({ key: null, direction: "asc" });
     setSearchQuery("");
     setCategorySearchQuery("");
+    setMicroserviceView("incremental");
+    setServerlessView("no_intervention");
+    setTraceabilityView("all");
   };
 
   const handleSort = (key) => {
@@ -75,16 +95,20 @@ const Leaderboard = () => {
 
   const getMetrics = (task) => {
     if (task === "serverless") {
+      if (serverlessView === "no_intervention") {
+        return [
+          { name: "Codebase Tests", key: "codebase_tests_no_intervention" },
+          { name: "Function Tests", key: "function_tests_no_intervention" },
+          { name: "Avg SLOC", key: "source_lines_of_code" },
+          { name: "Avg Cyclomatic", key: "cyclomatic_complexity" },
+          { name: "Avg Cognitive", key: "cognitive_complexity" },
+          { name: "Avg Halstead", key: "halstead_volume" },
+          { name: "Avg CodeBLEU", key: "codebleu" },
+        ];
+      }
       return [
-        { name: "Codebase Tests (No Int.)", key: "codebase_tests_no_intervention" },
-        { name: "Function Tests (No Int.)", key: "function_tests_no_intervention" },
-        { name: "Codebase Tests (With Int.)", key: "codebase_tests_with_intervention" },
-        { name: "Function Tests (With Int.)", key: "function_tests_with_intervention" },
-        { name: "Avg SLOC (No Int.)", key: "source_lines_of_code" },
-        { name: "Avg Cyclomatic (No Int.)", key: "cyclomatic_complexity" },
-        { name: "Avg Cognitive (No Int.)", key: "cognitive_complexity" },
-        { name: "Avg Halstead (No Int.)", key: "halstead_volume" },
-        { name: "Avg CodeBLEU (No Int.)", key: "codebleu" },
+        { name: "Codebase Tests", key: "codebase_tests_with_intervention" },
+        { name: "Function Tests", key: "function_tests_with_intervention" },
       ];
     }
     if (task === "architecture") {
@@ -103,6 +127,22 @@ const Leaderboard = () => {
         { name: "Recall", key: "recall" },
         { name: "F1-Score", key: "f1" },
         { name: "Weighted Avg F1", key: "weighted_avg_f1" },
+      ];
+    }
+    if (task === "microservice") {
+      if (microserviceView === "incremental") {
+        return [
+          { name: "Test Pass Rate (P1)", key: "inc_p1" },
+          { name: "Test Pass Rate (P2)", key: "inc_p2" },
+          { name: "Avg Time (min)", key: "avg_time_min" },
+          { name: "Avg Cost ($)", key: "avg_cost_usd" },
+        ];
+      }
+      return [
+        { name: "Test Pass Rate (P1)", key: "cs_p1" },
+        { name: "Test Pass Rate (P2)", key: "cs_p2" },
+        { name: "Avg Time (min)", key: "avg_time_min" },
+        { name: "Avg Cost ($)", key: "avg_cost_usd" },
       ];
     }
     return taskData.metrics.map((metric) => ({
@@ -125,10 +165,17 @@ const Leaderboard = () => {
   const displayTask = taskMeta[displayIdx];
   const displayTableData = tableData;
 
-  // Filter table entries by category search query (within the selected category)
-  const filteredData = displayTableData.filter((entry) =>
-    entry.name.toLowerCase().includes(categorySearchQuery.toLowerCase())
-  );
+  // Filter table entries by category search query and traceability approach
+  const filteredData = displayTableData.filter((entry) => {
+    if (!entry.name.toLowerCase().includes(categorySearchQuery.toLowerCase())) return false;
+    if (selectedTask === "traceability" && traceabilityView !== "all") {
+      const approach = entry.approach || "";
+      if (traceabilityView === "sad") return approach.includes("from documentation");
+      if (traceabilityView === "code") return approach.includes("from source code");
+      if (traceabilityView === "baseline") return approach.includes("Manual") || approach.includes("Direct");
+    }
+    return true;
+  });
 
   const getRankBadge = (index) => {
     if (index === 0) return <span className="text-yellow-500">🥇</span>;
@@ -194,23 +241,6 @@ const Leaderboard = () => {
               );
             })}
           </div>
-
-          {/* Metric info */}
-          {/* <div className="p-4 border-t border-base-300/50 mt-auto">
-            <p className="text-xs text-base-content/40 uppercase tracking-wider font-medium px-3 mt-4 mb-3">
-              Metrics
-            </p>
-            <div className="space-y-1.5 px-3 max-h-48 overflow-y-auto">
-              {displayTask.data.metrics.map((metric) => (
-                <div key={metric.name} className="group">
-                  <p className="text-xs font-medium text-base-content/70">{metric.name}</p>
-                  <p className="text-[10px] text-base-content/40 leading-snug">
-                    {metric.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div> */}
         </aside>
 
         {/* Mobile category selector */}
@@ -266,9 +296,9 @@ const Leaderboard = () => {
                   <p className="text-sm text-base-content/50">
                     {displayTask.data.short_description}
                   </p>
+                </div>
               </div>
             </div>
-          </div>
 
           {/* Leaderboard Entry Searchbar */}
           <div className="mb-6">
@@ -295,6 +325,83 @@ const Leaderboard = () => {
               )}
             </div>
           </div>
+
+          {/* Microservice scenario toggle */}
+          {selectedTask === "microservice" && (
+            <div className="flex gap-2 mb-4">
+              {[
+                { key: "incremental", label: "Incremental" },
+                { key: "clean_state", label: "Clean State" },
+              ].map((view) => (
+                <button
+                  key={view.key}
+                  onClick={() => {
+                    setMicroserviceView(view.key);
+                    setSortConfig({ key: null, direction: "asc" });
+                  }}
+                  className={`px-4 py-1.5 rounded-xl text-xs font-medium transition-all ${
+                    microserviceView === view.key
+                      ? "bg-primary/10 text-primary border border-primary/20"
+                      : "text-base-content/50 border border-base-300/50 hover:bg-base-200/50"
+                  }`}
+                >
+                  {view.label}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Serverless intervention toggle */}
+          {selectedTask === "serverless" && (
+            <div className="flex gap-2 mb-4">
+              {[
+                { key: "no_intervention", label: "No Intervention" },
+                { key: "with_intervention", label: "With Intervention" },
+              ].map((view) => (
+                <button
+                  key={view.key}
+                  onClick={() => {
+                    setServerlessView(view.key);
+                    setSortConfig({ key: null, direction: "asc" });
+                  }}
+                  className={`px-4 py-1.5 rounded-xl text-xs font-medium transition-all ${
+                    serverlessView === view.key
+                      ? "bg-primary/10 text-primary border border-primary/20"
+                      : "text-base-content/50 border border-base-300/50 hover:bg-base-200/50"
+                  }`}
+                >
+                  {view.label}
+                </button>
+              ))}
+            </div>
+          )}
+
+          {/* Traceability approach toggle */}
+          {selectedTask === "traceability" && (
+            <div className="flex gap-2 mb-4 flex-wrap">
+              {[
+                { key: "all", label: "All" },
+                { key: "sad", label: "SAD-extracted" },
+                { key: "code", label: "Code-extracted" },
+                { key: "baseline", label: "Baselines" },
+              ].map((view) => (
+                <button
+                  key={view.key}
+                  onClick={() => {
+                    setTraceabilityView(view.key);
+                    setSortConfig({ key: null, direction: "asc" });
+                  }}
+                  className={`px-4 py-1.5 rounded-xl text-xs font-medium transition-all ${
+                    traceabilityView === view.key
+                      ? "bg-primary/10 text-primary border border-primary/20"
+                      : "text-base-content/50 border border-base-300/50 hover:bg-base-200/50"
+                  }`}
+                >
+                  {view.label}
+                </button>
+              ))}
+            </div>
+          )}
 
           {/* Table */}
           <div className="rounded-2xl border border-base-300/50 overflow-hidden">

@@ -58,10 +58,28 @@
       ],
       "year": "2025",
       "abstract": "Traceability Link Recovery (TLR) is an enabler for various software engineering tasks. One important task is the recovery of trace links between Software Architecture Documentation (SAD) and source code. Here, the main challenge is the semantic gap between the two artifact types. Recent research has shown that this semantic gap can be bridged by using Software Architecture Models (SAMs) as intermediates. However, the creation of SAMs is a manual and time-consuming task. This paper investigates the use of Large Language Models (LLMs) to extract component names as simple SAMs for TLR based on SAD and source code...",
-      "arxivLink": "https://ieeexplore.ieee.org/document/10978943/",
-      "githubLink": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss",
+      "arxivLink": "https://link.springer.com/chapter/10.1007/978-3-031-36889-9_30",
+      "paperLinkLabel": "Paper",
+      "githubLink": "https://github.com/ardoco/benchmark",
       "conference": "IEEE International Conference on Software Architecture (ICSA) 2025",
       "citation": "D. Fuchß, H. Liu, T. Hey, J. Keim and A. Koziolek,\n  \"Enabling Architecture Traceability by LLM-based Architecture Component Name Extraction,\"\n  2025 IEEE 22nd International Conference on Software Architecture (ICSA),\n  Odense, Denmark, 2025, pp. 1-12, doi: 10.1109/ICSA65012.2025.00011.\n  keywords: {Bridges;Software architecture;Source coding;Large language models;Semantics;Manuals;Computer architecture;Documentation;Traceability Link Recovery;Large Language Models;Software Architecture;Model Extraction}"
+    },
+    {
+      "id": 5,
+      "title": "Can AI Agents Generate Microservices? How Far are We?",
+      "authors": [
+        "Bassam Adnan",
+        "Matteo Esposito",
+        "Davide Taibi",
+        "Karthik Vaidhyanathan"
+      ],
+      "year": "2026",
+      "abstract": "LLMs have advanced code generation, but their use for generating microservices with explicit dependencies and API contracts remains understudied. This study examines whether AI agents can generate functional microservices and how different forms of contextual information influence their performance. We assess 144 generated microservices across 3 agents, 4 projects, 2 prompting strategies, and 2 scenarios. Incremental generation operates within existing systems and is evaluated with unit tests. Clean state generation starts from requirements alone and is evaluated with integration tests. We analyze functional correctness, code quality, and efficiency. Results show that minimal prompts outperformed detailed ones in incremental generation, with 50-76% unit test pass rates. Clean state generation produced higher integration test pass rates (81-98%), indicating strong API contract adherence. Generated code showed lower complexity than human baselines. Generation times varied widely across agents, averaging 6-16 minutes per service.",
+      "arxivLink": "https://www.researchgate.net/publication/400577311_Can_AI_Agents_Generate_Microservices_How_Far_are_We",
+      "paperLinkLabel": "Paper",
+      "githubLink": "https://doi.org/10.5281/zenodo.17863951",
+      "repoLinkLabel": "Dataset",
+      "citation": "@article{adnan2026microservice,\n  title={Can AI Agents Generate Microservices? How Far are We?},\n  author={Adnan, Bassam and Esposito, Matteo and Taibi, Davide and Vaidhyanathan, Karthik},\n  year={2026}\n}"
     }
   ]
 }

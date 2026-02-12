@@ -1,0 +1,96 @@
+{
+  "title": "Microservice Generation",
+  "short_description": "Generate complete microservice implementations from requirements and codebase context.",
+  "long_description": "Given a microservice specification and project context, generate a complete, functional microservice implementation including controllers, services, data models, configuration, and tests. Two generation scenarios are supported: Incremental (target service removed but surrounding codebase remains, evaluated with unit tests) and Clean State (all traces removed, generate from requirements alone, evaluated with integration tests). Two prompting strategies are available: minimal context (P1) and detailed implementation summary (P2). Submissions are evaluated on test pass rates, code quality (SLOC, cyclomatic/cognitive complexity), and efficiency (time, cost, tokens).",
+  "paper_link": "https://www.researchgate.net/publication/400577311_Can_AI_Agents_Generate_Microservices_How_Far_are_We",
+  "metrics": [
+    {
+      "name": "Test Pass Rate",
+      "description": "Percentage of test cases passed - unit tests for incremental, integration tests for clean state generation"
+    },
+    {
+      "name": "Source Lines of Code (SLOC)",
+      "description": "Quantifies program size by counting lines containing source code"
+    },
+    {
+      "name": "Cyclomatic Complexity",
+      "description": "Measures control flow complexity and testability of the generated microservice code"
+    },
+    {
+      "name": "Cognitive Complexity",
+      "description": "Measures code understandability of the generated microservice implementation"
+    },
+    {
+      "name": "Generation Time",
+      "description": "Total time from generation start to completion in minutes"
+    },
+    {
+      "name": "Generation Cost",
+      "description": "Associated monetary costs based on each agent's pricing model using API pricing"
+    }
+  ],
+  "entries": [
+    {
+      "name": "Claude Code",
+      "incremental": {
+        "test_pass_rate_p1": 73.7,
+        "test_pass_rate_p2": 63.2
+      },
+      "clean_state": {
+        "test_pass_rate_p1": 96.9,
+        "test_pass_rate_p2": 97.8
+      },
+      "avg_time_min": 7.8,
+      "avg_cost_usd": 13.28,
+      "avg_input_tokens_k": 4416,
+      "avg_output_tokens_k": 2.1,
+      "date": "2026-02-01",
+      "link": "https://doi.org/10.5281/zenodo.17863951"
+    },
+    {
+      "name": "Codex",
+      "incremental": {
+        "test_pass_rate_p1": 75.9,
+        "test_pass_rate_p2": 50.3
+      },
+      "clean_state": {
+        "test_pass_rate_p1": 98.1,
+        "test_pass_rate_p2": 81.4
+      },
+      "avg_time_min": 16.6,
+      "avg_cost_usd": 5.92,
+      "avg_input_tokens_k": 4436,
+      "avg_output_tokens_k": 37.5,
+      "date": "2026-02-01",
+      "link": "https://doi.org/10.5281/zenodo.17863951"
+    },
+    {
+      "name": "Code Qwen",
+      "incremental": {
+        "test_pass_rate_p1": 50.5,
+        "test_pass_rate_p2": 47.2
+      },
+      "clean_state": {
+        "test_pass_rate_p1": 81.9,
+        "test_pass_rate_p2": 89.5
+      },
+      "avg_time_min": 7.6,
+      "avg_cost_usd": 2.98,
+      "avg_input_tokens_k": 2916,
+      "avg_output_tokens_k": 16.2,
+      "date": "2026-02-01",
+      "link": "https://doi.org/10.5281/zenodo.17863951"
+    }
+  ],
+  "type": "microservice",
+  "test_cases": {
+    "description": "Unit tests for incremental generation and integration tests for clean state generation across 4 projects with 3 microservices each"
+  },
+  "generation_scenarios": {
+    "incremental": "Target microservice code removed but codebase, dependencies, and integration points remain intact. Agents explore existing architecture.",
+    "clean_state": "All implementation traces removed. Agents generate from requirements specifications alone, without access to existing code."
+  },
+  "example_available": true,
+  "dataset_download": true,
+  "dataset_link": "https://doi.org/10.5281/zenodo.17863951"
+}

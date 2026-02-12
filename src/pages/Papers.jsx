@@ -87,24 +87,28 @@ const Papers = () => {
               </p>
 
               <div className="flex flex-wrap gap-2">
-                <a
-                  href={paper.arxivLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-sm btn-ghost rounded-xl gap-1.5 text-xs"
-                >
-                  <ExternalLink size={13} />
-                  arXiv
-                </a>
-                <a
-                  href={paper.githubLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-sm btn-ghost rounded-xl gap-1.5 text-xs"
-                >
-                  <Github size={13} />
-                  GitHub
-                </a>
+                {paper.arxivLink && (
+                  <a
+                    href={paper.arxivLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-sm btn-ghost rounded-xl gap-1.5 text-xs"
+                  >
+                    <ExternalLink size={13} />
+                    {paper.paperLinkLabel || "arXiv"}
+                  </a>
+                )}
+                {paper.githubLink && (
+                  <a
+                    href={paper.githubLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-sm btn-ghost rounded-xl gap-1.5 text-xs"
+                  >
+                    <Github size={13} />
+                    {paper.repoLinkLabel || "GitHub"}
+                  </a>
+                )}
                 <button
                   onClick={() => openCitationModal(paper.id)}
                   className="btn btn-sm btn-ghost rounded-xl gap-1.5 text-xs"

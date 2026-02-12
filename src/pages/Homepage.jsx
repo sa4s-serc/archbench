@@ -3,6 +3,7 @@ import adrGeneration from "../data/adrGenData.json";
 import dynamicData from "../data/dynamicGenData.json";
 import serverlessData from "../data/serverlessData.json";
 import traceabilityData from "../data/traceabilityData.json";
+import microserviceData from "../data/microserviceData.json";
 import Footer from "../components/Footer";
 import ThemeSelector from "../components/ThemeSelector";
 import { useNavigate } from "react-router-dom";
@@ -17,6 +18,7 @@ import {
   Layers,
   Send,
   ChevronDown,
+  Boxes,
 } from "lucide-react";
 
 const Homepage = () => {
@@ -38,14 +40,16 @@ const Homepage = () => {
     adrGeneration.entries.length +
     dynamicData.entries.length +
     serverlessData.entries.length +
-    traceabilityData.entries.length;
+    traceabilityData.entries.length +
+    microserviceData.entries.length;
 
   const latestDate = new Date(
     Math.max(
       ...adrGeneration.entries.map((e) => new Date(e.date).getTime()),
       ...serverlessData.entries.map((e) => new Date(e.date).getTime()),
       ...dynamicData.entries.map((e) => new Date(e.date).getTime()),
-      ...traceabilityData.entries.map((e) => new Date(e.date).getTime())
+      ...traceabilityData.entries.map((e) => new Date(e.date).getTime()),
+      ...microserviceData.entries.map((e) => new Date(e.date).getTime())
     )
   )
     .toISOString()
@@ -71,6 +75,11 @@ const Homepage = () => {
       icon: BarChart3,
       title: "Architecture Traceability",
       desc: "Trace links between architecture documentation, models, and source code.",
+    },
+    {
+      icon: Boxes,
+      title: "Microservice Generation",
+      desc: "Evaluate AI agents on generating complete microservices from requirements specifications.",
     },
   ];
 
@@ -250,7 +259,7 @@ const Homepage = () => {
               </div>
               <div className="text-center px-2 sm:px-4 border-x border-base-content/10 flex-shrink-0">
                 <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-base-content">
-                  4
+                  5
                 </div>
                 <div className="text-[10px] sm:text-xs text-base-content/40 mt-1 uppercase tracking-wider">
                   Categories

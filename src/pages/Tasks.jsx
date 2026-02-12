@@ -7,12 +7,14 @@ import adrGeneration from "../data/adrGenData.json";
 import serverlessData from "../data/serverlessData.json";
 import dynamicData from "../data/dynamicGenData.json";
 import traceabilityData from "../data/traceabilityData.json";
+import microserviceData from "../data/microserviceData.json";
 import TopBar from "../components/TopBar";
 import {
   Layers,
   GitBranch,
   Sparkles,
   BarChart3,
+  Boxes,
   Download,
   Eye,
   ChevronRight,
@@ -24,10 +26,12 @@ const taskMeta = [
   { key: "serverless", icon: GitBranch, color: "from-purple-500 to-pink-400", data: serverlessData },
   { key: "dynamic", icon: Sparkles, color: "from-orange-500 to-yellow-400", data: dynamicData },
   { key: "traceability", icon: BarChart3, color: "from-green-500 to-emerald-400", data: traceabilityData },
+  { key: "microservice", icon: Boxes, color: "from-red-500 to-rose-400", data: microserviceData },
 ];
 
 const Tasks = () => {
   const navigate = useNavigate();
+  const [selectedIdx, setSelectedIdx] = useState(0);
   const [searchQuery, setSearchQuery] = useState("");
   const [markdownContent, setMarkdownContent] = useState("");
   const [modalTitle, setModalTitle] = useState("Example");
@@ -41,9 +45,11 @@ const Tasks = () => {
   // Check if search has no results
   const hasNoResults = searchQuery && filteredTasks.length === 0;
 
-  // Use first filtered task or first task if no filter
-  const selectedIdx = filteredTasks.length > 0 ? taskMeta.indexOf(filteredTasks[0]) : 0;
-  const task = taskMeta[selectedIdx].data;
+  // Use selected index, or fall back to first filtered result when searching
+  const displayIdx = searchQuery
+    ? (filteredTasks.length > 0 ? taskMeta.indexOf(filteredTasks[0]) : selectedIdx)
+    : selectedIdx;
+  const task = taskMeta[displayIdx].data;
 
   // Show all metrics and details for the selected task (not filtered by search)
   const filteredMetrics = task.metrics;
@@ -54,6 +60,7 @@ const Tasks = () => {
       case "serverless": return "serverlessExample.md";
       case "dynamic": return "dynamicExample.md";
       case "traceability": return "traceabilityExample.md";
+      case "microservice": return "microserviceExample.md";
       default: return null;
     }
   };
@@ -64,6 +71,7 @@ const Tasks = () => {
       case "serverless": return "Example Serverless Function";
       case "dynamic": return "Example IoT Service";
       case "traceability": return "Example Traceability Task";
+      case "microservice": return "Example Microservice Generation Task";
       default: return "Example";
     }
   };
@@ -124,6 +132,12 @@ const Tasks = () => {
         { label: "Task Types", value: `${task.task_types ? task.task_types.length : 4} different traceability scenarios covered` },
         { label: "Dataset", value: task.dataset_info ? `${task.dataset_info.projects.length} projects (${task.dataset_info.projects.join(", ")})` : "ArDoCo benchmark with 5 open-source projects" },
       ],
+      microservice: [
+        { label: "Input Format", value: "Requirements specifications + existing codebase context (incremental) or requirements only (clean state)" },
+        { label: "Output Format", value: "Complete microservice implementation (Java/Python) with all components" },
+        { label: "Generation Scenarios", value: "Incremental (with codebase context) and Clean State (from requirements only)" },
+        { label: "Dataset", value: "5 microservice projects (PiggyMetrics, Train-Ticket, TeamSync, Project-Management, MicroBank)" },
+      ],
     };
     return detailsMap[task.type] || [];
   };
@@ -154,12 +168,12 @@ const Tasks = () => {
           </p>
           {filteredTasks.map((meta) => {
             const Icon = meta.icon;
-            const active = meta.key === taskMeta[selectedIdx].key;
+            const active = meta.key === taskMeta[displayIdx].key;
             return (
               <div key={meta.key} className="tooltip tooltip-right w-full" data-tip={meta.data.title}>
                 <button
                   onClick={() => {
-                    const idx = taskMeta.indexOf(meta);
+                    setSelectedIdx(taskMeta.indexOf(meta));
                     setSearchQuery("");
                   }}
                   className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl text-left transition-all duration-200 group ${active
@@ -185,12 +199,12 @@ const Tasks = () => {
         <div className="md:hidden fixed bottom-16 left-0 right-0 z-40 bg-base-200/90 backdrop-blur-xl border-t border-base-300/50 px-2 py-2 flex gap-1 overflow-x-auto">
           {filteredTasks.map((meta) => {
             const Icon = meta.icon;
-            const active = meta.key === taskMeta[selectedIdx].key;
+            const active = meta.key === taskMeta[displayIdx].key;
             return (
               <div key={meta.key} className="tooltip tooltip-top" data-tip={meta.data.title}>
                 <button
                   onClick={() => {
-                    const idx = taskMeta.indexOf(meta);
+                    setSelectedIdx(taskMeta.indexOf(meta));
                     setSearchQuery("");
                   }}
                   className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs whitespace-nowrap transition-all ${active
