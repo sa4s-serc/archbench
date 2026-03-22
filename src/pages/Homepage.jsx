@@ -19,6 +19,7 @@ import {
   Send,
   ChevronDown,
   Boxes,
+  FileText,
 } from "lucide-react";
 
 const Homepage = () => {
@@ -238,6 +239,15 @@ const Homepage = () => {
                 <Trophy size={18} className="sm:w-5 sm:h-5" />
                 Explore Leaderboard
               </button>
+              <a
+                href="https://arxiv.org/abs/2603.17833"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn btn-ghost btn-md sm:btn-lg rounded-2xl gap-2 border border-base-300 hover:border-base-content/20 bg-base-100 w-full sm:w-auto"
+              >
+                <FileText size={16} className="sm:w-[18px] sm:h-[18px]" />
+                Read Paper
+              </a>
               <button
                 className="btn btn-ghost btn-md sm:btn-lg rounded-2xl gap-2 border border-base-300 hover:border-base-content/20 bg-base-100 w-full sm:w-auto"
                 onClick={() => navigate("/tasks")}
