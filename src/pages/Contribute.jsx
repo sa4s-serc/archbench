@@ -30,7 +30,7 @@ const Contribute = () => {
                         <ol className="space-y-2 text-sm list-decimal list-inside">
                             <li>Use the <a href="https://github.com/sa4s-serc/archbench-cli" className="link link-primary">ArchBench CLI</a> to run evaluations on your model.</li>
                             <li>Follow the submission guidelines in the CLI repository.</li>
-                            <li>Create a pull request to the <a href="https://github.com/sa4s-serc/archbench-results" className="link link-primary">archbench-results</a> repository with your predictions and trajectories.</li>
+                            <li>Create a pull request to the <a href="https://github.com/sa4s-serc/archbench" className="link link-primary">archbench-results</a> repository with your predictions and trajectories.</li>
                         </ol>
                     </div>
 
