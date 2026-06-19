@@ -1,11 +1,10 @@
-import React from "react";
+/* eslint-disable react/prop-types */
 import { useNavigate, useLocation } from "react-router-dom";
 import {
     Trophy,
     ClipboardList,
     BookOpen,
     Info,
-    Home,
     ChevronLeft,
     ChevronRight,
     Send,
@@ -82,13 +81,13 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
 
                 {/* Bottom section */}
                 <div className="px-3 py-4 border-t border-base-300/50 space-y-3">
-                    <div className={`flex ${collapsed ? "justify-center" : "justify-between"} items-center px-2`}>
+                    <div className={`flex ${collapsed ? "justify-center px-0" : "justify-between px-2"} items-center`}>
                         {!collapsed && (
                             <span className="text-xs text-base-content/40 uppercase tracking-wider">
                                 Theme
                             </span>
                         )}
-                        <ThemeSelector />
+                        <ThemeSelector compact={collapsed} />
                     </div>
                     <button
                         onClick={() => setCollapsed(!collapsed)}
@@ -102,7 +101,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
 
             {/* Mobile bottom bar */}
             <nav className="lg:hidden fixed bottom-0 left-0 right-0 z-50 bg-base-200/90 backdrop-blur-xl border-t border-base-300/50 safe-area-bottom">
-                <div className="flex items-center justify-around py-2 px-2">
+                <div className="grid grid-cols-5 items-end gap-1 py-2 px-1">
                     {navItems.map((item) => {
                         const Icon = item.icon;
                         const active = isActive(item.path);
@@ -110,13 +109,15 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
                             <button
                                 key={item.path}
                                 onClick={() => navigate(item.path)}
-                                className={`flex flex-col items-center gap-0.5 px-3 py-1.5 rounded-xl transition-all ${active
+                                className={`min-w-0 flex flex-col items-center gap-0.5 px-1 py-1.5 rounded-xl transition-all ${active
                                     ? "text-primary"
                                     : "text-base-content/40 hover:text-base-content/70"
                                     }`}
                             >
-                                <Icon size={20} />
-                                <span className="text-[10px] font-medium">{item.label}</span>
+                                <Icon size={20} className="shrink-0" />
+                                <span className="w-full truncate text-center text-[10px] font-medium leading-tight">
+                                    {item.label}
+                                </span>
                                 {active && (
                                     <div className="w-4 h-0.5 bg-primary rounded-full mt-0.5" />
                                 )}

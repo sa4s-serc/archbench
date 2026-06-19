@@ -2,7 +2,7 @@ import React from "react";
 import { Search, X } from "lucide-react";
 import ThemeSelector from "./ThemeSelector";
 
-const TopBar = ({ title, subtitle, searchValue, onSearchChange, searchPlaceholder, children }) => {
+const TopBar = ({ title, subtitle, searchValue, onSearchChange, searchPlaceholder, hideMobileSearch = false, children }) => {
     return (
         <header className="sticky top-0 z-30 bg-base-100/80 backdrop-blur-xl border-b border-base-300/50">
             <div className="flex items-center justify-between min-h-[4rem] px-4 sm:px-6 lg:px-8 py-3">
@@ -51,7 +51,7 @@ const TopBar = ({ title, subtitle, searchValue, onSearchChange, searchPlaceholde
             </div>
 
             {/* Mobile search */}
-            {onSearchChange !== undefined && (
+            {onSearchChange !== undefined && !hideMobileSearch && (
                 <div className="sm:hidden px-4 pb-3">
                     <div className="relative">
                         <Search

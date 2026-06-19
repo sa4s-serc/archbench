@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import papersData from "../data/papersData.json";
 import TopBar from "../components/TopBar";
+import ExpandableText from "../components/ExpandableText";
 import { ExternalLink, Github, Quote } from "lucide-react";
 
 const Papers = () => {
@@ -82,9 +83,13 @@ const Papers = () => {
                 {paper.authors.join(", ")}
               </p>
 
-              <p className="text-sm text-base-content/70 leading-relaxed mb-4">
+              <ExpandableText
+                className="text-sm text-base-content/70 leading-relaxed mb-4"
+                lines={3}
+                minLength={180}
+              >
                 {paper.abstract}
-              </p>
+              </ExpandableText>
 
               <div className="flex flex-wrap gap-2">
                 {paper.arxivLink && (

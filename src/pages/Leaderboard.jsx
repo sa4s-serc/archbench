@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import adrGeneration from "../data/adrGenData.json";
 import serverlessData from "../data/serverlessData.json";
@@ -7,6 +7,8 @@ import traceabilityData from "../data/traceabilityData.json";
 import microserviceData from "../data/microserviceData.json";
 import { sortData, getSortIcon } from "../utils/sorting";
 import TopBar from "../components/TopBar";
+import ExpandableText from "../components/ExpandableText";
+import MobileCategoryPicker from "../components/MobileCategoryPicker";
 import {
   Layers,
   GitBranch,
@@ -38,6 +40,7 @@ const Leaderboard = () => {
   const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
   const [searchQuery, setSearchQuery] = useState("");
   const [categorySearchQuery, setCategorySearchQuery] = useState("");
+  const [mobileCategoryOpen, setMobileCategoryOpen] = useState(false);
 
   const selectedTask = taskMeta[selectedIdx].key;
   const taskData = taskMeta[selectedIdx].data;
@@ -82,6 +85,7 @@ const Leaderboard = () => {
     setSortConfig({ key: null, direction: "asc" });
     setSearchQuery("");
     setCategorySearchQuery("");
+    setMobileCategoryOpen(false);
     setMicroserviceView("incremental");
     setServerlessView("no_intervention");
     setTraceabilityView("all");
@@ -160,9 +164,7 @@ const Leaderboard = () => {
   // Check if search has no results
   const hasNoCategoryResults = searchQuery && filteredByCategory.length === 0;
 
-  // Get the filtered task index (or fall back to selected if search is empty)
-  const displayIdx = searchQuery ? (filteredByCategory.length > 0 ? taskMeta.indexOf(filteredByCategory[0]) : selectedIdx) : selectedIdx;
-  const displayTask = taskMeta[displayIdx];
+  const displayTask = taskMeta[selectedIdx];
   const displayTableData = tableData;
 
   // Filter table entries by category search query and traceability approach
@@ -192,6 +194,7 @@ const Leaderboard = () => {
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
         searchPlaceholder="Search leaderboard categories..."
+        hideMobileSearch
       >
         <button
           onClick={() => navigate("/tasks")}
@@ -209,7 +212,7 @@ const Leaderboard = () => {
             <p className="text-xs text-base-content/40 uppercase tracking-wider font-medium px-3 mb-2">
               Categories
             </p>
-            {filteredByCategory.map((meta, idx) => {
+            {filteredByCategory.map((meta) => {
               const Icon = meta.icon;
               const active = meta.key === displayTask.key;
               return (
@@ -243,37 +246,30 @@ const Leaderboard = () => {
           </div>
         </aside>
 
-        {/* Mobile category selector */}
-        <div className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-base-200/90 backdrop-blur-xl border-t border-base-300/50 px-2 py-2 flex gap-1 overflow-x-auto scrollbar-hide">
-          {taskMeta.map((meta) => {
-            const Icon = meta.icon;
-            const active = meta.key === displayTask.key;
-            return (
-              <div key={meta.key} className="tooltip tooltip-top" data-tip={meta.data.title}>
-                <button
-                  onClick={() => handleTaskChange(taskMeta.indexOf(meta))}
-                  className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs whitespace-nowrap transition-all ${active
-                      ? "bg-primary/10 text-primary font-medium"
-                      : "text-base-content/50"
-                    }`}
-                >
-                  <Icon size={14} />
-                  <span className="hidden sm:inline">{meta.data.title}</span>
-                  <span className="sm:hidden">{meta.data.title.split(" ")[0]}</span>
-                </button>
-              </div>
-            );
-          })}
-        </div>
-
         {/* Main content */}
         <div className="flex-1 p-4 sm:p-6 lg:p-8 overflow-x-auto pb-20 md:pb-8">
+          <MobileCategoryPicker
+            label="Choose Leaderboard"
+            items={taskMeta}
+            selectedIdx={selectedIdx}
+            open={mobileCategoryOpen}
+            onOpenChange={setMobileCategoryOpen}
+            onSelect={handleTaskChange}
+            getMeta={(meta) => ({
+              key: meta.key,
+              icon: meta.icon,
+              title: meta.data.title,
+              subtext: `${meta.data.entries.length} entries`,
+            })}
+            getSubtext={(meta) => `${meta.data.entries.length} entries`}
+          />
+
           {hasNoCategoryResults ? (
             <div className="flex items-center justify-center h-full min-h-[calc(100vh-8rem)]">
               <div className="text-center">
                 <p className="text-xl font-semibold text-base-content/60 mb-2">No leaderboards found</p>
                 <p className="text-sm text-base-content/40 mb-6">
-                  No leaderboard categories match "{searchQuery}". Try a different search term.
+                  No leaderboard categories match &quot;{searchQuery}&quot;. Try a different search term.
                 </p>
                 <button
                   onClick={() => setSearchQuery("")}
@@ -291,11 +287,14 @@ const Leaderboard = () => {
                 <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
                   <Medal size={22} className="text-primary" />
                 </div>
-                <div>
+                <div className="min-w-0">
                   <h2 className="text-lg font-bold">{displayTask.data.title}</h2>
-                  <p className="text-sm text-base-content/50">
+                  <ExpandableText
+                    className="text-sm text-base-content/50"
+                    minLength={110}
+                  >
                     {displayTask.data.short_description}
-                  </p>
+                  </ExpandableText>
                 </div>
               </div>
             </div>
