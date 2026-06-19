@@ -3,7 +3,7 @@
   "short_description": "Recover traceability links between software architecture documentation and source code.",
   "long_description": "Given Software Architecture Documentation (SAD) and a source code repository, recover the traceability links between documentation sentences and code artifacts. Approaches may extract component names from documentation (SAD-extracted), from source code (Code-extracted), or use manual/automated baselines. The benchmark covers four traceability scenarios: direct SAD-to-code linking, SAD-to-component model linking, component model-to-code linking, and transitive SAD-to-code linking with intermediate models. Submissions are evaluated on Precision, Recall, F1-Score, and Weighted Average F1 across 5 open-source projects.",
   "paper_link": "https://ieeexplore.ieee.org/document/10752847",
-  "github_link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss",
+  "github_link": "https://github.com/ArDoCo/Replication-Package-ICSA25_Enabling-Arch-Traceability-by-LLM-based-Arch-Component-Name-Extraction",
   "metrics": [
     { 
       "name": "Precision", 
@@ -31,7 +31,7 @@
       "weighted_avg_f1": 0.86,
       "approach": "LLM component extraction from documentation",
       "date": "2024-11-15",
-      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25_Enabling-Arch-Traceability-by-LLM-based-Arch-Component-Name-Extraction"
     },
     {
       "name": "TransArC (Manual SAM)",
@@ -41,7 +41,7 @@
       "weighted_avg_f1": 0.87,
       "approach": "Manual architecture model creation",
       "date": "2024-11-15",
-      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25_Enabling-Arch-Traceability-by-LLM-based-Arch-Component-Name-Extraction"
     },
     {
       "name": "GPT-4 Turbo (SAD-extracted SAM)",
@@ -51,7 +51,7 @@
       "weighted_avg_f1": 0.86,
       "approach": "LLM component extraction from documentation",
       "date": "2024-11-15",
-      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25_Enabling-Arch-Traceability-by-LLM-based-Arch-Component-Name-Extraction"
     },
     {
       "name": "GPT-4 (SAD-extracted SAM)",
@@ -61,7 +61,7 @@
       "weighted_avg_f1": 0.86,
       "approach": "LLM component extraction from documentation",
       "date": "2024-11-15",
-      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25_Enabling-Arch-Traceability-by-LLM-based-Arch-Component-Name-Extraction"
     },
     {
       "name": "GPT-4o mini (SAD-extracted SAM)",
@@ -71,7 +71,7 @@
       "weighted_avg_f1": 0.85,
       "approach": "LLM component extraction from documentation",
       "date": "2024-11-15",
-      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25_Enabling-Arch-Traceability-by-LLM-based-Arch-Component-Name-Extraction"
     },
     {
       "name": "GPT-3.5 Turbo (SAD-extracted SAM)",
@@ -81,7 +81,7 @@
       "weighted_avg_f1": 0.85,
       "approach": "LLM component extraction from documentation",
       "date": "2024-11-15",
-      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25_Enabling-Arch-Traceability-by-LLM-based-Arch-Component-Name-Extraction"
     },
     {
       "name": "Llama 3.1 70b (Code-extracted SAM)",
@@ -91,7 +91,7 @@
       "weighted_avg_f1": 0.81,
       "approach": "LLM component extraction from source code",
       "date": "2024-11-15",
-      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25_Enabling-Arch-Traceability-by-LLM-based-Arch-Component-Name-Extraction"
     },
     {
       "name": "Codellama 13b (SAD-extracted SAM)",
@@ -101,7 +101,7 @@
       "weighted_avg_f1": 0.71,
       "approach": "LLM component extraction from documentation",
       "date": "2024-11-15",
-      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25_Enabling-Arch-Traceability-by-LLM-based-Arch-Component-Name-Extraction"
     },
     {
       "name": "Llama 3.1 8b (SAD-extracted SAM)",
@@ -111,7 +111,7 @@
       "weighted_avg_f1": 0.68,
       "approach": "LLM component extraction from documentation",
       "date": "2024-11-15",
-      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25_Enabling-Arch-Traceability-by-LLM-based-Arch-Component-Name-Extraction"
     },
     {
       "name": "ArDoCode (Direct SAD-to-Code)",
@@ -121,7 +121,7 @@
       "weighted_avg_f1": 0.62,
       "approach": "Direct documentation to code linking without intermediate models",
       "date": "2024-11-15",
-      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25-Fuchss"
+      "link": "https://github.com/ArDoCo/Replication-Package-ICSA25_Enabling-Arch-Traceability-by-LLM-based-Arch-Component-Name-Extraction"
     }
   ],
   "type": "traceability",

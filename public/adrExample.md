@@ -28,7 +28,7 @@ We will implement an event-driven architecture using Apache Kafka:
 
 ```bash
 # Install Kafka
-wget https://downloads.apache.org/kafka/3.5.0/kafka_2.13-3.5.0.tgz
+wget https://archive.apache.org/dist/kafka/3.5.0/kafka_2.13-3.5.0.tgz
 tar -xzf kafka_2.13-3.5.0.tgz
 cd kafka_2.13-3.5.0
 
