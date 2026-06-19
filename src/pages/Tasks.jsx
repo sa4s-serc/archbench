@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -9,6 +9,8 @@ import dynamicData from "../data/dynamicGenData.json";
 import traceabilityData from "../data/traceabilityData.json";
 import microserviceData from "../data/microserviceData.json";
 import TopBar from "../components/TopBar";
+import ExpandableText from "../components/ExpandableText";
+import MobileCategoryPicker from "../components/MobileCategoryPicker";
 import {
   Layers,
   GitBranch,
@@ -35,6 +37,7 @@ const Tasks = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [markdownContent, setMarkdownContent] = useState("");
   const [modalTitle, setModalTitle] = useState("Example");
+  const [mobileCategoryOpen, setMobileCategoryOpen] = useState(false);
 
   // Filter task categories by search
   const filteredTasks = taskMeta.filter((meta) =>
@@ -150,6 +153,7 @@ const Tasks = () => {
         searchValue={searchQuery}
         onSearchChange={setSearchQuery}
         searchPlaceholder="Search tasks by name..."
+        hideMobileSearch
       >
         <button
           onClick={() => navigate("/leaderboard")}
@@ -195,39 +199,34 @@ const Tasks = () => {
           })}
         </aside>
 
-        {/* Mobile category selector */}
-        <div className="md:hidden fixed bottom-16 left-0 right-0 z-40 bg-base-200/90 backdrop-blur-xl border-t border-base-300/50 px-2 py-2 flex gap-1 overflow-x-auto">
-          {filteredTasks.map((meta) => {
-            const Icon = meta.icon;
-            const active = meta.key === taskMeta[displayIdx].key;
-            return (
-              <div key={meta.key} className="tooltip tooltip-top" data-tip={meta.data.title}>
-                <button
-                  onClick={() => {
-                    setSelectedIdx(taskMeta.indexOf(meta));
-                    setSearchQuery("");
-                  }}
-                  className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs whitespace-nowrap transition-all ${active
-                      ? "bg-primary/10 text-primary font-medium"
-                      : "text-base-content/50"
-                    }`}
-                >
-                  <Icon size={14} />
-                  {meta.data.title.split(" ")[0]}
-                </button>
-              </div>
-            );
-          })}
-        </div>
-
         {/* Main content */}
         <div className="flex-1 p-4 sm:p-6 lg:p-8 overflow-y-auto">
+          <MobileCategoryPicker
+            label="Choose Task"
+            items={taskMeta}
+            selectedIdx={selectedIdx}
+            open={mobileCategoryOpen}
+            onOpenChange={setMobileCategoryOpen}
+            onSelect={(idx) => {
+              setSelectedIdx(idx);
+              setSearchQuery("");
+              setMobileCategoryOpen(false);
+            }}
+            getMeta={(meta) => ({
+              key: meta.key,
+              icon: meta.icon,
+              title: meta.data.title,
+              subtext: meta.data.short_description,
+            })}
+            getSubtext={(meta) => meta.data.short_description}
+          />
+
           {hasNoResults ? (
             <div className="flex items-center justify-center h-full min-h-[calc(100vh-8rem)]">
               <div className="text-center">
                 <p className="text-xl font-semibold text-base-content/60 mb-2">No tasks found</p>
                 <p className="text-sm text-base-content/40 mb-6">
-                  No tasks match "{searchQuery}". Try a different search term.
+                  No tasks match &quot;{searchQuery}&quot;. Try a different search term.
                 </p>
                 <button
                   onClick={() => setSearchQuery("")}
@@ -247,9 +246,13 @@ const Tasks = () => {
                   <h2 className="text-2xl sm:text-3xl font-bold mb-2">
                     {task.title}
                   </h2>
-                  <p className="text-base-content/60 leading-relaxed max-w-2xl">
+                  <ExpandableText
+                    className="text-base-content/60 leading-relaxed max-w-2xl"
+                    lines={3}
+                    minLength={150}
+                  >
                     {task.long_description}
-                  </p>
+                  </ExpandableText>
                 </div>
               </div>
               <div className="flex flex-wrap gap-3 mt-6">
@@ -289,9 +292,12 @@ const Tasks = () => {
                   className="p-4 rounded-xl bg-base-200/50 border border-base-300/30 hover:border-primary/20 transition-colors"
                 >
                   <h4 className="font-bold text-sm mb-1">{metric.name}</h4>
-                  <p className="text-xs text-base-content/50 leading-relaxed">
+                  <ExpandableText
+                    className="text-xs text-base-content/50 leading-relaxed"
+                    minLength={95}
+                  >
                     {metric.description}
-                  </p>
+                  </ExpandableText>
                 </div>
               ))}
             </div>
@@ -311,9 +317,12 @@ const Tasks = () => {
                   <span className="text-xs font-semibold text-primary uppercase tracking-wider">
                     {detail.label}
                   </span>
-                  <p className="mt-1 text-sm text-base-content/70">
+                  <ExpandableText
+                    className="mt-1 text-sm text-base-content/70"
+                    minLength={95}
+                  >
                     {detail.value}
-                  </p>
+                  </ExpandableText>
                 </div>
               ))}
             </div>
@@ -338,7 +347,7 @@ const Tasks = () => {
           <div className="prose max-w-none">
             <ReactMarkdown
               components={{
-                code({ node, inline, className, children, ...props }) {
+                code({ inline, className, children, ...props }) {
                   const match = /language-(\w+)/.exec(className || "");
                   return !inline && match ? (
                     <SyntaxHighlighter

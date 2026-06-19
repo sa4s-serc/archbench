@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import adrGeneration from "../data/adrGenData.json";
 import dynamicData from "../data/dynamicGenData.json";
 import serverlessData from "../data/serverlessData.json";
@@ -9,8 +9,6 @@ import ThemeSelector from "../components/ThemeSelector";
 import { useNavigate } from "react-router-dom";
 import {
   Trophy,
-  ClipboardList,
-  BookOpen,
   ArrowRight,
   Sparkles,
   BarChart3,
@@ -230,6 +228,14 @@ const Homepage = () => {
               Explore leaderboards, compare approaches, and advance the field.
             </p>
 
+            <div className="sm:hidden mx-auto mb-5 flex w-fit max-w-[calc(100vw-2rem)] flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full border border-base-300/60 bg-base-200/60 px-4 py-2 text-xs font-semibold text-base-content/55 animate-fade-in-up animation-delay-600">
+              <span>{totalSubmissions} submissions</span>
+              <span className="text-base-content/25">•</span>
+              <span>5 categories</span>
+              <span className="text-base-content/25">•</span>
+              <span>{new Date(latestDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span>
+            </div>
+
             {/* CTA buttons */}
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-4 px-4 animate-fade-in-up animation-delay-800">
               <button
@@ -258,7 +264,7 @@ const Homepage = () => {
             </div>
 
             {/* Stats row */}
-            <div className="flex justify-center gap-2 sm:gap-4 max-w-lg mx-auto mt-12 sm:mt-16 px-4 animate-fade-in-up animation-delay-800">
+            <div className="hidden sm:flex justify-center gap-2 sm:gap-4 max-w-lg mx-auto mt-12 sm:mt-16 px-4 animate-fade-in-up animation-delay-800">
               <div className="text-center px-2 sm:px-4 flex-shrink-0">
                 <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-base-content">
                   {totalSubmissions}
