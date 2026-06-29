@@ -1,6 +1,23 @@
 {
   "papers": [
     {
+      "id": 5,
+      "title": "Can AI Agents Generate Microservices? How Far are We?",
+      "authors": [
+        "Bassam Adnan",
+        "Matteo Esposito",
+        "Davide Taibi",
+        "Karthik Vaidhyanathan"
+      ],
+      "year": "2026",
+      "abstract": "LLMs have advanced code generation, but their use for generating microservices with explicit dependencies and API contracts remains understudied. This study examines whether AI agents can generate functional microservices and how different forms of contextual information influence their performance. We assess 144 generated microservices across 3 agents, 4 projects, 2 prompting strategies, and 2 scenarios. Incremental generation operates within existing systems and is evaluated with unit tests. Clean state generation starts from requirements alone and is evaluated with integration tests. We analyze functional correctness, code quality, and efficiency. Results show that minimal prompts outperformed detailed ones in incremental generation, with 50-76% unit test pass rates. Clean state generation produced higher integration test pass rates (81-98%), indicating strong API contract adherence. Generated code showed lower complexity than human baselines. Generation times varied widely across agents, averaging 6-16 minutes per service.",
+      "arxivLink": "https://www.researchgate.net/publication/400577311_Can_AI_Agents_Generate_Microservices_How_Far_are_We",
+      "paperLinkLabel": "Paper",
+      "githubLink": "https://doi.org/10.5281/zenodo.17863951",
+      "repoLinkLabel": "Dataset",
+      "citation": "@article{adnan2026microservice,\n  title={Can AI Agents Generate Microservices? How Far are We?},\n  author={Adnan, Bassam and Esposito, Matteo and Taibi, Davide and Vaidhyanathan, Karthik},\n  year={2026}\n}"
+    },
+    {
       "id": 1,
       "title": "Leveraging LLMs for Dynamic IoT Systems Generation through Mixed-Initiative Interaction",
       "authors": [
@@ -65,21 +82,51 @@
       "citation": "D. Fuchß, H. Liu, T. Hey, J. Keim and A. Koziolek,\n  \"Enabling Architecture Traceability by LLM-based Architecture Component Name Extraction,\"\n  2025 IEEE 22nd International Conference on Software Architecture (ICSA),\n  Odense, Denmark, 2025, pp. 1-12, doi: 10.1109/ICSA65012.2025.00011.\n  keywords: {Bridges;Software architecture;Source coding;Large language models;Semantics;Manuals;Computer architecture;Documentation;Traceability Link Recovery;Large Language Models;Software Architecture;Model Extraction}"
     },
     {
-      "id": 5,
-      "title": "Can AI Agents Generate Microservices? How Far are We?",
+      "id": 6,
+      "title": "LLM-based Automated Architecture View Generation: Where Are We Now?",
       "authors": [
-        "Bassam Adnan",
-        "Matteo Esposito",
-        "Davide Taibi",
+        "Miryala Sathvika",
+        "Rudra Dhar",
         "Karthik Vaidhyanathan"
       ],
       "year": "2026",
-      "abstract": "LLMs have advanced code generation, but their use for generating microservices with explicit dependencies and API contracts remains understudied. This study examines whether AI agents can generate functional microservices and how different forms of contextual information influence their performance. We assess 144 generated microservices across 3 agents, 4 projects, 2 prompting strategies, and 2 scenarios. Incremental generation operates within existing systems and is evaluated with unit tests. Clean state generation starts from requirements alone and is evaluated with integration tests. We analyze functional correctness, code quality, and efficiency. Results show that minimal prompts outperformed detailed ones in incremental generation, with 50-76% unit test pass rates. Clean state generation produced higher integration test pass rates (81-98%), indicating strong API contract adherence. Generated code showed lower complexity than human baselines. Generation times varied widely across agents, averaging 6-16 minutes per service.",
-      "arxivLink": "https://www.researchgate.net/publication/400577311_Can_AI_Agents_Generate_Microservices_How_Far_are_We",
+      "abstract": "Architecture views are essential for software architecture documentation, yet their manual creation is labor-intensive and often leads to outdated artifacts. As systems grow in complexity, the automated generation of views from source code becomes increasingly valuable. We empirically evaluate the ability of LLMs and agentic approaches to generate architecture views from source code. We analyze 340 open-source repositories across 13 experimental configurations using 3 LLMs with 3 prompting techniques and 2 agentic approaches, yielding 4,137 generated views. Few-shot prompting reduces clarity failures by 9.2% compared to zero-shot baselines. The custom agentic approach consistently outperforms the general purpose agent, achieving the best clarity (22.6% failure rate) and level of detail success (50%). LLM and agentic approaches demonstrate capabilities in generating syntactically valid architecture views. However, they consistently exhibit granularity mismatches, operating at the code level rather than architectural abstractions, positioning LLMs and agents as assistive tools rather than autonomous architects.",
+      "arxivLink": "https://arxiv.org/abs/2603.21178",
+      "citation": "@article{sathvika2026llmbased,\n  title={LLM-based Automated Architecture View Generation: Where Are We Now?},\n  author={Sathvika, Miryala and Dhar, Rudra and Vaidhyanathan, Karthik},\n  journal={arXiv preprint arXiv:2603.21178},\n  year={2026}\n}"
+    },
+    {
+      "id": 7,
+      "title": "LEAF: A Layered Emission Assessment Framework for Cloud Deployments",
+      "authors": [
+        "Prakhar Singhal",
+        "Shaunak Biswas",
+        "Karthik Vaidhyanathan",
+        "Ravi Kappagantu",
+        "Akhila Matathammal",
+        "Srinivas Katakam",
+        "Ch Pavan Harshit",
+        "Jitendra Chougala"
+      ],
+      "year": "2026",
+      "abstract": "Cloud infrastructure is a growing contributor to global carbon emissions. However, existing sustainability assessment tools predominantly focus on post-deployment monitoring or require access to application code, limiting their utility for proactive, pre-deployment decision-making. To address this gap, we present LEAF, a lightweight, layered framework – developed in collaboration with Lloyds Technology Group – that enables early-stage estimation of carbon footprint from terraform configurations. LEAF employs a three-layer modeling approach to (i) interpret Infrastructure-as-Code (IaC) definitions, (ii) simulate expected workload behavior, and (iii) integrate region-specific carbon intensity data. By parsing IaC files and modeling system behavior, LEAF provides energy and emission estimates without requiring access to proprietary source code. Evaluations of LEAF across three real-world projects demonstrates its ability to provide carbon footprint estimates with deviations under 15.7% for realistic (high) workloads, thereby enabling architects and developers to make sustainability-informed decisions early in the infrastructure provisioning process.",
+      "arxivLink": "https://ieeexplore.ieee.org/document/11433217",
       "paperLinkLabel": "Paper",
-      "githubLink": "https://doi.org/10.5281/zenodo.17863951",
-      "repoLinkLabel": "Dataset",
-      "citation": "@article{adnan2026microservice,\n  title={Can AI Agents Generate Microservices? How Far are We?},\n  author={Adnan, Bassam and Esposito, Matteo and Taibi, Davide and Vaidhyanathan, Karthik},\n  year={2026}\n}"
+      "githubLink": "https://github.com/sa4s-serc/LEAF",
+      "citation": "@article{singhal2026leaf,\n  title={LEAF: A Layered Emission Assessment Framework for Cloud Deployments},\n  author={Singhal, Prakhar and Biswas, Shaunak and Vaidhyanathan, Karthik and Kappagantu, Ravi and Matathammal, Akhila and Katakam, Srinivas and Harshit, Ch Pavan and Chougala, Jitendra},\n  journal={IEEE Software},\n  year={2026}\n}"
+    },
+    {
+      "id": 8,
+      "title": "LLMs for Architectural Refactoring: An Exploratory Study on Monoliths to Microservices",
+      "authors": [
+        "Aneesh Sambu",
+        "Roberta Capuano",
+        "Eoan O'Dea",
+        "Henry Muccini",
+        "Karthik Vaidhyanathan"
+      ],
+      "year": "2026",
+      "abstract": "Large Language Models (LLMs) are increasingly used in software engineering, yet their role in architectural refactoring, particularly in decomposing monolithic systems into microservices, remains largely unexplored, even though such decomposition, when necessary, is difficult and error-prone, especially when identifying meaningful service boundaries. This exploratory study investigates how LLMs can support architects through a multi-step decomposition process that applies seven summarisation strategies and four LLMs to generate architectural views and candidate decompositions. We assess these decompositions using six established metrics across four open-source systems that provide both monolithic and microservice versions, enabling comparison with reference architectures. Results show that LLM-based decompositions outperform traditional techniques on Cyclic Independence (+22.7), approaching reference architectures and indicating better technical dependency management. Traditional automated approaches remain stronger at recovering the ground-truth structure (MoJoFM +24.1), team alignment (TC +11.0), and domain-oriented boundaries (DI +10.7). No significant differences appear for Code Modularity or Business Context Purity, suggesting that LLMs produce clean decompositions with few cyclic dependencies but still struggle to reproduce the exact target decomposition.",
+      "citation": "@article{sambu2026llms,\n  title={LLMs for Architectural Refactoring: An Exploratory Study on Monoliths to Microservices},\n  author={Sambu, Aneesh and Capuano, Roberta and O'Dea, Eoan and Muccini, Henry and Vaidhyanathan, Karthik},\n  journal={EasyChair Preprint},\n  year={2026}\n}"
     }
   ]
 }
