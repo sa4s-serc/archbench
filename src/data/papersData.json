@@ -95,26 +95,6 @@
       "citation": "@article{sathvika2026llmbased,\n  title={LLM-based Automated Architecture View Generation: Where Are We Now?},\n  author={Sathvika, Miryala and Dhar, Rudra and Vaidhyanathan, Karthik},\n  journal={arXiv preprint arXiv:2603.21178},\n  year={2026}\n}"
     },
     {
-      "id": 7,
-      "title": "LEAF: A Layered Emission Assessment Framework for Cloud Deployments",
-      "authors": [
-        "Prakhar Singhal",
-        "Shaunak Biswas",
-        "Karthik Vaidhyanathan",
-        "Ravi Kappagantu",
-        "Akhila Matathammal",
-        "Srinivas Katakam",
-        "Ch Pavan Harshit",
-        "Jitendra Chougala"
-      ],
-      "year": "2026",
-      "abstract": "Cloud infrastructure is a growing contributor to global carbon emissions. However, existing sustainability assessment tools predominantly focus on post-deployment monitoring or require access to application code, limiting their utility for proactive, pre-deployment decision-making. To address this gap, we present LEAF, a lightweight, layered framework – developed in collaboration with Lloyds Technology Group – that enables early-stage estimation of carbon footprint from terraform configurations. LEAF employs a three-layer modeling approach to (i) interpret Infrastructure-as-Code (IaC) definitions, (ii) simulate expected workload behavior, and (iii) integrate region-specific carbon intensity data. By parsing IaC files and modeling system behavior, LEAF provides energy and emission estimates without requiring access to proprietary source code. Evaluations of LEAF across three real-world projects demonstrates its ability to provide carbon footprint estimates with deviations under 15.7% for realistic (high) workloads, thereby enabling architects and developers to make sustainability-informed decisions early in the infrastructure provisioning process.",
-      "arxivLink": "https://ieeexplore.ieee.org/document/11433217",
-      "paperLinkLabel": "Paper",
-      "githubLink": "https://github.com/sa4s-serc/LEAF",
-      "citation": "@article{singhal2026leaf,\n  title={LEAF: A Layered Emission Assessment Framework for Cloud Deployments},\n  author={Singhal, Prakhar and Biswas, Shaunak and Vaidhyanathan, Karthik and Kappagantu, Ravi and Matathammal, Akhila and Katakam, Srinivas and Harshit, Ch Pavan and Chougala, Jitendra},\n  journal={IEEE Software},\n  year={2026}\n}"
-    },
-    {
       "id": 8,
       "title": "LLMs for Architectural Refactoring: An Exploratory Study on Monoliths to Microservices",
       "authors": [
