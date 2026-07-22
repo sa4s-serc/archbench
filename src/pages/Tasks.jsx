@@ -8,6 +8,7 @@ import serverlessData from "../data/serverlessData.json";
 import dynamicData from "../data/dynamicGenData.json";
 import traceabilityData from "../data/traceabilityData.json";
 import microserviceData from "../data/microserviceData.json";
+import diagramData from "../data/diagramData.json";
 import TopBar from "../components/TopBar";
 import ExpandableText from "../components/ExpandableText";
 import MobileCategoryPicker from "../components/MobileCategoryPicker";
@@ -17,6 +18,7 @@ import {
   Sparkles,
   BarChart3,
   Boxes,
+  Network,
   Download,
   Eye,
   ChevronRight,
@@ -29,6 +31,7 @@ const taskMeta = [
   { key: "dynamic", icon: Sparkles, color: "from-orange-500 to-yellow-400", data: dynamicData },
   { key: "traceability", icon: BarChart3, color: "from-green-500 to-emerald-400", data: traceabilityData },
   { key: "microservice", icon: Boxes, color: "from-red-500 to-rose-400", data: microserviceData },
+  { key: "diagram", icon: Network, color: "from-teal-500 to-cyan-400", data: diagramData },
 ];
 
 const Tasks = () => {
@@ -64,6 +67,7 @@ const Tasks = () => {
       case "dynamic": return "dynamicExample.md";
       case "traceability": return "traceabilityExample.md";
       case "microservice": return "microserviceExample.md";
+      case "diagram": return "diagramExample.md";
       default: return null;
     }
   };
@@ -75,6 +79,7 @@ const Tasks = () => {
       case "dynamic": return "Example IoT Service";
       case "traceability": return "Example Traceability Task";
       case "microservice": return "Example Microservice Generation Task";
+      case "diagram": return "Example Architecture View Task";
       default: return "Example";
     }
   };
@@ -140,6 +145,12 @@ const Tasks = () => {
         { label: "Output Format", value: "Complete microservice implementation (Java/Python) with all components" },
         { label: "Generation Scenarios", value: "Incremental (with codebase context) and Clean State (from requirements only)" },
         { label: "Dataset", value: "5 microservice projects (PiggyMetrics, Train-Ticket, TeamSync, Project-Management, MicroBank)" },
+      ],
+      diagram: [
+        { label: "Input Format", value: "Repository summary in JSONL format (code structure, component descriptions, architectural styles)" },
+        { label: "Output Format", value: "PlantUML C4 architecture diagram compiled to PNG" },
+        { label: "Dataset Size", value: "339 open-source repositories with ground-truth architecture view images" },
+        { label: "Evaluation Threshold", value: "SSIM ≥ 0.70 (structural similarity to ground-truth diagram image)" },
       ],
     };
     return detailsMap[task.type] || [];

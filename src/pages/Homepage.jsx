@@ -4,6 +4,7 @@ import dynamicData from "../data/dynamicGenData.json";
 import serverlessData from "../data/serverlessData.json";
 import traceabilityData from "../data/traceabilityData.json";
 import microserviceData from "../data/microserviceData.json";
+import diagramData from "../data/diagramData.json";
 import Footer from "../components/Footer";
 import ThemeSelector from "../components/ThemeSelector";
 import { useNavigate } from "react-router-dom";
@@ -18,6 +19,7 @@ import {
   ChevronDown,
   Boxes,
   FileText,
+  Network,
 } from "lucide-react";
 
 const Homepage = () => {
@@ -40,19 +42,10 @@ const Homepage = () => {
     dynamicData.entries.length +
     serverlessData.entries.length +
     traceabilityData.entries.length +
-    microserviceData.entries.length;
+    microserviceData.entries.length +
+    diagramData.entries.length;
 
-  const latestDate = new Date(
-    Math.max(
-      ...adrGeneration.entries.map((e) => new Date(e.date).getTime()),
-      ...serverlessData.entries.map((e) => new Date(e.date).getTime()),
-      ...dynamicData.entries.map((e) => new Date(e.date).getTime()),
-      ...traceabilityData.entries.map((e) => new Date(e.date).getTime()),
-      ...microserviceData.entries.map((e) => new Date(e.date).getTime())
-    )
-  )
-    .toISOString()
-    .split("T")[0];
+  const lastUpdated = "Jul 2026";
 
   const categories = [
     {
@@ -79,6 +72,11 @@ const Homepage = () => {
       icon: Boxes,
       title: "Microservice Generation",
       desc: "Evaluate AI agents on generating complete microservices from requirements specifications.",
+    },
+    {
+      icon: Network,
+      title: "Architecture View Generation",
+      desc: "Generate PlantUML architecture diagrams from repository summaries and evaluate against ground-truth views.",
     },
   ];
 
@@ -231,9 +229,9 @@ const Homepage = () => {
             <div className="sm:hidden mx-auto mb-5 flex w-fit max-w-[calc(100vw-2rem)] flex-wrap items-center justify-center gap-x-2 gap-y-1 rounded-full border border-base-300/60 bg-base-200/60 px-4 py-2 text-xs font-semibold text-base-content/55 animate-fade-in-up animation-delay-600">
               <span>{totalSubmissions} submissions</span>
               <span className="text-base-content/25">•</span>
-              <span>5 categories</span>
+              <span>6 categories</span>
               <span className="text-base-content/25">•</span>
-              <span>{new Date(latestDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}</span>
+              <span>{lastUpdated}</span>
             </div>
 
             {/* CTA buttons */}
@@ -275,7 +273,7 @@ const Homepage = () => {
               </div>
               <div className="text-center px-2 sm:px-4 border-x border-base-content/10 flex-shrink-0">
                 <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-base-content">
-                  5
+                  6
                 </div>
                 <div className="text-[10px] sm:text-xs text-base-content/40 mt-1 uppercase tracking-wider">
                   Categories
@@ -283,7 +281,7 @@ const Homepage = () => {
               </div>
               <div className="text-center px-2 sm:px-4 flex-shrink-0">
                 <div className="text-2xl sm:text-3xl lg:text-4xl font-extrabold text-base-content">
-                  {new Date(latestDate).toLocaleDateString('en-US', { month: 'short', year: 'numeric' })}
+                  {lastUpdated}
                 </div>
                 <div className="text-[10px] sm:text-xs text-base-content/40 mt-1 uppercase tracking-wider whitespace-nowrap">
                   Last Updated

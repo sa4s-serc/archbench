@@ -1,0 +1,131 @@
+{
+  "title": "Architecture View Generation",
+  "short_description": "Generate PlantUML architecture diagrams from repository summaries.",
+  "long_description": "Given a natural-language summary of a software repository (components, dependencies, architectural styles), generate a PlantUML C4 architecture diagram that matches the ground-truth view. Submissions are evaluated using image similarity metrics (SSIM, PSNR, RMSE) comparing the rendered PNG of the generated diagram against the ground-truth diagram image. The dataset covers 339 open-source repositories spanning a variety of architectural styles, concerns, and notations. Approaches may use zero-shot, few-shot, guided planning (ArchView), or agentic strategies.",
+  "paper_link": "https://arxiv.org/abs/2603.21178",
+  "github_link": "https://github.com/sa4s-serc/archbench-diagram",
+  "metrics": [
+    {
+      "name": "SSIM",
+      "description": "Structural Similarity Index. Measures perceived visual similarity between generated and ground-truth diagram images. Higher is better. Primary metric; threshold >= 0.70."
+    },
+    {
+      "name": "PSNR",
+      "description": "Peak Signal-to-Noise Ratio. Measures image reconstruction quality in decibels. Higher is better."
+    },
+    {
+      "name": "RMSE",
+      "description": "Root Mean Square Error. Measures pixel-level difference between generated and ground-truth images. Lower is better."
+    }
+  ],
+  "example_available": true,
+  "dataset_download": true,
+  "dataset_link": "https://github.com/sa4s-serc/ViewGeneration/tree/main/dataset",
+  "type": "diagram",
+  "entries": [
+    {
+      "name": "DeepSeek-V3 (ArchView)",
+      "ssim": 0.6367,
+      "psnr": 34.8912,
+      "rmse": 0.0205,
+      "date": "2026-07-22",
+      "link": "https://arxiv.org/abs/2603.21178"
+    },
+    {
+      "name": "GPT-4o (ArchView)",
+      "ssim": 0.6182,
+      "psnr": 34.9629,
+      "rmse": 0.0205,
+      "date": "2026-07-22",
+      "link": "https://arxiv.org/abs/2603.21178"
+    },
+    {
+      "name": "Claude 3.5 Sonnet (ArchView)",
+      "ssim": 0.5968,
+      "psnr": 34.7043,
+      "rmse": 0.0209,
+      "date": "2026-07-22",
+      "link": "https://arxiv.org/abs/2603.21178"
+    },
+    {
+      "name": "Claude 3.5 Sonnet (Few-Shot)",
+      "ssim": 0.5909,
+      "psnr": 35.4621,
+      "rmse": 0.0193,
+      "date": "2026-07-22",
+      "link": "https://arxiv.org/abs/2603.21178"
+    },
+    {
+      "name": "Claude 3.5 Sonnet (One-Shot)",
+      "ssim": 0.5810,
+      "psnr": 35.2786,
+      "rmse": 0.0197,
+      "date": "2026-07-22",
+      "link": "https://arxiv.org/abs/2603.21178"
+    },
+    {
+      "name": "GPT-4o (Zero-Shot)",
+      "ssim": 0.5787,
+      "psnr": 35.2157,
+      "rmse": 0.0200,
+      "date": "2026-07-22",
+      "link": "https://arxiv.org/abs/2603.21178"
+    },
+    {
+      "name": "Claude 3.5 Sonnet (Zero-Shot)",
+      "ssim": 0.5776,
+      "psnr": 35.1232,
+      "rmse": 0.0202,
+      "date": "2026-07-22",
+      "link": "https://arxiv.org/abs/2603.21178"
+    },
+    {
+      "name": "GPT-4o (One-Shot)",
+      "ssim": 0.5771,
+      "psnr": 34.8697,
+      "rmse": 0.0206,
+      "date": "2026-07-22",
+      "link": "https://arxiv.org/abs/2603.21178"
+    },
+    {
+      "name": "GPT-4o (Few-Shot)",
+      "ssim": 0.5739,
+      "psnr": 34.9268,
+      "rmse": 0.0205,
+      "date": "2026-07-22",
+      "link": "https://arxiv.org/abs/2603.21178"
+    },
+    {
+      "name": "DeepSeek-V3 (One-Shot)",
+      "ssim": 0.5655,
+      "psnr": 34.7253,
+      "rmse": 0.0214,
+      "date": "2026-07-22",
+      "link": "https://arxiv.org/abs/2603.21178"
+    },
+    {
+      "name": "Claude Code (Agent)",
+      "ssim": 0.5539,
+      "psnr": 35.3005,
+      "rmse": 0.0200,
+      "date": "2026-07-22",
+      "link": "https://arxiv.org/abs/2603.21178"
+    },
+    {
+      "name": "DeepSeek-V3 (Zero-Shot)",
+      "ssim": 0.5529,
+      "psnr": 34.7399,
+      "rmse": 0.0214,
+      "date": "2026-07-22",
+      "link": "https://arxiv.org/abs/2603.21178"
+    },
+    {
+      "name": "DeepSeek-V3 (Few-Shot)",
+      "ssim": 0.5524,
+      "psnr": 34.6135,
+      "rmse": 0.0220,
+      "date": "2026-07-22",
+      "link": "https://arxiv.org/abs/2603.21178"
+    }
+  ]
+}

@@ -5,6 +5,7 @@ import serverlessData from "../data/serverlessData.json";
 import dynamicData from "../data/dynamicGenData.json";
 import traceabilityData from "../data/traceabilityData.json";
 import microserviceData from "../data/microserviceData.json";
+import diagramData from "../data/diagramData.json";
 import { sortData, getSortIcon } from "../utils/sorting";
 import TopBar from "../components/TopBar";
 import ExpandableText from "../components/ExpandableText";
@@ -15,6 +16,7 @@ import {
   Sparkles,
   BarChart3,
   Boxes,
+  Network,
   ChevronRight,
   ExternalLink,
   ClipboardList,
@@ -29,6 +31,7 @@ const taskMeta = [
   { key: "dynamic", icon: Sparkles, color: "from-orange-500 to-yellow-400", data: dynamicData },
   { key: "traceability", icon: BarChart3, color: "from-green-500 to-emerald-400", data: traceabilityData },
   { key: "microservice", icon: Boxes, color: "from-red-500 to-rose-400", data: microserviceData },
+  { key: "diagram", icon: Network, color: "from-teal-500 to-cyan-400", data: diagramData },
 ];
 
 const Leaderboard = () => {
@@ -147,6 +150,13 @@ const Leaderboard = () => {
         { name: "Test Pass Rate (P2)", key: "cs_p2" },
         { name: "Avg Time (min)", key: "avg_time_min" },
         { name: "Avg Cost ($)", key: "avg_cost_usd" },
+      ];
+    }
+    if (task === "diagram") {
+      return [
+        { name: "SSIM", key: "ssim" },
+        { name: "PSNR", key: "psnr" },
+        { name: "RMSE", key: "rmse" },
       ];
     }
     return taskData.metrics.map((metric) => ({

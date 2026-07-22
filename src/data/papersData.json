@@ -93,20 +93,6 @@
       "abstract": "Architecture views are essential for software architecture documentation, yet their manual creation is labor-intensive and often leads to outdated artifacts. As systems grow in complexity, the automated generation of views from source code becomes increasingly valuable. We empirically evaluate the ability of LLMs and agentic approaches to generate architecture views from source code. We analyze 340 open-source repositories across 13 experimental configurations using 3 LLMs with 3 prompting techniques and 2 agentic approaches, yielding 4,137 generated views. Few-shot prompting reduces clarity failures by 9.2% compared to zero-shot baselines. The custom agentic approach consistently outperforms the general purpose agent, achieving the best clarity (22.6% failure rate) and level of detail success (50%). LLM and agentic approaches demonstrate capabilities in generating syntactically valid architecture views. However, they consistently exhibit granularity mismatches, operating at the code level rather than architectural abstractions, positioning LLMs and agents as assistive tools rather than autonomous architects.",
       "arxivLink": "https://arxiv.org/abs/2603.21178",
       "citation": "@article{sathvika2026llmbased,\n  title={LLM-based Automated Architecture View Generation: Where Are We Now?},\n  author={Sathvika, Miryala and Dhar, Rudra and Vaidhyanathan, Karthik},\n  journal={arXiv preprint arXiv:2603.21178},\n  year={2026}\n}"
-    },
-    {
-      "id": 8,
-      "title": "LLMs for Architectural Refactoring: An Exploratory Study on Monoliths to Microservices",
-      "authors": [
-        "Aneesh Sambu",
-        "Roberta Capuano",
-        "Eoan O'Dea",
-        "Henry Muccini",
-        "Karthik Vaidhyanathan"
-      ],
-      "year": "2026",
-      "abstract": "Large Language Models (LLMs) are increasingly used in software engineering, yet their role in architectural refactoring, particularly in decomposing monolithic systems into microservices, remains largely unexplored, even though such decomposition, when necessary, is difficult and error-prone, especially when identifying meaningful service boundaries. This exploratory study investigates how LLMs can support architects through a multi-step decomposition process that applies seven summarisation strategies and four LLMs to generate architectural views and candidate decompositions. We assess these decompositions using six established metrics across four open-source systems that provide both monolithic and microservice versions, enabling comparison with reference architectures. Results show that LLM-based decompositions outperform traditional techniques on Cyclic Independence (+22.7), approaching reference architectures and indicating better technical dependency management. Traditional automated approaches remain stronger at recovering the ground-truth structure (MoJoFM +24.1), team alignment (TC +11.0), and domain-oriented boundaries (DI +10.7). No significant differences appear for Code Modularity or Business Context Purity, suggesting that LLMs produce clean decompositions with few cyclic dependencies but still struggle to reproduce the exact target decomposition.",
-      "citation": "@article{sambu2026llms,\n  title={LLMs for Architectural Refactoring: An Exploratory Study on Monoliths to Microservices},\n  author={Sambu, Aneesh and Capuano, Roberta and O'Dea, Eoan and Muccini, Henry and Vaidhyanathan, Karthik},\n  journal={EasyChair Preprint},\n  year={2026}\n}"
     }
   ]
 }
