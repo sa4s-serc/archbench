@@ -2,63 +2,163 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Fade in up animation */
-@keyframes fadeInUp {
-    from {
-        opacity: 0;
-        transform: translateY(16px);
+/*
+ * Design tokens. Light values live on :root; dark values apply when the OS
+ * prefers dark (unless the viewer picked light) or when the viewer picked dark.
+ * Accent keeps the indigo hue of the previous site.
+ */
+:root {
+    color-scheme: light;
+    --page: #ffffff;
+    --surface: #f6f7f9;
+    --control: #f0f1f4;
+    --control-active: #ffffff;
+    --line: #e6e8ec;
+    --line-strong: #d5d8de;
+    --grid: #eef0f3;
+    --ink: #111318;
+    --ink-2: #4a4f5a;
+    --ink-3: #6b7280;
+    --accent: #4d4bd1;
+    --accent-strong: #3f3ab7;
+    --accent-tint: #e9edff;
+    --accent-on-tint: #3f3ab7;
+    --tooltip: #111318;
+    --tooltip-ink: #f2f3f5;
+    --tooltip-ink-2: #b4b8c0;
+    --shadow-control: 0 1px 2px rgb(17 19 24 / 0.08);
+    --shadow-pop: 0 8px 24px rgb(17 19 24 / 0.16);
+
+    /* Model family colours, fixed order (validated for colour-vision deficiency) */
+    --fam-1: #eb6834;
+    --fam-2: #1baf7a;
+    --fam-3: #eda100;
+    --fam-4: #e87ba4;
+    --fam-5: #008300;
+    --fam-6: #e34948;
+    --fam-other: #9aa0a8;
+}
+
+@media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+        color-scheme: dark;
+        --page: #111214;
+        --surface: #18191b;
+        --control: #202226;
+        --control-active: #2f3237;
+        --line: #2a2c31;
+        --line-strong: #3a3d43;
+        --grid: #1f2125;
+        --ink: #f2f3f5;
+        --ink-2: #b4b8c0;
+        --ink-3: #8d929b;
+        --accent: #8f9bfb;
+        --accent-strong: #adb8fe;
+        --accent-tint: #252950;
+        --accent-on-tint: #cfd5f9;
+        --tooltip: #f2f3f5;
+        --tooltip-ink: #111318;
+        --tooltip-ink-2: #4a4f5a;
+        --shadow-control: none;
+        --shadow-pop: 0 8px 24px rgb(0 0 0 / 0.5);
+        --fam-1: #d95926;
+        --fam-2: #199e70;
+        --fam-3: #c98500;
+        --fam-4: #d55181;
+        --fam-5: #008300;
+        --fam-6: #e66767;
+        --fam-other: #6b7078;
+    }
+}
+
+:root[data-theme="dark"] {
+    color-scheme: dark;
+    --page: #111214;
+    --surface: #18191b;
+    --control: #202226;
+    --control-active: #2f3237;
+    --line: #2a2c31;
+    --line-strong: #3a3d43;
+    --grid: #1f2125;
+    --ink: #f2f3f5;
+    --ink-2: #b4b8c0;
+    --ink-3: #8d929b;
+    --accent: #8f9bfb;
+    --accent-strong: #adb8fe;
+    --accent-tint: #252950;
+    --accent-on-tint: #cfd5f9;
+    --tooltip: #f2f3f5;
+    --tooltip-ink: #111318;
+    --tooltip-ink-2: #4a4f5a;
+    --shadow-control: none;
+    --shadow-pop: 0 8px 24px rgb(0 0 0 / 0.5);
+    --fam-1: #d95926;
+    --fam-2: #199e70;
+    --fam-3: #c98500;
+    --fam-4: #d55181;
+    --fam-5: #008300;
+    --fam-6: #e66767;
+    --fam-other: #6b7078;
+}
+
+@layer base {
+    html {
+        background: var(--page);
+        color: var(--ink);
+        font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-rendering: optimizeLegibility;
     }
 
-    to {
-        opacity: 1;
-        transform: translateY(0);
+    body {
+        background: var(--page);
+        color: var(--ink);
+    }
+
+    h1, h2, h3 {
+        text-wrap: balance;
+    }
+
+    p {
+        text-wrap: pretty;
+    }
+
+    :focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+        border-radius: 4px;
+    }
+
+    ::selection {
+        background: var(--accent-tint);
+        color: var(--ink);
     }
 }
 
-.animate-fade-in-up {
-    animation: fadeInUp 0.5s ease-out both;
+@layer components {
+    .link {
+        color: var(--accent);
+        text-underline-offset: 3px;
+    }
+
+    .link:hover {
+        color: var(--accent-strong);
+        text-decoration: underline;
+    }
+
+    .num {
+        font-variant-numeric: tabular-nums;
+    }
 }
 
-.animation-delay-200 {
-    animation-delay: 0.15s;
-}
-
-.animation-delay-400 {
-    animation-delay: 0.3s;
-}
-
-.animation-delay-600 {
-    animation-delay: 0.45s;
-}
-
-.animation-delay-800 {
-    animation-delay: 0.6s;
-}
-
-/* Safe area for mobile bottom bar */
-.safe-area-bottom {
-    padding-bottom: env(safe-area-inset-bottom, 0);
-}
-
-/* Custom scrollbar */
-::-webkit-scrollbar {
-    width: 6px;
-}
-
-::-webkit-scrollbar-track {
-    background: transparent;
-}
-
-::-webkit-scrollbar-thumb {
-    background: oklch(var(--bc) / 0.15);
-    border-radius: 3px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-    background: oklch(var(--bc) / 0.25);
-}
-
-/* Smooth transitions for theme changes */
-html {
-    transition: background-color 0.3s ease, color 0.3s ease;
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
