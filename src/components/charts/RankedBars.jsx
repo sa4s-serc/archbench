@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { motion } from "motion/react";
 import { familyColor } from "../../lib/colors";
-import { meanOf, rankByMetric, stdOf, formatWithStd, setupLabel, humanize, DIRECTION_LABEL } from "../../lib/metrics";
+import { meanOf, rankByMetric, stdOf, formatWithStd, setupLabel, DIRECTION_LABEL } from "../../lib/metrics";
 import { FamilyDot } from "../ui";
 
 const EASE_OUT_EXPO = [0.16, 1, 0.3, 1];
@@ -45,14 +45,18 @@ function ticksFor([lo, hi], unit) {
 export default function RankedBars({ rows, metric, models, ranked, domain, label }) {
   const ordered = rankByMetric(rows, metric.key, metric.direction);
   const ticks = ticksFor(domain, metric.unit);
+  // Phones: name and value on one line, the bar full width below it.
+  // Wider screens: one row per model with the bar between name and value.
   const columns = ranked
-    ? "grid-cols-[24px_minmax(112px,200px)_minmax(0,1fr)_minmax(96px,auto)]"
-    : "grid-cols-[minmax(132px,280px)_minmax(0,1fr)_minmax(72px,auto)]";
+    ? "grid-cols-[24px_minmax(0,1fr)_auto] sm:grid-cols-[24px_minmax(112px,200px)_minmax(0,1fr)_minmax(96px,auto)]"
+    : "grid-cols-[minmax(0,1fr)_auto] sm:grid-cols-[minmax(132px,280px)_minmax(0,1fr)_minmax(72px,auto)]";
+  const barPlacement = ranked ? "col-start-2 col-span-2 sm:col-start-3 sm:col-span-1 sm:row-start-1" : "col-span-2 sm:col-start-2 sm:col-span-1 sm:row-start-1";
+  const valuePlacement = ranked ? "col-start-3 row-start-1 sm:col-start-4" : "col-start-2 row-start-1 sm:col-start-3";
 
   return (
-    <div className="overflow-x-auto">
-      <div className="min-w-[560px]">
-        <div aria-hidden="true" className={`grid ${columns} gap-3 pb-2 text-xs text-ink-3`}>
+    <div>
+      <div>
+        <div aria-hidden="true" className={`hidden ${columns} gap-3 pb-2 text-xs text-ink-3 sm:grid`}>
           {ranked && <span>#</span>}
           <span>{ranked ? "Model" : "Model and setup"}</span>
           <span className="relative h-4">
@@ -71,7 +75,7 @@ export default function RankedBars({ rows, metric, models, ranked, domain, label
             const value = meanOf(row, metric.key);
             const std = stdOf(row, metric.key);
             const shown = formatWithStd(value, std, metric.unit);
-            const setup = [setupLabel(row), row.setup?.variant ? humanize(row.setup.variant) : null].filter(Boolean).join(", ");
+            const setup = setupLabel(row);
             const selfReported = row.metrics?.[metric.key]?.self_reported === true;
             const spoken = [
               ranked && rank ? `Rank ${rank}` : null,
@@ -87,7 +91,7 @@ export default function RankedBars({ rows, metric, models, ranked, domain, label
                 <Link
                   to={`/models/${encodeURIComponent(row.model_id)}`}
                   aria-label={spoken}
-                  className={`grid ${columns} min-h-[36px] items-center gap-3 border-t border-line py-1 text-ink transition-colors duration-150 hover:bg-surface`}
+                  className={`grid ${columns} min-h-[36px] items-center gap-x-3 border-t border-line py-1.5 text-ink transition-colors duration-150 hover:bg-surface sm:py-1`}
                 >
                   {ranked && <span className="num text-[13px] text-ink-2">{rank ?? "–"}</span>}
                   <span className="flex min-w-0 items-center gap-2 text-sm">
@@ -95,14 +99,14 @@ export default function RankedBars({ rows, metric, models, ranked, domain, label
                     <span className="truncate font-medium">{name}</span>
                     {!ranked && setup && <span className="truncate text-[13px] text-ink-2">{setup}</span>}
                   </span>
-                  <span className="relative h-8" aria-hidden="true">
+                  <span className={`relative h-6 sm:h-8 ${barPlacement}`} aria-hidden="true">
                     {ticks.map((t) => (
                       <span key={t.value} className="absolute inset-y-0 w-px bg-grid" style={{ left: pct(t.value, domain) }} />
                     ))}
                     {value !== null && (
                       <motion.span
-                        className={`absolute left-0 top-[9px] h-[14px] rounded-r ${ranked ? "" : "border-[1.5px] border-l-0 border-ink-3"}`}
-                        style={ranked ? { background: familyColor(model?.family) } : undefined}
+                        className="absolute left-0 top-[5px] h-[14px] rounded-r sm:top-[9px]"
+                        style={{ background: ranked ? familyColor(model?.family) : "var(--ink-3)" }}
                         initial={{ width: 0 }}
                         animate={{ width: pct(value, domain) }}
                         transition={MOTION}
@@ -110,7 +114,7 @@ export default function RankedBars({ rows, metric, models, ranked, domain, label
                     )}
                     {value !== null && std !== null && (
                       <span
-                        className="absolute top-[15px] h-[2px] bg-ink opacity-60"
+                        className="absolute top-[11px] h-[2px] bg-ink opacity-60 sm:top-[15px]"
                         style={{
                           left: pct(Math.max(domain[0], value - std), domain),
                           width: `${(position(value + std, domain) - position(Math.max(domain[0], value - std), domain)).toFixed(3)}%`,
@@ -118,7 +122,7 @@ export default function RankedBars({ rows, metric, models, ranked, domain, label
                       />
                     )}
                   </span>
-                  <span className="num text-right text-sm">
+                  <span className={`num text-right text-sm ${valuePlacement}`}>
                     {shown.value}
                     {shown.std && <span className="text-xs text-ink-3"> ±{shown.std}</span>}
                     {selfReported && <span className="text-xs text-ink-3"> self-reported</span>}

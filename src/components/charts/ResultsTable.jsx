@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { formatWithStd, meanOf, rankByMetric, stdOf, setupLabel, humanize, DIRECTION_LABEL } from "../../lib/metrics";
+import { formatWithStd, meanOf, rankByMetric, stdOf, setupLabel, DIRECTION_LABEL } from "../../lib/metrics";
 import { DirectionArrow, ExternalIcon, FamilyDot } from "../ui";
 
 /**
@@ -50,7 +50,7 @@ export default function ResultsTable({ rows, metrics, models, ranked, initialSor
         <tbody>
           {ordered.map(({ row, rank }) => {
             const model = models[row.model_id];
-            const setup = [setupLabel(row), row.setup?.variant ? humanize(row.setup.variant) : null].filter(Boolean).join(", ");
+            const setup = setupLabel(row);
             return (
               <tr key={row.run_id} className="border-b border-line last:border-b-0 hover:bg-surface">
                 {showRank && <td className="num px-3 py-2.5 text-ink-2">{rank ?? "–"}</td>}

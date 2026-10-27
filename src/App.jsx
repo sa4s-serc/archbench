@@ -8,6 +8,7 @@ import ExampleBanner from "./components/ExampleBanner";
 import Footer from "./components/Footer";
 import Overview from "./pages/Overview";
 import Tasks from "./pages/Tasks";
+import TaskPage from "./pages/TaskPage";
 import Papers from "./pages/Papers";
 import About from "./pages/About";
 import Contribute from "./pages/Contribute";
@@ -35,6 +36,7 @@ function App() {
                   <Route path="/" element={<Overview />} />
                   <Route path="/leaderboard" element={<Navigate to="/" replace />} />
                   <Route path="/tasks" element={<Tasks />} />
+                  <Route path="/tasks/:taskId" element={<TaskPage />} />
                   <Route path="/guidelines" element={<Guidelines />} />
                   <Route path="/papers" element={<Papers />} />
                   <Route path="/about" element={<About />} />
