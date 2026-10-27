@@ -139,12 +139,16 @@
 @layer components {
     .link {
         color: var(--accent);
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-decoration-color: color-mix(in oklab, var(--accent) 45%, transparent);
         text-underline-offset: 3px;
+        transition: color 150ms, text-decoration-color 150ms;
     }
 
     .link:hover {
         color: var(--accent-strong);
-        text-decoration: underline;
+        text-decoration-color: currentColor;
     }
 
     .num {

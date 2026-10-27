@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { lazy, Suspense, useMemo, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { taskInfo } from "../data/taskInfo";
 import { useResults } from "../lib/ResultsContext";
@@ -7,9 +7,11 @@ import { DIRECTION_LABEL, humanize } from "../lib/metrics";
 import { defaultPrompt, promptStyles } from "../lib/views";
 import RankedBars, { barDomain, directionSentence } from "../components/charts/RankedBars";
 import ResultsTable from "../components/charts/ResultsTable";
-import ExampleDialog from "../components/ExampleDialog";
 import { Chips, Direction, ExternalIcon, Page, Segmented, SourceBadge, Tag } from "../components/ui";
 import NotFound from "./NotFound";
+
+// Markdown rendering is only needed once someone opens the example.
+const ExampleDialog = lazy(() => import("../components/ExampleDialog"));
 
 const UNIT_NAMES = {
   score: "score",
@@ -216,8 +218,10 @@ export default function TaskPage() {
         </div>
       </section>
 
-      {info.exampleFile && (
-        <ExampleDialog file={info.exampleFile} title={info.exampleTitle} open={exampleOpen} onClose={() => setExampleOpen(false)} />
+      {info.exampleFile && exampleOpen && (
+        <Suspense fallback={null}>
+          <ExampleDialog file={info.exampleFile} title={info.exampleTitle} open onClose={() => setExampleOpen(false)} />
+        </Suspense>
       )}
     </Page>
   );
