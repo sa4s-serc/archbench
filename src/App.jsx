@@ -6,7 +6,7 @@ import { ResultsProvider } from "./lib/ResultsContext";
 import SiteNav from "./components/SiteNav";
 import ExampleBanner from "./components/ExampleBanner";
 import Footer from "./components/Footer";
-import Leaderboard from "./pages/Leaderboard";
+import Overview from "./pages/Overview";
 import Tasks from "./pages/Tasks";
 import Papers from "./pages/Papers";
 import About from "./pages/About";
@@ -32,7 +32,7 @@ function App() {
               <ExampleBanner />
               <div className="flex-1">
                 <Routes>
-                  <Route path="/" element={<Leaderboard />} />
+                  <Route path="/" element={<Overview />} />
                   <Route path="/leaderboard" element={<Navigate to="/" replace />} />
                   <Route path="/tasks" element={<Tasks />} />
                   <Route path="/guidelines" element={<Guidelines />} />

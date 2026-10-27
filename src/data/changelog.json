@@ -1,0 +1,6 @@
+[
+  { "date": "2026-07-22", "text": "Architecture View Generation added, with 13 paper results", "to": "/tasks/diagram" },
+  { "date": "2026-06-29", "text": "ICSA papers added to the reading list", "to": "/papers" },
+  { "date": "2026-03-22", "text": "ArchBench paper published on arXiv", "href": "https://arxiv.org/abs/2603.17833" },
+  { "date": "2026-02-12", "text": "Microservice Generation added", "to": "/tasks/microservice" }
+]

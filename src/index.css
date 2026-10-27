@@ -150,6 +150,12 @@
     .num {
         font-variant-numeric: tabular-nums;
     }
+
+    /* Scroll boxes contain their screen-reader-only text, which is absolutely
+       positioned and would otherwise widen the page on phones. */
+    .overflow-x-auto {
+        position: relative;
+    }
 }
 
 @media (prefers-reduced-motion: reduce) {
