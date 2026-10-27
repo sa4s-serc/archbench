@@ -9,6 +9,8 @@ import Footer from "./components/Footer";
 import Overview from "./pages/Overview";
 import Tasks from "./pages/Tasks";
 import TaskPage from "./pages/TaskPage";
+import Models from "./pages/Models";
+import ModelPage from "./pages/ModelPage";
 import Papers from "./pages/Papers";
 import About from "./pages/About";
 import Contribute from "./pages/Contribute";
@@ -37,6 +39,8 @@ function App() {
                   <Route path="/leaderboard" element={<Navigate to="/" replace />} />
                   <Route path="/tasks" element={<Tasks />} />
                   <Route path="/tasks/:taskId" element={<TaskPage />} />
+                  <Route path="/models" element={<Models />} />
+                  <Route path="/models/:modelId" element={<ModelPage />} />
                   <Route path="/guidelines" element={<Guidelines />} />
                   <Route path="/papers" element={<Papers />} />
                   <Route path="/about" element={<About />} />
