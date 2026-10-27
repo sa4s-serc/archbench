@@ -1,53 +1,51 @@
-import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
-import Sidebar from "./components/Sidebar";
+import { useEffect } from "react";
+import { BrowserRouter as Router, Navigate, Route, Routes, useLocation } from "react-router-dom";
+import { MotionConfig } from "motion/react";
+import { Analytics } from "@vercel/analytics/react";
+import { ResultsProvider } from "./lib/ResultsContext";
+import SiteNav from "./components/SiteNav";
+import ExampleBanner from "./components/ExampleBanner";
+import Footer from "./components/Footer";
 import Leaderboard from "./pages/Leaderboard";
 import Tasks from "./pages/Tasks";
 import Papers from "./pages/Papers";
 import About from "./pages/About";
-import Homepage from "./pages/Homepage";
 import Contribute from "./pages/Contribute";
+import Guidelines from "./pages/Guidelines";
 import NotFound from "./pages/NotFound";
-import { Analytics } from "@vercel/analytics/react";
-import { useState } from "react";
 
-function AppLayout() {
-  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
-  const location = useLocation();
-  const isHome = location.pathname === "/";
-
-  return (
-    <div className="min-h-screen bg-base-100">
-      {!isHome && (
-        <Sidebar collapsed={sidebarCollapsed} setCollapsed={setSidebarCollapsed} />
-      )}
-
-      <main
-        className={`transition-all duration-300 ${!isHome
-          ? sidebarCollapsed
-            ? "lg:ml-[72px] pb-20 lg:pb-0"
-            : "lg:ml-60 pb-20 lg:pb-0"
-          : ""
-          }`}
-      >
-        <Routes>
-          <Route path="/" element={<Homepage />} />
-          <Route path="/leaderboard" element={<Leaderboard />} />
-          <Route path="/tasks" element={<Tasks />} />
-          <Route path="/papers" element={<Papers />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contribute" element={<Contribute />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </main>
-    </div>
-  );
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => window.scrollTo(0, 0), [pathname]);
+  return null;
 }
 
 function App() {
   return (
     <>
       <Router>
-        <AppLayout />
+        <ResultsProvider>
+          <MotionConfig reducedMotion="user">
+            <ScrollToTop />
+            <div className="flex min-h-screen flex-col bg-page text-ink">
+              <SiteNav />
+              <ExampleBanner />
+              <div className="flex-1">
+                <Routes>
+                  <Route path="/" element={<Leaderboard />} />
+                  <Route path="/leaderboard" element={<Navigate to="/" replace />} />
+                  <Route path="/tasks" element={<Tasks />} />
+                  <Route path="/guidelines" element={<Guidelines />} />
+                  <Route path="/papers" element={<Papers />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/contribute" element={<Contribute />} />
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </div>
+              <Footer />
+            </div>
+          </MotionConfig>
+        </ResultsProvider>
       </Router>
       <Analytics />
     </>
