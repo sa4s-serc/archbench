@@ -14,11 +14,11 @@ Stores user contact information and notification settings (reminders, backup fre
 
 **Incremental Generation**: The target microservice's source directory is removed from the codebase, but all integration points, dependencies, configuration, and other services remain intact. The agent can explore the existing architecture to understand patterns, API contracts, and tech stack.
 
-**Clean State Generation**: All implementation traces of the target microservice are removed — directory, configuration files, and API calls from other microservices. The agent must infer architecture and implementation details from requirements specifications alone.
+**Clean State Generation**: All implementation traces of the target microservice are removed: directory, configuration files, and API calls from other microservices. The agent must infer architecture and implementation details from requirements specifications alone.
 
 ---
 
-### Prompt Strategy P1 (Minimal Context — Service Name Only)
+### Prompt Strategy P1 (Minimal Context: Service Name Only)
 
 The agent receives only the microservice name and a path to the requirements document (the project README). It must explore the codebase to discover everything else.
 
@@ -195,6 +195,6 @@ Each combination (3 agents x 3 services x 2 prompts x 2 scenarios) produces one 
 
 ### Evaluation Metrics
 Generated microservices are evaluated across three dimensions:
-1. **Functional Correctness** — Unit test pass rates (incremental) or integration test pass rates (clean state)
-2. **Code Quality** — SLOC, Cyclomatic Complexity, and Cognitive Complexity via SonarQube
-3. **Efficiency** — Generation time, monetary cost, and token consumption
+1. **Functional Correctness**: Unit test pass rates (incremental) or integration test pass rates (clean state)
+2. **Code Quality**: SLOC, Cyclomatic Complexity, and Cognitive Complexity via SonarQube
+3. **Efficiency**: Generation time, monetary cost, and token consumption

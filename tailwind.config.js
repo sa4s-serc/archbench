@@ -1,3 +1,5 @@
+const themes = require("daisyui/src/theming/themes");
+
 /** @type {import('tailwindcss').Config} */
 export default {
   content: [
@@ -5,46 +7,27 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {
-      colors: {
-        page: "var(--page)",
-        surface: "var(--surface)",
-        control: "var(--control)",
-        "control-active": "var(--control-active)",
-        line: "var(--line)",
-        "line-strong": "var(--line-strong)",
-        grid: "var(--grid)",
-        ink: "var(--ink)",
-        "ink-2": "var(--ink-2)",
-        "ink-3": "var(--ink-3)",
-        accent: "var(--accent)",
-        "accent-strong": "var(--accent-strong)",
-        "accent-tint": "var(--accent-tint)",
-        "accent-on-tint": "var(--accent-on-tint)",
-        tooltip: "var(--tooltip)",
-        "tooltip-ink": "var(--tooltip-ink)",
-        "tooltip-ink-2": "var(--tooltip-ink-2)",
+    extend: {},
+  },
+  daisyui: {
+    themes: [
+      "light",
+      {
+        // daisyUI's dark theme with brighter text, visible borders and
+        // cards one step lighter than the page, so everything reads clearly.
+        dark: {
+          ...themes.dark,
+          primary: "oklch(70% 0.17 275.75)",
+          "base-100": "#161a20",
+          "base-200": "#1f252d",
+          "base-300": "#36404c",
+          "base-content": "#e4e8ee",
+        },
       },
-      boxShadow: {
-        control: "var(--shadow-control)",
-        pop: "var(--shadow-pop)",
-      },
-      maxWidth: {
-        content: "1200px",
-      },
-      zIndex: {
-        sticky: "20",
-        menu: "30",
-        dialog: "40",
-        tooltip: "50",
-      },
-      transitionTimingFunction: {
-        "out-quart": "cubic-bezier(0.25, 1, 0.5, 1)",
-        "out-expo": "cubic-bezier(0.16, 1, 0.3, 1)",
-      },
-    },
+    ],
   },
   plugins: [
     require("@tailwindcss/typography"),
+    require("daisyui"),
   ],
 }

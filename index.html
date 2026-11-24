@@ -11,8 +11,9 @@
     <title>ArchBench</title>
     <script>
       try {
-        var t = localStorage.getItem("theme");
-        if (t === "light" || t === "dark") document.documentElement.dataset.theme = t;
+        var m = document.cookie.match(/(?:^|; )theme=(light|dark)/);
+        var t = m ? m[1] : (window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+        document.documentElement.setAttribute("data-theme", t);
       } catch (e) {}
     </script>
   </head>

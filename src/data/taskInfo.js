@@ -52,6 +52,16 @@ const examples = {
   microservice: ["microserviceExample.md", "Example microservice task"],
 };
 
+// Authored labels for the tightest spaces (phone strips and axes).
+const tinyNames = {
+  adr: "ADR",
+  traceability: "Trace",
+  diagram: "Diagram",
+  serverless: "FaaS",
+  dynamic: "IoT",
+  microservice: "Micro",
+};
+
 // Short labels for tight spaces (matrix headers, phone layouts).
 const shortNames = {
   adr: "ADR",
@@ -98,6 +108,7 @@ export function taskInfo(id) {
   const [exampleFile, exampleTitle] = examples[id] ?? [];
   return {
     shortName: shortNames[id] ?? id,
+    tinyName: tinyNames[id] ?? shortNames[id] ?? id,
     summary: source?.short_description ?? "",
     description: source?.long_description ?? "",
     paperLink: source?.paper_link ?? null,

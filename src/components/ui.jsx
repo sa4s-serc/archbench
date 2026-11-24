@@ -1,51 +1,88 @@
-import { useEffect, useRef } from "react";
-import { DIRECTION_ARROW, DIRECTION_LABEL } from "../lib/metrics";
+import { useEffect, useId, useRef } from "react";
+import { Link } from "react-router-dom";
+import { ArrowUpRight, X } from "lucide-react";
 import { familyColor } from "../lib/colors";
+import { logoFor } from "../lib/logos";
+import { DIRECTION_ARROW, DIRECTION_LABEL } from "../lib/metrics";
 
-export function Page({ children, className = "" }) {
-  return <main className={`mx-auto w-full max-w-content px-4 sm:px-6 pb-24 ${className}`}>{children}</main>;
-}
-
-export function PageHeader({ title, lead, children, eyebrow }) {
+// Sticky page title bar, as on the live site.
+export function TopBar({ title, subtitle, children }) {
   return (
-    <header className="flex max-w-3xl flex-col gap-4 pt-10 sm:pt-14">
-      {eyebrow}
-      <h1 className="text-[32px] font-semibold leading-[1.12] tracking-[-0.022em] sm:text-[40px] sm:leading-[1.1]">{title}</h1>
-      {lead && <p className="text-[17px] leading-relaxed text-ink-2">{lead}</p>}
-      {children}
+    <header className="sticky top-0 z-30 border-b border-base-300/50 bg-base-100">
+      <div className="flex min-h-[4rem] items-center justify-between gap-4 px-4 py-3 sm:px-6 lg:px-8">
+        <div className="min-w-0">
+          <h1 className="truncate text-base font-bold leading-tight sm:text-lg">{title}</h1>
+          {subtitle && <p className="hidden truncate text-xs text-base-content/50 sm:block">{subtitle}</p>}
+        </div>
+        {children && <div className="flex shrink-0 items-center gap-2">{children}</div>}
+      </div>
     </header>
   );
 }
 
-export function SectionHeader({ title, lead, children, as: Heading = "h2" }) {
+export const Page = ({ className = "", children }) => (
+  <div className={`mx-auto w-full max-w-[1240px] p-4 pb-16 sm:p-6 lg:p-8 ${className}`}>{children}</div>
+);
+
+// Summary card with an icon tile, as on the live leaderboard.
+export function SummaryCard({ icon: Icon, title, children, aside }) {
   return (
-    <div className="flex flex-wrap items-end justify-between gap-4">
-      <div className="flex max-w-2xl flex-col gap-1.5">
-        <Heading className="text-[22px] font-semibold tracking-[-0.015em]">{title}</Heading>
-        {lead && <p className="text-sm leading-relaxed text-ink-2">{lead}</p>}
+    <div className="card-flat flex flex-col gap-4 p-5 sm:flex-row sm:items-start">
+      <div className="flex min-w-0 flex-1 items-start gap-4">
+        {Icon && (
+          <span className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <Icon size={22} aria-hidden="true" />
+          </span>
+        )}
+        <div className="min-w-0">
+          <h2 className="text-lg font-bold">{title}</h2>
+          <div className="mt-1 text-sm leading-relaxed text-base-content/70">{children}</div>
+        </div>
       </div>
-      {children && <div className="flex flex-wrap gap-3">{children}</div>}
+      {aside}
     </div>
   );
 }
 
-// A row of mutually exclusive buttons (a segmented control).
-export function Segmented({ label, options, value, onChange }) {
+export function SectionTitle({ id, icon: Icon, title, lead, sheet, children }) {
   return (
-    <div role="group" aria-label={label} className="inline-flex max-w-full overflow-x-auto rounded-[9px] bg-control p-[3px] text-[13px]">
-      {options.map((option) => {
-        const active = option.value === value;
+    <div className="flex flex-wrap items-end justify-between gap-3">
+      <div>
+        {sheet && (
+          <p className="bp-label mb-1.5 flex items-center gap-2" aria-hidden="true">
+            <span>{sheet}</span>
+            <span className="h-px w-8 bg-current opacity-50" />
+          </p>
+        )}
+        <h2 id={id} className="flex items-center gap-2 text-xl font-bold">
+          {Icon && <Icon size={19} className="text-primary" aria-hidden="true" />}
+          {title}
+        </h2>
+        {lead && <p className="mt-1 max-w-[72ch] text-sm text-base-content/60">{lead}</p>}
+      </div>
+      {children}
+    </div>
+  );
+}
+
+// Filter pills, as on the live leaderboard's scenario toggles.
+export function Pills({ label, options, value, onChange }) {
+  return (
+    <div role="group" aria-label={label} className="flex flex-wrap gap-2">
+      {options.map((o) => {
+        const active = o.value === value;
         return (
           <button
-            key={String(option.value)}
+            key={String(o.value)}
             type="button"
             aria-pressed={active}
-            onClick={() => onChange(option.value)}
-            className={`whitespace-nowrap rounded-[7px] px-3 py-1.5 transition-colors duration-150 ease-out-quart ${
-              active ? "bg-control-active font-medium text-ink shadow-control" : "text-ink-2 hover:text-ink"
+            title={o.title}
+            onClick={() => onChange(o.value)}
+            className={`rounded-xl border px-4 py-1.5 text-xs font-medium transition-colors ${
+              active ? "border-primary/20 bg-primary/10 text-primary" : "border-base-300/50 text-base-content/60 hover:bg-base-200/60"
             }`}
           >
-            {option.label}
+            {o.label}
           </button>
         );
       })}
@@ -53,79 +90,10 @@ export function Segmented({ label, options, value, onChange }) {
   );
 }
 
-// Choice chips that wrap, for longer option lists such as metrics.
-export function Chips({ label, options, value, onChange }) {
-  return (
-    <div role="radiogroup" aria-label={label} className="flex flex-wrap gap-1.5">
-      {options.map((option) => {
-        const active = option.value === value;
-        return (
-          <button
-            key={option.value}
-            type="button"
-            role="radio"
-            aria-checked={active}
-            onClick={() => onChange(option.value)}
-            className={`num rounded-lg border px-3 py-1.5 text-[13px] transition-colors duration-150 ease-out-quart ${
-              active ? "border-ink bg-ink text-page" : "border-line-strong text-ink-2 hover:border-ink-3 hover:text-ink"
-            }`}
-          >
-            {option.label}
-          </button>
-        );
-      })}
-    </div>
-  );
-}
+export const FamilyDot = ({ family, size = 8 }) => (
+  <span aria-hidden="true" className="inline-block shrink-0 rounded-full" style={{ width: size, height: size, background: familyColor(family) }} />
+);
 
-export function SourceBadge({ source }) {
-  if (source === "inhouse") {
-    return (
-      <span className="inline-flex shrink-0 items-center rounded-full bg-accent-tint px-2.5 py-0.5 text-xs font-medium text-accent-on-tint">
-        In-house
-      </span>
-    );
-  }
-  return (
-    <span className="inline-flex shrink-0 items-center rounded-full border border-line-strong px-2.5 py-px text-xs font-medium text-ink-2">
-      Paper
-    </span>
-  );
-}
-
-export function Tag({ children }) {
-  return (
-    <span className="inline-flex shrink-0 items-center rounded-full border border-line-strong px-2.5 py-px text-xs font-medium text-ink-2">
-      {children}
-    </span>
-  );
-}
-
-export function FamilyDot({ family, size = 8 }) {
-  return (
-    <span
-      aria-hidden="true"
-      className="inline-block shrink-0 rounded-full"
-      style={{ width: size, height: size, background: familyColor(family) }}
-    />
-  );
-}
-
-export function Direction({ direction, withLabel = true, className = "" }) {
-  if (direction === "none") {
-    return <span className={`text-ink-2 ${className}`}>{DIRECTION_LABEL.none}</span>;
-  }
-  return (
-    <span className={`inline-flex items-center gap-1.5 ${className}`}>
-      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-        {direction === "higher" ? <path d="M12 19V5M6 11l6-6 6 6" /> : <path d="M12 5v14M6 13l6 6 6-6" />}
-      </svg>
-      {withLabel ? DIRECTION_LABEL[direction] : <span className="sr-only">{DIRECTION_LABEL[direction]}</span>}
-    </span>
-  );
-}
-
-// Inline arrow after a metric name, announced as words.
 export function DirectionArrow({ direction }) {
   if (!DIRECTION_ARROW[direction]) return null;
   return (
@@ -136,53 +104,49 @@ export function DirectionArrow({ direction }) {
   );
 }
 
-export function ExternalIcon({ size = 14 }) {
+export const ExternalIcon = ({ size = 13 }) => <ArrowUpRight size={size} aria-hidden="true" />;
+
+// Provider logo, or a lettered tile when no mark is available.
+export function ModelLogo({ model, size = 16 }) {
+  const logo = logoFor(model);
+  if (logo.src) {
+    return <img src={logo.src} alt="" title={logo.org} width={size} height={size} className={`shrink-0 ${logo.mono ? "logo-mono" : ""}`} style={{ width: size, height: size }} />;
+  }
   return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M14 4h6v6M20 4l-9 9M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5" />
-    </svg>
+    <span
+      title={logo.org}
+      aria-hidden="true"
+      className="inline-flex shrink-0 items-center justify-center rounded-[3px] bg-base-content font-semibold text-base-100"
+      style={{ width: size, height: size, fontSize: Math.max(7, size * (logo.initials.length > 2 ? 0.36 : 0.46)) }}
+    >
+      {logo.initials}
+    </span>
   );
 }
 
-export function ChevronRight({ size = 16 }) {
-  return (
-    <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-      <path d="M9 6l6 6-6 6" />
-    </svg>
-  );
-}
-
-// Native <dialog> with a header and close button; closes on backdrop click.
 export function Dialog({ open, onClose, title, actions, children }) {
   const ref = useRef(null);
-
   useEffect(() => {
-    const dialog = ref.current;
-    if (!dialog) return;
-    if (open && !dialog.open) dialog.showModal();
-    if (!open && dialog.open) dialog.close();
+    const d = ref.current;
+    if (!d) return;
+    if (open && !d.open) d.showModal();
+    if (!open && d.open) d.close();
   }, [open]);
-
   return (
     <dialog
       ref={ref}
       onClose={onClose}
       onClick={(e) => e.target === ref.current && onClose()}
       aria-labelledby="dialog-title"
-      className="m-auto w-[calc(100%-32px)] max-w-4xl rounded-2xl border border-line bg-page p-0 text-ink shadow-pop backdrop:bg-black/40"
+      className="m-auto w-[calc(100%-32px)] max-w-4xl rounded-2xl border border-base-300 bg-base-100 p-0 text-base-content shadow-xl backdrop:bg-black/40"
     >
       <div className="flex max-h-[85vh] flex-col">
-        <div className="flex items-center justify-between gap-4 border-b border-line px-5 py-4">
-          <h2 id="dialog-title" className="text-lg font-semibold">{title}</h2>
+        <div className="flex items-center justify-between gap-4 border-b border-base-300 px-5 py-4">
+          <h2 id="dialog-title" className="text-lg font-bold">{title}</h2>
           <div className="flex items-center gap-2">
             {actions}
-            <button
-              type="button"
-              onClick={onClose}
-              aria-label="Close"
-              className="flex h-9 w-9 items-center justify-center rounded-lg text-ink-2 hover:bg-control hover:text-ink"
-            >
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" /></svg>
+            <button type="button" onClick={onClose} aria-label="Close" className="btn btn-ghost btn-sm btn-circle">
+              <X size={18} aria-hidden="true" />
             </button>
           </div>
         </div>
@@ -192,16 +156,77 @@ export function Dialog({ open, onClose, title, actions, children }) {
   );
 }
 
-export function Button({ as: Component = "button", variant = "secondary", className = "", ...props }) {
-  const styles =
-    variant === "primary"
-      ? "bg-accent text-page hover:bg-accent-strong"
-      : "border border-line-strong text-ink hover:border-ink-3 hover:bg-control";
+export const Container = ({ className = "", children }) => (
+  <div className={`mx-auto w-full max-w-[1240px] px-4 sm:px-6 lg:px-8 ${className}`}>{children}</div>
+);
+
+// Page heading: the live site's top bar, then a bold title block.
+// eslint-disable-next-line no-unused-vars
+export function PageBand({ back, title, barTitle, lead, aside, children }) {
   return (
-    <Component
-      className={`inline-flex min-h-[40px] items-center justify-center gap-2 rounded-lg px-4 text-sm font-medium transition-colors duration-150 ease-out-quart ${styles} ${className}`}
-      {...(Component === "button" ? { type: "button" } : {})}
-      {...props}
-    />
+    <>
+      <Container className="pt-8 sm:pt-10">
+        {back && (
+          <Link to={back.to} className="text-xs text-base-content/50 hover:text-primary">
+            &larr; {back.label}
+          </Link>
+        )}
+        <div className="mt-2 flex flex-col gap-5 lg:flex-row lg:items-start lg:justify-between">
+          <div className="max-w-3xl">
+            <h1 className="text-3xl font-bold tracking-tight sm:text-4xl">{title}</h1>
+            {lead && <p className="mt-2 text-base leading-relaxed text-base-content/70">{lead}</p>}
+          </div>
+          {aside}
+        </div>
+        {children}
+      </Container>
+    </>
+  );
+}
+
+// Blueprint frame around a few words: dashed outline, grid fill, corner handles.
+export function BlueprintFrame({ children, className = "" }) {
+  return (
+    <span className={`bp-frame ${className}`}>
+      <i aria-hidden="true" />
+      <i aria-hidden="true" />
+      <i aria-hidden="true" />
+      <i aria-hidden="true" />
+      {children}
+    </span>
+  );
+}
+
+// Older name for the filter pills.
+export const BoxTabs = ({ label, options, value, onChange }) => <Pills label={label} options={options} value={value} onChange={onChange} />;
+
+// Model size filter: a slider from the smallest size class to "any size".
+export const SIZE_STEPS = [1, 2, 4, 8, 16, 32, Infinity];
+export const fitsSize = (model, max) => max === Infinity || (model?.params_b != null && model.params_b <= max);
+
+export function SizeSlider({ value, onChange, className = "" }) {
+  const id = useId();
+  const index = Math.max(0, SIZE_STEPS.indexOf(value));
+  return (
+    <div className={`flex min-w-[220px] flex-col gap-1 ${className}`}>
+      <label htmlFor={id} className="flex items-baseline justify-between text-xs">
+        <span className="text-base-content/60">Model size</span>
+        <span className="font-semibold">{value === Infinity ? "Any size" : `Up to ${value}B parameters`}</span>
+      </label>
+      <input
+        id={id}
+        type="range"
+        min={0}
+        max={SIZE_STEPS.length - 1}
+        step={1}
+        value={index}
+        onChange={(e) => onChange(SIZE_STEPS[Number(e.target.value)])}
+        aria-valuetext={value === Infinity ? "Any size" : `Up to ${value} billion parameters`}
+        className="range range-primary range-xs"
+      />
+      <div className="flex justify-between px-0.5 text-[10px] text-base-content/50" aria-hidden="true">
+        {SIZE_STEPS.map((s) => <span key={s}>{s === Infinity ? "Any" : `${s}B`}</span>)}
+      </div>
+    </div>
   );
 }

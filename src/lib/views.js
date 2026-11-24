@@ -45,7 +45,9 @@ export function buildMatrix(doc, prompt, shortName) {
       name: model?.display_name ?? id,
       family: model?.family,
       params: formatParams(model),
-      avgRank: ranks.length ? ranks.reduce((a, b) => a + b, 0) / ranks.length : Infinity,
+      // Average rank needs a result on every core task; otherwise models
+      // ranked on fewer (often easier or harder) tasks are not comparable.
+      avgRank: ranks.length === tasks.length ? ranks.reduce((a, b) => a + b, 0) / ranks.length : Infinity,
       cells,
     };
   });
@@ -104,3 +106,10 @@ export function scatterPoints(doc, task, prompt, axisKey) {
     })
     .filter(Boolean);
 }
+
+// Compact model labels for tight chart space.
+export const shortModelName = (name) =>
+  String(name)
+    .replace(" Instruct 2507", " 2507")
+    .replace("DeepSeek-R1-0528 Qwen3 8B", "DeepSeek-R1 8B")
+    .replace("Mistral Small 3.2 24B", "Mistral Small 3.2");

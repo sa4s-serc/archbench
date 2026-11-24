@@ -1,22 +1,31 @@
 // Chart colour helpers. Family colours are CSS variables (see index.css) so
 // they switch with the theme; the rank ramp is computed per theme here.
 
-// Fixed order: a family keeps its colour whatever else is on screen.
-const FAMILY_ORDER = ["Qwen", "Llama", "Gemma", "Phi", "Mistral", "gpt-oss"];
-
-export const familyColor = (family) => {
-  const index = FAMILY_ORDER.indexOf(family);
-  return index === -1 ? "var(--fam-other)" : `var(--fam-${index + 1})`;
+const FAMILY_VARS = {
+  Qwen: "qwen",
+  Llama: "llama",
+  Gemma: "gemma",
+  Phi: "phi",
+  Mistral: "mistral",
+  Granite: "granite",
+  Nemotron: "nemotron",
+  SmolLM: "smollm",
+  OLMo: "olmo",
+  Apertus: "apertus",
+  DeepSeek: "deepseek",
+  "gpt-oss": "gptoss",
 };
+
+export const FAMILY_ORDER = Object.keys(FAMILY_VARS);
+
+export const familyColor = (family) => `var(--fam-${FAMILY_VARS[family] ?? "other"})`;
 
 export const familiesInUse = (families) => {
   const set = new Set(families);
   const known = FAMILY_ORDER.filter((f) => set.has(f));
-  const hasOther = [...set].some((f) => !FAMILY_ORDER.includes(f));
+  const hasOther = [...set].some((f) => f && !FAMILY_VARS[f]);
   return hasOther ? [...known, "Other"] : known;
 };
-
-const ACCENT_HUE = 277;
 
 const oklchToHex = (L, C, h) => {
   const a = C * Math.cos((h * Math.PI) / 180);
@@ -41,20 +50,24 @@ const oklchToHex = (L, C, h) => {
   );
 };
 
-// Rank shading: one hue (the accent's), strongest for rank 1. The lightness
-// range skips the middle band where neither dark nor light text reaches 4.5:1.
+const lerp = (a, b, t) => a + (b - a) * t;
+
+// Rank shading from the brand: marigold for rank 1, a lighter marigold for
+// ranks 2 and 3, then navy steps that darken with rank. The hue stays on the
+// navy side after the podium, so the ramp never passes through grey, khaki,
+// green or teal; lightness carries the order on its own.
 export function rankFill(rank, count, theme) {
-  const t = count <= 1 ? 0 : (rank - 1) / (count - 1);
-  if (theme === "dark") {
-    const strong = t < 0.5;
-    const L = strong ? 0.84 - (t / 0.5) * 0.16 : 0.5 - ((t - 0.5) / 0.5) * 0.24;
-    const C = strong ? 0.12 : 0.09 - ((t - 0.5) / 0.5) * 0.05;
-    return { bg: oklchToHex(L, C, ACCENT_HUE), fg: strong ? "#111214" : "#f2f3f5" };
-  }
-  const strong = t < 0.5;
-  const L = strong ? 0.36 + (t / 0.5) * 0.16 : 0.7 + ((t - 0.5) / 0.5) * 0.26;
-  const C = strong ? 0.17 - (t / 0.5) * 0.02 : 0.11 - ((t - 0.5) / 0.5) * 0.085;
-  return { bg: oklchToHex(L, C, ACCENT_HUE), fg: strong ? "#ffffff" : "#111318" };
+  const light = theme === "light";
+  if (rank === 1) return { bg: oklchToHex(light ? 0.84 : 0.84, 0.16, 82), fg: light ? "#0c1427" : "#141006" };
+  if (rank <= 3) return { bg: oklchToHex(light ? 0.91 : 0.9, 0.09, 85), fg: light ? "#0c1427" : "#141006" };
+  const t = count <= 4 ? 0 : (rank - 4) / (count - 4);
+  if (light) return { bg: oklchToHex(lerp(0.86, 0.97, t), lerp(0.07, 0.015, t), 264), fg: "#0c1427" };
+  // The band between L 0.52 and 0.64 is skipped: neither dark nor light text
+  // reaches 4.5:1 there.
+  const pale = t < 0.4;
+  const L = pale ? lerp(0.8, 0.66, t / 0.4) : lerp(0.5, 0.29, (t - 0.4) / 0.6);
+  const C = pale ? lerp(0.06, 0.09, t / 0.4) : lerp(0.11, 0.08, (t - 0.4) / 0.6);
+  return { bg: oklchToHex(L, C, 264), fg: pale ? "#0b1631" : "#e9eef8" };
 }
 
 export const rankRamp = (theme, steps = 12) =>

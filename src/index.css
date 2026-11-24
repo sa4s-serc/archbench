@@ -2,118 +2,44 @@
 @tailwind components;
 @tailwind utilities;
 
-/*
- * Design tokens. Light values live on :root; dark values apply when the OS
- * prefers dark (unless the viewer picked light) or when the viewer picked dark.
- * Accent keeps the indigo hue of the previous site.
- */
-:root {
-    color-scheme: light;
-    --page: #ffffff;
-    --surface: #f6f7f9;
-    --control: #f0f1f4;
-    --control-active: #ffffff;
-    --line: #e6e8ec;
-    --line-strong: #d5d8de;
-    --grid: #eef0f3;
-    --ink: #111318;
-    --ink-2: #4a4f5a;
-    --ink-3: #6b7280;
-    --accent: #4d4bd1;
-    --accent-strong: #3f3ab7;
-    --accent-tint: #e9edff;
-    --accent-on-tint: #3f3ab7;
-    --tooltip: #111318;
-    --tooltip-ink: #f2f3f5;
-    --tooltip-ink-2: #b4b8c0;
-    --shadow-control: 0 1px 2px rgb(17 19 24 / 0.08);
-    --shadow-pop: 0 8px 24px rgb(17 19 24 / 0.16);
-
-    /* Model family colours, fixed order (validated for colour-vision deficiency) */
-    --fam-1: #eb6834;
-    --fam-2: #1baf7a;
-    --fam-3: #eda100;
-    --fam-4: #e87ba4;
-    --fam-5: #008300;
-    --fam-6: #e34948;
-    --fam-other: #9aa0a8;
+/* Model family colours for dots and series. Darker in light mode so they
+   hold 3:1 against white. */
+[data-theme="light"] {
+    --fam-qwen: #6d4cd6;
+    --fam-llama: #0f8580;
+    --fam-gemma: #1a6fdc;
+    --fam-phi: #c2185b;
+    --fam-mistral: #cc5a0e;
+    --fam-granite: #566a80;
+    --fam-nemotron: #4c8517;
+    --fam-smollm: #a87f00;
+    --fam-olmo: #8d5524;
+    --fam-apertus: #d0312f;
+    --fam-deepseek: #3a4bc9;
+    --fam-gptoss: #2c313b;
+    --fam-other: #8a93a6;
 }
 
-@media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-        color-scheme: dark;
-        --page: #111214;
-        --surface: #18191b;
-        --control: #202226;
-        --control-active: #2f3237;
-        --line: #2a2c31;
-        --line-strong: #3a3d43;
-        --grid: #1f2125;
-        --ink: #f2f3f5;
-        --ink-2: #b4b8c0;
-        --ink-3: #8d929b;
-        --accent: #8f9bfb;
-        --accent-strong: #adb8fe;
-        --accent-tint: #252950;
-        --accent-on-tint: #cfd5f9;
-        --tooltip: #f2f3f5;
-        --tooltip-ink: #111318;
-        --tooltip-ink-2: #4a4f5a;
-        --shadow-control: none;
-        --shadow-pop: 0 8px 24px rgb(0 0 0 / 0.5);
-        --fam-1: #d95926;
-        --fam-2: #199e70;
-        --fam-3: #c98500;
-        --fam-4: #d55181;
-        --fam-5: #008300;
-        --fam-6: #e66767;
-        --fam-other: #6b7078;
-    }
-}
-
-:root[data-theme="dark"] {
-    color-scheme: dark;
-    --page: #111214;
-    --surface: #18191b;
-    --control: #202226;
-    --control-active: #2f3237;
-    --line: #2a2c31;
-    --line-strong: #3a3d43;
-    --grid: #1f2125;
-    --ink: #f2f3f5;
-    --ink-2: #b4b8c0;
-    --ink-3: #8d929b;
-    --accent: #8f9bfb;
-    --accent-strong: #adb8fe;
-    --accent-tint: #252950;
-    --accent-on-tint: #cfd5f9;
-    --tooltip: #f2f3f5;
-    --tooltip-ink: #111318;
-    --tooltip-ink-2: #4a4f5a;
-    --shadow-control: none;
-    --shadow-pop: 0 8px 24px rgb(0 0 0 / 0.5);
-    --fam-1: #d95926;
-    --fam-2: #199e70;
-    --fam-3: #c98500;
-    --fam-4: #d55181;
-    --fam-5: #008300;
-    --fam-6: #e66767;
-    --fam-other: #6b7078;
+[data-theme="dark"] {
+    --fam-qwen: #a184ff;
+    --fam-llama: #2fc7b8;
+    --fam-gemma: #55aaff;
+    --fam-phi: #ff74b1;
+    --fam-mistral: #ff8f45;
+    --fam-granite: #a3b3c6;
+    --fam-nemotron: #93d553;
+    --fam-smollm: #ffd447;
+    --fam-olmo: #e2ac77;
+    --fam-apertus: #ff6166;
+    --fam-deepseek: #8592ff;
+    --fam-gptoss: #e7eaf1;
+    --fam-other: #77829a;
 }
 
 @layer base {
     html {
-        background: var(--page);
-        color: var(--ink);
-        font-family: "IBM Plex Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+        font-family: "Hanken Grotesk Variable", ui-sans-serif, system-ui, sans-serif;
         -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        text-rendering: optimizeLegibility;
-    }
-
-    body {
-        background: var(--page);
-        color: var(--ink);
     }
 
     h1, h2, h3 {
@@ -124,66 +50,99 @@
         text-wrap: pretty;
     }
 
-    :focus-visible {
-        outline: 2px solid var(--accent);
-        outline-offset: 2px;
-        border-radius: 4px;
-    }
-
     ::selection {
-        background: var(--accent-tint);
-        color: var(--ink);
+        background: oklch(var(--p) / 0.25);
     }
 }
 
 @layer components {
-    .link {
-        color: var(--accent);
-        text-decoration: underline;
-        text-decoration-thickness: 1px;
-        text-decoration-color: color-mix(in oklab, var(--accent) 45%, transparent);
-        text-underline-offset: 3px;
-        transition: color 150ms, text-decoration-color 150ms;
+    /* Cards and panels in the style of the live site */
+    .card-flat {
+        @apply rounded-2xl border border-base-300/50 bg-base-200/40;
     }
 
-    .link:hover {
-        color: var(--accent-strong);
-        text-decoration-color: currentColor;
+    [data-theme="dark"] .card-flat {
+        @apply border-base-300/70 bg-base-200;
     }
 
     .num {
         font-variant-numeric: tabular-nums;
     }
 
-    /* Typography plugin colours, mapped to the theme tokens */
-    .prose-tokens {
-        --tw-prose-body: var(--ink-2);
-        --tw-prose-headings: var(--ink);
-        --tw-prose-lead: var(--ink-2);
-        --tw-prose-links: var(--accent);
-        --tw-prose-bold: var(--ink);
-        --tw-prose-counters: var(--ink-3);
-        --tw-prose-bullets: var(--ink-3);
-        --tw-prose-hr: var(--line);
-        --tw-prose-quotes: var(--ink-2);
-        --tw-prose-quote-borders: var(--line-strong);
-        --tw-prose-captions: var(--ink-3);
-        --tw-prose-code: var(--ink);
-        --tw-prose-pre-code: var(--ink);
-        --tw-prose-pre-bg: var(--surface);
-        --tw-prose-th-borders: var(--line-strong);
-        --tw-prose-td-borders: var(--line);
+    .link-quiet {
+        @apply underline decoration-base-content/25 underline-offset-[3px] hover:decoration-current;
     }
+}
 
-    .prose-tokens pre {
-        border: 1px solid var(--line);
-    }
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
 
-    /* Scroll boxes contain their screen-reader-only text, which is absolutely
-       positioned and would otherwise widen the page on phones. */
-    .overflow-x-auto {
-        position: relative;
-    }
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: oklch(var(--bc) / 0.15);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: oklch(var(--bc) / 0.25);
+}
+
+/* Motion: short, eased, and only where it explains a change. */
+@keyframes page-enter {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes bar-grow {
+    from { transform: scaleX(0); }
+    to { transform: scaleX(1); }
+}
+
+@keyframes row-in {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: none; }
+}
+
+@keyframes fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.page-enter {
+    animation: page-enter 320ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+.bar-grow {
+    transform-origin: left center;
+    animation: bar-grow 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    transition: width 450ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.row-in {
+    animation: row-in 360ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+details[open] > :not(summary) {
+    animation: fade-in 240ms ease-out both;
+}
+
+.card-lift {
+    transition: transform 180ms ease-out, box-shadow 180ms ease-out, border-color 180ms ease-out;
+}
+
+.card-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 18px oklch(var(--bc) / 0.08);
+    border-color: oklch(var(--p) / 0.3);
+}
+
+html {
+    transition: background-color 200ms ease, color 200ms ease;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -191,8 +150,90 @@
     *::before,
     *::after {
         animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
 }
+
+/* Dark mode: stronger hairlines and fills so borders, tracks and inactive
+   controls stay visible. */
+[data-theme="dark"] .border-base-300\/50 {
+    border-color: oklch(var(--b3) / 0.85);
+}
+
+[data-theme="dark"] .bg-primary\/45 {
+    background-color: oklch(var(--p) / 0.62);
+}
+
+[data-theme="dark"] .bg-base-300\/60 {
+    background-color: oklch(var(--b3) / 0.75);
+}
+
+/* Single-colour provider marks follow the text colour in dark mode. */
+[data-theme="dark"] .logo-mono {
+    filter: invert(1);
+}
+
+/* Blueprint motif: drafting grid, framed headline, sheet labels.
+   All lines are the primary hue at low strength so both themes work. */
+:root {
+  --bp: oklch(var(--p));
+  --bp-major: color-mix(in oklab, var(--bp) 9%, transparent);
+  --bp-minor: color-mix(in oklab, var(--bp) 4.5%, transparent);
+}
+[data-theme="dark"] {
+  --bp-major: color-mix(in oklab, var(--bp) 13%, transparent);
+  --bp-minor: color-mix(in oklab, var(--bp) 6%, transparent);
+}
+.bp-grid {
+  background-image:
+    linear-gradient(to right, var(--bp-major) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--bp-major) 1px, transparent 1px),
+    linear-gradient(to right, var(--bp-minor) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--bp-minor) 1px, transparent 1px);
+  background-size: 120px 120px, 120px 120px, 24px 24px, 24px 24px;
+  background-position: -1px -1px;
+}
+/* Fades the grid out towards the bottom of its box. */
+.bp-fade {
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 35%, transparent 100%);
+}
+/* The framed words in the home headline: dashed outline, grid fill, square handles. */
+.bp-frame {
+  position: relative;
+  display: inline-block;
+  padding: 0.04em 0.28em 0.1em;
+  border: 1.5px dashed color-mix(in oklab, var(--bp) 70%, transparent);
+  background-image:
+    linear-gradient(to right, var(--bp-minor) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--bp-minor) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+.bp-frame > i {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  background: var(--bp);
+  border-radius: 1px;
+}
+.bp-frame > i:nth-of-type(1) { left: -5px; top: -5px; }
+.bp-frame > i:nth-of-type(2) { right: -5px; top: -5px; }
+.bp-frame > i:nth-of-type(3) { left: -5px; bottom: -5px; }
+.bp-frame > i:nth-of-type(4) { right: -5px; bottom: -5px; }
+/* Technical annotation text: sheet numbers, figure labels, dimensions. */
+.bp-label {
+  font-family: "JetBrains Mono Variable", ui-monospace, monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--bp) 80%, oklch(var(--bc)));
+}
+
+/* Header dropdown */
+@keyframes menu-drop {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: none; }
+}
+.menu-drop { animation: menu-drop 160ms cubic-bezier(0.2, 0.7, 0.2, 1); }
+@media (prefers-reduced-motion: reduce) { .menu-drop { animation: none; } }

@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useResults } from "../lib/ResultsContext";
 
 const LOGOS = [
   { href: "https://serc.iiit.ac.in/", src: "/serc.png", alt: "Software Engineering Research Center" },
@@ -7,25 +8,24 @@ const LOGOS = [
 ];
 
 export default function Footer() {
+  const doc = useResults();
+  const updated = doc.generatedAt ? new Date(doc.generatedAt).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" }) : null;
   return (
-    <footer className="border-t border-line">
-      <div className="mx-auto flex max-w-content flex-col gap-8 px-4 py-10 sm:px-6 md:flex-row md:items-center md:justify-between">
-        <div className="flex max-w-md flex-col gap-3">
-          <p className="text-sm leading-relaxed text-ink-2">
-            ArchBench is built by the SA4S group at the Software Engineering Research Center, IIIT Hyderabad.
-          </p>
-          <div className="flex flex-wrap gap-x-5 gap-y-2 text-sm">
-            <Link to="/about" className="link">About</Link>
-            <Link to="/contribute" className="link">Contribute</Link>
-            <a href="https://github.com/sa4s-serc/archbench" className="link">GitHub</a>
-          </div>
-        </div>
-        <div className="flex items-center gap-8">
-          {LOGOS.map((logo) => (
-            <a key={logo.href} href={logo.href} target="_blank" rel="noopener noreferrer" className="opacity-70 transition-opacity duration-150 hover:opacity-100">
-              <img src={logo.src} alt={logo.alt} className="h-10 w-auto object-contain" />
+    <footer className="border-t border-base-300/50 bg-base-200/30 py-10">
+      <div className="mx-auto flex max-w-7xl flex-col items-center gap-8 px-4">
+        <div className="flex flex-wrap items-center justify-center gap-10 lg:gap-16">
+          {LOGOS.map((l) => (
+            <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="flex h-20 w-28 items-center rounded-xl bg-white p-2 opacity-80 transition-opacity hover:opacity-100 lg:w-36">
+              <img src={l.src} alt={l.alt} className="h-full w-full object-contain" />
             </a>
           ))}
+        </div>
+        <div className="h-px w-16 bg-base-300" />
+        <div className="flex flex-wrap justify-center gap-x-5 gap-y-2 text-xs text-base-content/50">
+          <Link to="/methodology" className="hover:text-base-content">Methodology</Link>
+          <Link to="/contribute" className="hover:text-base-content">Contribute</Link>
+          <a href="https://github.com/sa4s-serc/archbench" className="hover:text-base-content">GitHub</a>
+          {updated && <span>Results updated {updated}</span>}
         </div>
       </div>
     </footer>

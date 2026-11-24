@@ -4,7 +4,7 @@
 export const DIRECTION_LABEL = {
   higher: "Higher is better",
   lower: "Lower is better",
-  none: "Descriptive, not ranked",
+  none: "For reference, not ranked",
 };
 
 export const DIRECTION_ARROW = { higher: "↑", lower: "↓", none: "" };
@@ -94,11 +94,17 @@ export function formatWithStd(mean, std, unit) {
   };
 }
 
+// Plain-language names for prompt setups and settings.
 const PROMPT_LABELS = {
-  zero_shot: "Zero-shot",
-  one_shot: "One-shot",
-  few_shot: "Few-shot",
+  zero_shot: "Instructions only",
+  one_shot: "One example",
+  few_shot: "With examples",
   readme: "README",
+  no_intervention: "No human edits",
+  with_intervention: "After human edits",
+  incremental: "Adding to existing code",
+  clean_state: "From scratch",
+  fine_tuned: "Fine-tuned",
 };
 
 export const humanize = (value) =>
