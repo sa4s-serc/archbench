@@ -1,164 +1,77 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { Check, Copy, ExternalLink, Github, Quote, Search } from "lucide-react";
 import papersData from "../data/papersData.json";
-import TopBar from "../components/TopBar";
 import ExpandableText from "../components/ExpandableText";
-import { ExternalLink, Github, Quote } from "lucide-react";
+import { Container, Dialog, PageBand } from "../components/ui";
 
-const Papers = () => {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showModal, setShowModal] = useState(false);
-  const [currentCitation, setCurrentCitation] = useState("");
-  const [copySuccess, setCopySuccess] = useState(false);
-
-  const openCitationModal = (paperId) => {
-    const paper = papersData.papers.find(p => p.id === paperId);
-    const citation = paper?.citation || "Citation not available";
-    setCurrentCitation(citation);
-    setShowModal(true);
-    setTimeout(() => {
-      document.getElementById("citation_modal").showModal();
-    }, 100);
-  };
-
-  const closeModal = (e) => {
-    const modal = document.getElementById("citation_modal");
-    if (e.target === modal) {
-      modal.close();
-      setShowModal(false);
-    }
-  };
-
-  const copyToClipboard = async () => {
-    try {
-      await navigator.clipboard.writeText(currentCitation);
-      setCopySuccess(true);
-      setTimeout(() => setCopySuccess(false), 2000);
-    } catch (error) {
-      console.error("Failed to copy:", error);
-    }
-  };
-
-  const sortedPapers = [...papersData.papers]
+export default function Papers() {
+  const [query, setQuery] = useState("");
+  const [citing, setCiting] = useState(null);
+  const [copied, setCopied] = useState(false);
+  const q = query.trim().toLowerCase();
+  const papers = [...papersData.papers]
     .sort((a, b) => parseInt(b.year) - parseInt(a.year))
-    .filter(
-      (p) =>
-        p.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        p.authors.join(" ").toLowerCase().includes(searchQuery.toLowerCase())
-    );
+    .filter((p) => !q || p.title.toLowerCase().includes(q) || p.authors.join(" ").toLowerCase().includes(q));
+
+  const copy = async () => {
+    try {
+      await navigator.clipboard.writeText(citing?.citation ?? "");
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      setCopied(false);
+    }
+  };
 
   return (
     <>
-      <TopBar
+      <PageBand
+        back={{ to: "/", label: "Home" }}
         title="Papers"
-        subtitle="Research papers behind the benchmark"
-        searchValue={searchQuery}
-        onSearchChange={setSearchQuery}
-        searchPlaceholder="Search papers..."
-      />
-
-      <div className="p-4 sm:p-6 lg:p-8 max-w-4xl mx-auto">
-        <div className="space-y-6">
-          {sortedPapers.map((paper) => (
-            <div
-              key={paper.id}
-              className="group relative rounded-2xl bg-base-200/40 border border-base-300/50 hover:border-primary/20 p-6 transition-all duration-300"
-            >
-              {/* Year badge */}
-              <div className="inline-flex items-center px-2.5 py-0.5 rounded-full bg-primary/10 text-primary text-xs font-semibold mb-3">
-                {paper.year}
+        lead="The research behind ArchBench's tasks and datasets, newest first."
+      >
+        <label className="mt-6 flex max-w-md items-center gap-2 rounded border border-base-300 bg-base-100 px-3">
+          <Search size={15} className="text-base-content/50" aria-hidden="true" />
+          <input type="search" value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search by title or author" aria-label="Search papers" className="h-10 w-full bg-transparent text-[14px] outline-none" />
+        </label>
+      </PageBand>
+      <Container className="mt-8 max-w-[960px]">
+        <ul className="flex flex-col divide-y divide-base-300 border-y border-base-300">
+          {papers.map((p) => (
+            <li key={p.id} className="py-6">
+              <p className="num text-[12.5px] text-base-content/55">{p.year}</p>
+              <h2 className="font-bold mt-1 text-[22px] leading-snug">
+                {p.arxivLink ? <a href={p.arxivLink} target="_blank" rel="noopener noreferrer" className="hover:underline">{p.title}</a> : p.title}
+              </h2>
+              <p className="mt-1.5 text-[13.5px] text-base-content/60">{p.authors.join(", ")}</p>
+              {p.abstract && (
+                <ExpandableText className="mt-3 text-[14px] leading-relaxed text-base-content/75" lines={3} minLength={180}>
+                  {p.abstract}
+                </ExpandableText>
+              )}
+              <div className="mt-3 flex flex-wrap gap-4 text-[13.5px]">
+                {p.arxivLink && <a href={p.arxivLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:underline"><ExternalLink size={14} aria-hidden="true" />{p.paperLinkLabel || "arXiv"}</a>}
+                {p.githubLink && <a href={p.githubLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 hover:underline"><Github size={14} aria-hidden="true" />{p.repoLinkLabel || "GitHub"}</a>}
+                {p.citation && <button type="button" onClick={() => setCiting(p)} className="inline-flex items-center gap-1.5 hover:underline"><Quote size={14} aria-hidden="true" />Cite</button>}
               </div>
-
-              <h3 className="text-lg font-bold mb-2 leading-snug">
-                <a
-                  href={paper.arxivLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-primary transition-colors"
-                >
-                  {paper.title}
-                </a>
-              </h3>
-
-              <p className="text-sm text-base-content/50 mb-3">
-                {paper.authors.join(", ")}
-              </p>
-
-              <ExpandableText
-                className="text-sm text-base-content/70 leading-relaxed mb-4"
-                lines={3}
-                minLength={180}
-              >
-                {paper.abstract}
-              </ExpandableText>
-
-              <div className="flex flex-wrap gap-2">
-                {paper.arxivLink && (
-                  <a
-                    href={paper.arxivLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-sm btn-ghost rounded-xl gap-1.5 text-xs"
-                  >
-                    <ExternalLink size={13} />
-                    {paper.paperLinkLabel || "arXiv"}
-                  </a>
-                )}
-                {paper.githubLink && (
-                  <a
-                    href={paper.githubLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-sm btn-ghost rounded-xl gap-1.5 text-xs"
-                  >
-                    <Github size={13} />
-                    {paper.repoLinkLabel || "GitHub"}
-                  </a>
-                )}
-                <button
-                  onClick={() => openCitationModal(paper.id)}
-                  className="btn btn-sm btn-ghost rounded-xl gap-1.5 text-xs"
-                >
-                  <Quote size={13} />
-                  Cite
-                </button>
-              </div>
-            </div>
+            </li>
           ))}
-        </div>
-
-        {sortedPapers.length === 0 && (
-          <div className="text-center py-16 text-base-content/40">
-            <p>No papers match your search.</p>
-          </div>
-        )}
-      </div>
-
-      <dialog id="citation_modal" className="modal" onClick={closeModal}>
-        <div className="modal-box w-11/12 max-w-3xl rounded-3xl">
-          <div className="flex justify-between items-center mb-4">
-            <h3 className="text-lg font-bold">Citation</h3>
-            <button
-              onClick={copyToClipboard}
-              className="btn btn-sm btn-outline rounded-xl"
-              disabled={copySuccess}
-            >
-              {copySuccess ? "✓ Copied!" : "📋 Copy"}
-            </button>
-          </div>
-          <div className="bg-base-200 p-4 rounded-xl overflow-x-auto">
-            <pre className="whitespace-pre-wrap font-mono text-sm">
-              {currentCitation}
-            </pre>
-          </div>
-          <div className="modal-action">
-            <form method="dialog">
-              <button className="btn rounded-xl">Close</button>
-            </form>
-          </div>
-        </div>
-      </dialog>
+        </ul>
+        {papers.length === 0 && <p className="py-12 text-center text-[14px] text-base-content/60">No papers match your search.</p>}
+      </Container>
+      <Dialog
+        open={Boolean(citing)}
+        onClose={() => setCiting(null)}
+        title="Citation"
+        actions={
+          <button type="button" onClick={copy} className="inline-flex items-center gap-1.5 rounded border border-base-300 px-3 py-1.5 text-[13px] hover:bg-base-200">
+            {copied ? <Check size={14} aria-hidden="true" /> : <Copy size={14} aria-hidden="true" />}
+            {copied ? "Copied" : "Copy BibTeX"}
+          </button>
+        }
+      >
+        <pre className="overflow-x-auto whitespace-pre-wrap rounded bg-base-200 p-4 font-mono text-[13px]">{citing?.citation}</pre>
+      </Dialog>
     </>
   );
-};
-
-export default Papers;
+}

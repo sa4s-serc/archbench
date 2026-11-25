@@ -3,7 +3,7 @@
   "short_description": "Generate PlantUML architecture diagrams from repository summaries.",
   "long_description": "Given a natural-language summary of a software repository (components, dependencies, architectural styles), generate a PlantUML C4 architecture diagram that matches the ground-truth view. Submissions are evaluated using image similarity metrics (SSIM, PSNR, RMSE) comparing the rendered PNG of the generated diagram against the ground-truth diagram image. The dataset covers 339 open-source repositories spanning a variety of architectural styles, concerns, and notations. Approaches may use zero-shot, few-shot, guided planning (ArchView), or agentic strategies.",
   "paper_link": "https://arxiv.org/abs/2603.21178",
-  "github_link": "https://github.com/sa4s-serc/archbench-diagram",
+  "github_link": "https://github.com/sa4s-serc/ViewGeneration",
   "metrics": [
     {
       "name": "SSIM",

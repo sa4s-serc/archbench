@@ -1,56 +1,18 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { Home, Frown } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Container } from "../components/ui";
 
-const NotFound = () => {
-  const navigate = useNavigate();
-
+export default function NotFound() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-base-100">
-      <div className="text-center px-4">
-        <div className="flex justify-center mb-8">
-          <div className="text-9xl font-bold text-primary">
-            404
-          </div>
-        </div>
-        
-        <div className="flex justify-center mb-6">
-          <Frown size={64} className="text-base-content/40" />
-        </div>
-
-        <h1 className="text-4xl font-bold mb-3">Page Not Found</h1>
-        
-        <p className="text-lg text-base-content/60 mb-2">
-          Oopsie Woopsie!
-          <br />
-          Looks like this architecture doesn't exist in our design system!
-        </p>
-
-        <div className="my-12 flex flex-col sm:flex-row gap-4 justify-center">
-          <button
-            onClick={() => navigate("/")}
-            className="btn btn-primary gap-2 rounded-xl"
-          >
-            <Home size={18} />
-            Go Home
-          </button>
-          <button
-            onClick={() => navigate("/leaderboard")}
-            className="btn btn-outline rounded-xl"
-          >
-            🏆 Back to Leaderboard
-          </button>
-        </div>
-
-        <div className="mt-12 p-6 bg-base-200/30 rounded-2xl border border-base-300/50 max-w-md mx-auto">
-          <p className="text-sm text-base-content/60 italic">
-            "It's not a bug, it's a feature... of the internet." 
-            <br />- Everyone, probably
-          </p>
-        </div>
+    <Container className="py-24">
+      <p className="num text-[14px] text-base-content/60">404</p>
+      <h1 className="font-bold mt-2 text-3xl font-extrabold leading-tight">This page does not exist</h1>
+      <p className="mt-3 max-w-[60ch] text-[16px] text-base-content/75">
+        The link may point to an older version of the site. Every leaderboard now has its own page.
+      </p>
+      <div className="mt-6 flex flex-wrap gap-3">
+        <Link to="/" className="rounded-md bg-base-content px-4 py-2 text-[14px] text-base-100">Home</Link>
+        <Link to="/leaderboard/adr" className="rounded-md border border-base-300 px-4 py-2 text-[14px] hover:bg-base-200">Leaderboards</Link>
       </div>
-    </div>
+    </Container>
   );
-};
-
-export default NotFound;
+}

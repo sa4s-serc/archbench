@@ -1,0 +1,8086 @@
+{
+  "schema_version": 1,
+  "generated_at": "2026-10-27T16:14:20+00:00",
+  "example": true,
+  "tasks": {
+    "adr": {
+      "name": "Architecture Decision Record Generation",
+      "primary_metric": "bertscore_f1",
+      "inhouse": true
+    },
+    "traceability": {
+      "name": "Architecture Traceability Link Recovery",
+      "primary_metric": "f1",
+      "inhouse": true
+    },
+    "diagram": {
+      "name": "Architecture View Generation",
+      "primary_metric": "ssim",
+      "inhouse": true
+    },
+    "serverless": {
+      "name": "Serverless Component Generation",
+      "primary_metric": "codebleu",
+      "inhouse": true
+    },
+    "dynamic": {
+      "name": "Dynamic IoT Service Generation",
+      "primary_metric": "f1",
+      "inhouse": false
+    },
+    "microservice": {
+      "name": "Microservice Generation",
+      "primary_metric": "test_pass_rate_p1",
+      "inhouse": false
+    }
+  },
+  "metrics": {
+    "adr": {
+      "rouge1": {
+        "display_name": "ROUGE-1",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "rouge2": {
+        "display_name": "ROUGE-2",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "rougeL": {
+        "display_name": "ROUGE-L",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "bleu": {
+        "display_name": "BLEU",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "meteor": {
+        "display_name": "METEOR",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "bertscore_p": {
+        "display_name": "BERTScore P",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "bertscore_r": {
+        "display_name": "BERTScore R",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "bertscore_f1": {
+        "display_name": "BERTScore F1",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      }
+    },
+    "traceability": {
+      "precision": {
+        "display_name": "Precision",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "recall": {
+        "display_name": "Recall",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "f1": {
+        "display_name": "F1",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "weighted_avg_f1": {
+        "display_name": "Weighted F1",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      }
+    },
+    "diagram": {
+      "ssim": {
+        "display_name": "SSIM",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "psnr": {
+        "display_name": "PSNR",
+        "direction": "higher",
+        "unit": "dB",
+        "range": null
+      },
+      "rmse": {
+        "display_name": "RMSE",
+        "direction": "lower",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "sam": {
+        "display_name": "SAM",
+        "direction": "lower",
+        "unit": "radians",
+        "range": null
+      },
+      "sre": {
+        "display_name": "SRE",
+        "direction": "higher",
+        "unit": "dB",
+        "range": null
+      },
+      "uiq": {
+        "display_name": "UIQ",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          -1,
+          1
+        ]
+      }
+    },
+    "serverless": {
+      "codebleu": {
+        "display_name": "CodeBLEU",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "codebase_tests": {
+        "display_name": "Codebase Tests",
+        "direction": "higher",
+        "unit": "percent",
+        "range": [
+          0,
+          100
+        ]
+      },
+      "function_tests": {
+        "display_name": "Function Tests",
+        "direction": "higher",
+        "unit": "percent",
+        "range": [
+          0,
+          100
+        ]
+      },
+      "sloc": {
+        "display_name": "SLOC",
+        "direction": "none",
+        "unit": "lines",
+        "range": null
+      },
+      "cyclomatic_complexity": {
+        "display_name": "Cyclomatic",
+        "direction": "none",
+        "unit": "count",
+        "range": null
+      },
+      "cognitive_complexity": {
+        "display_name": "Cognitive",
+        "direction": "none",
+        "unit": "count",
+        "range": null
+      },
+      "halstead_volume": {
+        "display_name": "Halstead Vol.",
+        "direction": "none",
+        "unit": "count",
+        "range": null
+      }
+    },
+    "dynamic": {
+      "precision": {
+        "display_name": "Precision",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "recall": {
+        "display_name": "Recall",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "f1": {
+        "display_name": "F1",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "f3": {
+        "display_name": "F3",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "tokens": {
+        "display_name": "Tokens",
+        "direction": "lower",
+        "unit": "tokens",
+        "range": null
+      }
+    },
+    "microservice": {
+      "test_pass_rate_p1": {
+        "display_name": "Pass Rate (P1)",
+        "direction": "higher",
+        "unit": "percent",
+        "range": [
+          0,
+          100
+        ]
+      },
+      "test_pass_rate_p2": {
+        "display_name": "Pass Rate (P2)",
+        "direction": "higher",
+        "unit": "percent",
+        "range": [
+          0,
+          100
+        ]
+      },
+      "avg_time_min": {
+        "display_name": "Avg Time",
+        "direction": "lower",
+        "unit": "minutes",
+        "range": null
+      },
+      "avg_cost_usd": {
+        "display_name": "Avg Cost",
+        "direction": "lower",
+        "unit": "usd",
+        "range": null
+      }
+    }
+  },
+  "tiers": [
+    {
+      "id": "tiny",
+      "label": "≤4B",
+      "max_params_b": 4
+    },
+    {
+      "id": "small",
+      "label": "4–10B",
+      "max_params_b": 10
+    },
+    {
+      "id": "medium",
+      "label": "10–35B",
+      "max_params_b": 35
+    },
+    {
+      "id": "large",
+      "label": ">35B",
+      "max_params_b": null
+    }
+  ],
+  "models": {
+    "qwen-1.5b": {
+      "display_name": "Qwen 1.5B",
+      "family": "Qwen",
+      "org": "Alibaba",
+      "params_b": 1.5,
+      "active_params_b": 1.5,
+      "open_weights": true,
+      "reasoning": false,
+      "tier": "tiny",
+      "hf_id": null,
+      "release_date": null
+    },
+    "llama-3b": {
+      "display_name": "Llama 3B",
+      "family": "Llama",
+      "org": "Meta",
+      "params_b": 3.2,
+      "active_params_b": 3.2,
+      "open_weights": true,
+      "reasoning": false,
+      "tier": "tiny",
+      "hf_id": null,
+      "release_date": null
+    },
+    "gemma-4b": {
+      "display_name": "Gemma 4B",
+      "family": "Gemma",
+      "org": "Google",
+      "params_b": 4.0,
+      "active_params_b": 4.0,
+      "open_weights": true,
+      "reasoning": false,
+      "tier": "tiny",
+      "hf_id": null,
+      "release_date": null
+    },
+    "phi-4b": {
+      "display_name": "Phi Mini 3.8B",
+      "family": "Phi",
+      "org": "Microsoft",
+      "params_b": 3.8,
+      "active_params_b": 3.8,
+      "open_weights": true,
+      "reasoning": true,
+      "tier": "tiny",
+      "hf_id": null,
+      "release_date": null
+    },
+    "qwen-8b": {
+      "display_name": "Qwen 8B",
+      "family": "Qwen",
+      "org": "Alibaba",
+      "params_b": 8.2,
+      "active_params_b": 8.2,
+      "open_weights": true,
+      "reasoning": true,
+      "tier": "small",
+      "hf_id": null,
+      "release_date": null
+    },
+    "llama-8b": {
+      "display_name": "Llama 8B",
+      "family": "Llama",
+      "org": "Meta",
+      "params_b": 8.0,
+      "active_params_b": 8.0,
+      "open_weights": true,
+      "reasoning": false,
+      "tier": "small",
+      "hf_id": null,
+      "release_date": null
+    },
+    "gemma-9b": {
+      "display_name": "Gemma 9B",
+      "family": "Gemma",
+      "org": "Google",
+      "params_b": 9.2,
+      "active_params_b": 9.2,
+      "open_weights": true,
+      "reasoning": false,
+      "tier": "small",
+      "hf_id": null,
+      "release_date": null
+    },
+    "mistral-7b": {
+      "display_name": "Mistral 7B",
+      "family": "Mistral",
+      "org": "Mistral AI",
+      "params_b": 7.2,
+      "active_params_b": 7.2,
+      "open_weights": true,
+      "reasoning": false,
+      "tier": "small",
+      "hf_id": null,
+      "release_date": null
+    },
+    "qwen-14b": {
+      "display_name": "Qwen 14B",
+      "family": "Qwen",
+      "org": "Alibaba",
+      "params_b": 14.8,
+      "active_params_b": 14.8,
+      "open_weights": true,
+      "reasoning": true,
+      "tier": "medium",
+      "hf_id": null,
+      "release_date": null
+    },
+    "gpt-oss-20b": {
+      "display_name": "gpt-oss 20B",
+      "family": "gpt-oss",
+      "org": "OpenAI",
+      "params_b": 21.0,
+      "active_params_b": 3.6,
+      "open_weights": true,
+      "reasoning": true,
+      "tier": "medium",
+      "hf_id": null,
+      "release_date": null
+    },
+    "gemma-27b": {
+      "display_name": "Gemma 27B",
+      "family": "Gemma",
+      "org": "Google",
+      "params_b": 27.0,
+      "active_params_b": 27.0,
+      "open_weights": true,
+      "reasoning": false,
+      "tier": "medium",
+      "hf_id": null,
+      "release_date": null
+    },
+    "qwen-32b": {
+      "display_name": "Qwen 32B",
+      "family": "Qwen",
+      "org": "Alibaba",
+      "params_b": 32.8,
+      "active_params_b": 32.8,
+      "open_weights": true,
+      "reasoning": true,
+      "tier": "medium",
+      "hf_id": null,
+      "release_date": null
+    },
+    "gpt-4": {
+      "display_name": "GPT-4",
+      "family": "GPT",
+      "org": "OpenAI",
+      "params_b": null,
+      "active_params_b": null,
+      "open_weights": false,
+      "reasoning": false,
+      "tier": null,
+      "hf_id": null,
+      "release_date": null
+    },
+    "deepseek-coder-v2": {
+      "display_name": "DeepSeek-Coder-V2",
+      "family": "DeepSeek",
+      "org": "DeepSeek",
+      "params_b": 236,
+      "active_params_b": 21,
+      "open_weights": true,
+      "reasoning": false,
+      "tier": "large",
+      "hf_id": null,
+      "release_date": null
+    },
+    "claude-code": {
+      "display_name": "Claude Code",
+      "family": "Claude",
+      "org": "Anthropic",
+      "params_b": null,
+      "active_params_b": null,
+      "open_weights": false,
+      "reasoning": true,
+      "tier": null,
+      "hf_id": null,
+      "release_date": null
+    }
+  },
+  "results": [
+    {
+      "run_id": "fake-qwen-1.5b-adr-zero_shot",
+      "task": "adr",
+      "model_id": "qwen-1.5b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.7953,
+          "std": 0.0031,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.7967,
+          "std": 0.0049,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.7925,
+          "std": 0.0109,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.1412,
+          "std": 0.0088,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0263,
+          "std": 0.0005,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1116,
+          "std": 0.0161,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0092,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.1258,
+          "std": 0.0081,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 539.4,
+        "latency_ms_p95": 1132.7,
+        "latency_ms_mean": 647.3,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 636.3,
+        "tokens_per_sec": 1735.2,
+        "throughput_tokens_per_sec": 24292.2,
+        "wall_time_s": 12.8,
+        "gpu_hours": 0.0036,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-1.5b-adr-few_shot",
+      "task": "adr",
+      "model_id": "qwen-1.5b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8228,
+          "std": 0.0058,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8227,
+          "std": 0.0041,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8232,
+          "std": 0.0024,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.1449,
+          "std": 0.0068,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.034,
+          "std": 0.0022,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1069,
+          "std": 0.0122,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0107,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.1345,
+          "std": 0.006,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 462.4,
+        "latency_ms_p95": 971.0,
+        "latency_ms_mean": 554.9,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 472.8,
+        "tokens_per_sec": 1735.2,
+        "throughput_tokens_per_sec": 24292.2,
+        "wall_time_s": 11.0,
+        "gpu_hours": 0.0031,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 284,
+        "errors": 1,
+        "truncated": 1
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-1.5b-traceability-zero_shot",
+      "task": "traceability",
+      "model_id": "qwen-1.5b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.3606,
+          "std": 0.0147,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.2673,
+          "std": 0.031,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.3052,
+          "std": 0.0167,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 652.8,
+        "latency_ms_p95": 1371.0,
+        "latency_ms_mean": 783.4,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 507.9,
+        "tokens_per_sec": 1735.2,
+        "throughput_tokens_per_sec": 24292.2,
+        "wall_time_s": 0.8,
+        "gpu_hours": 0.0002,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-1.5b-traceability-few_shot",
+      "task": "traceability",
+      "model_id": "qwen-1.5b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.3683,
+          "std": 0.0246,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.2821,
+          "std": 0.0169,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.3183,
+          "std": 0.0019,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 489.3,
+        "latency_ms_p95": 1027.6,
+        "latency_ms_mean": 587.2,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 389.3,
+        "tokens_per_sec": 1735.2,
+        "throughput_tokens_per_sec": 24292.2,
+        "wall_time_s": 0.6,
+        "gpu_hours": 0.0002,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 14,
+        "errors": 1,
+        "truncated": 1
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-1.5b-diagram-zero_shot",
+      "task": "diagram",
+      "model_id": "qwen-1.5b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.5252,
+          "std": 0.006,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 30.9091,
+          "std": 0.1333,
+          "n": 339,
+          "non_finite": 0
+        },
+        "rmse": {
+          "mean": 0.032,
+          "std": 0.0009,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.285,
+          "std": 0.0053,
+          "n": 339
+        },
+        "sre": {
+          "mean": 40.7399,
+          "std": 0.2702,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.2026,
+          "std": 0.0212,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 722.9,
+        "latency_ms_p95": 1518.2,
+        "latency_ms_mean": 867.5,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 567.9,
+        "tokens_per_sec": 1735.2,
+        "throughput_tokens_per_sec": 24292.2,
+        "wall_time_s": 61.3,
+        "gpu_hours": 0.017,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1016,
+        "errors": 1,
+        "truncated": 1
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-1.5b-diagram-few_shot",
+      "task": "diagram",
+      "model_id": "qwen-1.5b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.5612,
+          "std": 0.0093,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 31.7217,
+          "std": 0.2125,
+          "n": 339,
+          "non_finite": 1
+        },
+        "rmse": {
+          "mean": 0.0297,
+          "std": 0.0006,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2587,
+          "std": 0.0037,
+          "n": 339
+        },
+        "sre": {
+          "mean": 41.8582,
+          "std": 0.2248,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.2849,
+          "std": 0.0096,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 556.6,
+        "latency_ms_p95": 1168.8,
+        "latency_ms_mean": 667.9,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 609.0,
+        "tokens_per_sec": 1735.2,
+        "throughput_tokens_per_sec": 24292.2,
+        "wall_time_s": 47.2,
+        "gpu_hours": 0.0131,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1016,
+        "errors": 1,
+        "truncated": 1
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-1.5b-serverless-zero_shot",
+      "task": "serverless",
+      "model_id": "qwen-1.5b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.2181,
+          "std": 0.0137,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 37.0725,
+          "std": 2.7335,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 3.7266,
+          "std": 0.3052,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 5.5188,
+          "std": 1.9044,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 960.9266,
+          "std": 52.7206,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 694.4,
+        "latency_ms_p95": 1458.2,
+        "latency_ms_mean": 833.2,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 535.5,
+        "tokens_per_sec": 1735.2,
+        "throughput_tokens_per_sec": 24292.2,
+        "wall_time_s": 1.6,
+        "gpu_hours": 0.0004,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 25,
+        "errors": 2,
+        "truncated": 2
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-1.5b-serverless-few_shot",
+      "task": "serverless",
+      "model_id": "qwen-1.5b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.2103,
+          "std": 0.0012,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 31.0927,
+          "std": 10.4179,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 7.5734,
+          "std": 1.7832,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 4.518,
+          "std": 0.6747,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 989.1447,
+          "std": 222.8277,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 373.6,
+        "latency_ms_p95": 784.6,
+        "latency_ms_mean": 448.3,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 494.4,
+        "tokens_per_sec": 1735.2,
+        "throughput_tokens_per_sec": 24292.2,
+        "wall_time_s": 0.8,
+        "gpu_hours": 0.0002,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 25,
+        "errors": 2,
+        "truncated": 2
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-llama-3b-adr-zero_shot",
+      "task": "adr",
+      "model_id": "llama-3b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8142,
+          "std": 0.0069,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8108,
+          "std": 0.0059,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8194,
+          "std": 0.0069,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.1568,
+          "std": 0.0071,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0376,
+          "std": 0.0035,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1206,
+          "std": 0.0073,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0115,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.1448,
+          "std": 0.0147,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 870.9,
+        "latency_ms_p95": 1829.0,
+        "latency_ms_mean": 1045.1,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 605.6,
+        "tokens_per_sec": 946.4,
+        "throughput_tokens_per_sec": 13250.1,
+        "wall_time_s": 20.7,
+        "gpu_hours": 0.0057,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-llama-3b-adr-few_shot",
+      "task": "adr",
+      "model_id": "llama-3b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8263,
+          "std": 0.012,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8259,
+          "std": 0.0151,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8245,
+          "std": 0.0182,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.1864,
+          "std": 0.0065,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0471,
+          "std": 0.0005,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1339,
+          "std": 0.0085,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0144,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.1567,
+          "std": 0.0087,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 628.6,
+        "latency_ms_p95": 1320.0,
+        "latency_ms_mean": 754.3,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 465.1,
+        "tokens_per_sec": 946.4,
+        "throughput_tokens_per_sec": 13250.1,
+        "wall_time_s": 14.9,
+        "gpu_hours": 0.0041,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-llama-3b-traceability-zero_shot",
+      "task": "traceability",
+      "model_id": "llama-3b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.3873,
+          "std": 0.0391,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.3135,
+          "std": 0.0138,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.3453,
+          "std": 0.0153,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 775.3,
+        "latency_ms_p95": 1628.1,
+        "latency_ms_mean": 930.3,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 459.4,
+        "tokens_per_sec": 946.4,
+        "throughput_tokens_per_sec": 13250.1,
+        "wall_time_s": 1.0,
+        "gpu_hours": 0.0003,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 13,
+        "errors": 2,
+        "truncated": 2
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-llama-3b-traceability-few_shot",
+      "task": "traceability",
+      "model_id": "llama-3b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.5243,
+          "std": 0.0376,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.4371,
+          "std": 0.014,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.4755,
+          "std": 0.0105,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 926.9,
+        "latency_ms_p95": 1946.4,
+        "latency_ms_mean": 1112.3,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 670.1,
+        "tokens_per_sec": 946.4,
+        "throughput_tokens_per_sec": 13250.1,
+        "wall_time_s": 1.2,
+        "gpu_hours": 0.0003,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-llama-3b-diagram-zero_shot",
+      "task": "diagram",
+      "model_id": "llama-3b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.5686,
+          "std": 0.0116,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 31.8305,
+          "std": 0.1188,
+          "n": 339,
+          "non_finite": 0
+        },
+        "rmse": {
+          "mean": 0.0307,
+          "std": 0.0012,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2561,
+          "std": 0.0021,
+          "n": 339
+        },
+        "sre": {
+          "mean": 42.0881,
+          "std": 0.0526,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.2676,
+          "std": 0.0084,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 1007.6,
+        "latency_ms_p95": 2116.0,
+        "latency_ms_mean": 1209.1,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 642.8,
+        "tokens_per_sec": 946.4,
+        "throughput_tokens_per_sec": 13250.1,
+        "wall_time_s": 85.4,
+        "gpu_hours": 0.0237,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1015,
+        "errors": 2,
+        "truncated": 2
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-llama-3b-diagram-few_shot",
+      "task": "diagram",
+      "model_id": "llama-3b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.5474,
+          "std": 0.0085,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 31.1187,
+          "std": 0.248,
+          "n": 339,
+          "non_finite": 0
+        },
+        "rmse": {
+          "mean": 0.0326,
+          "std": 0.0006,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2769,
+          "std": 0.0052,
+          "n": 339
+        },
+        "sre": {
+          "mean": 41.2442,
+          "std": 0.0951,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.215,
+          "std": 0.0178,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 810.4,
+        "latency_ms_p95": 1701.9,
+        "latency_ms_mean": 972.5,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 396.5,
+        "tokens_per_sec": 946.4,
+        "throughput_tokens_per_sec": 13250.1,
+        "wall_time_s": 68.7,
+        "gpu_hours": 0.0191,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1015,
+        "errors": 2,
+        "truncated": 2
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-llama-3b-serverless-zero_shot",
+      "task": "serverless",
+      "model_id": "llama-3b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.2556,
+          "std": 0.0047,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 42.2429,
+          "std": 5.3741,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 6.2252,
+          "std": 1.972,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 3.7185,
+          "std": 0.8804,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 1118.1688,
+          "std": 170.5582,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 455.6,
+        "latency_ms_p95": 956.9,
+        "latency_ms_mean": 546.8,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 282.6,
+        "tokens_per_sec": 946.4,
+        "throughput_tokens_per_sec": 13250.1,
+        "wall_time_s": 1.0,
+        "gpu_hours": 0.0003,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-llama-3b-serverless-few_shot",
+      "task": "serverless",
+      "model_id": "llama-3b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.2269,
+          "std": 0.0046,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 33.7636,
+          "std": 9.3232,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 5.154,
+          "std": 1.7743,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 6.1501,
+          "std": 1.16,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 1030.3606,
+          "std": 180.9288,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 998.1,
+        "latency_ms_p95": 2096.0,
+        "latency_ms_mean": 1197.7,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 567.8,
+        "tokens_per_sec": 946.4,
+        "throughput_tokens_per_sec": 13250.1,
+        "wall_time_s": 2.2,
+        "gpu_hours": 0.0006,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 26,
+        "errors": 1,
+        "truncated": 1
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-4b-adr-zero_shot",
+      "task": "adr",
+      "model_id": "gemma-4b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8065,
+          "std": 0.0037,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8046,
+          "std": 0.0068,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.805,
+          "std": 0.0085,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.158,
+          "std": 0.0139,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0376,
+          "std": 0.0059,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1191,
+          "std": 0.0108,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0127,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.1498,
+          "std": 0.0156,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 1175.9,
+        "latency_ms_p95": 2469.4,
+        "latency_ms_mean": 1411.1,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 660.1,
+        "tokens_per_sec": 791.7,
+        "throughput_tokens_per_sec": 11083.9,
+        "wall_time_s": 27.9,
+        "gpu_hours": 0.0078,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-4b-adr-few_shot",
+      "task": "adr",
+      "model_id": "gemma-4b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8053,
+          "std": 0.0061,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8076,
+          "std": 0.0025,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8084,
+          "std": 0.0103,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.1653,
+          "std": 0.0063,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.034,
+          "std": 0.0059,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1129,
+          "std": 0.0161,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0122,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.1528,
+          "std": 0.0099,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 637.8,
+        "latency_ms_p95": 1339.5,
+        "latency_ms_mean": 765.4,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 308.2,
+        "tokens_per_sec": 791.7,
+        "throughput_tokens_per_sec": 11083.9,
+        "wall_time_s": 15.1,
+        "gpu_hours": 0.0042,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-4b-traceability-zero_shot",
+      "task": "traceability",
+      "model_id": "gemma-4b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.3989,
+          "std": 0.0169,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.3398,
+          "std": 0.0097,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.3666,
+          "std": 0.004,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 607.9,
+        "latency_ms_p95": 1276.7,
+        "latency_ms_mean": 729.5,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 330.1,
+        "tokens_per_sec": 791.7,
+        "throughput_tokens_per_sec": 11083.9,
+        "wall_time_s": 0.8,
+        "gpu_hours": 0.0002,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-4b-traceability-few_shot",
+      "task": "traceability",
+      "model_id": "gemma-4b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.3828,
+          "std": 0.0169,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.3028,
+          "std": 0.0155,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.3381,
+          "std": 0.0153,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 799.8,
+        "latency_ms_p95": 1679.6,
+        "latency_ms_mean": 959.8,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 444.5,
+        "tokens_per_sec": 791.7,
+        "throughput_tokens_per_sec": 11083.9,
+        "wall_time_s": 1.0,
+        "gpu_hours": 0.0003,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-4b-diagram-zero_shot",
+      "task": "diagram",
+      "model_id": "gemma-4b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.5684,
+          "std": 0.0104,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 32.3907,
+          "std": 0.0958,
+          "n": 339,
+          "non_finite": 1
+        },
+        "rmse": {
+          "mean": 0.0291,
+          "std": 0.0007,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2547,
+          "std": 0.007,
+          "n": 339
+        },
+        "sre": {
+          "mean": 41.9234,
+          "std": 0.1294,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.2881,
+          "std": 0.02,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 867.1,
+        "latency_ms_p95": 1821.0,
+        "latency_ms_mean": 1040.6,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 551.7,
+        "tokens_per_sec": 791.7,
+        "throughput_tokens_per_sec": 11083.9,
+        "wall_time_s": 73.5,
+        "gpu_hours": 0.0204,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-4b-diagram-few_shot",
+      "task": "diagram",
+      "model_id": "gemma-4b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.5554,
+          "std": 0.0163,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 31.6125,
+          "std": 0.0676,
+          "n": 339,
+          "non_finite": 0
+        },
+        "rmse": {
+          "mean": 0.03,
+          "std": 0.0005,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2698,
+          "std": 0.0047,
+          "n": 339
+        },
+        "sre": {
+          "mean": 41.4077,
+          "std": 0.0445,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.2527,
+          "std": 0.0155,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 708.9,
+        "latency_ms_p95": 1488.6,
+        "latency_ms_mean": 850.6,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 290.9,
+        "tokens_per_sec": 791.7,
+        "throughput_tokens_per_sec": 11083.9,
+        "wall_time_s": 60.1,
+        "gpu_hours": 0.0167,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-4b-serverless-zero_shot",
+      "task": "serverless",
+      "model_id": "gemma-4b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.2393,
+          "std": 0.0069,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 40.7743,
+          "std": 5.5687,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 5.3512,
+          "std": 1.4392,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 6.0333,
+          "std": 0.9929,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 907.3868,
+          "std": 235.3814,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 793.8,
+        "latency_ms_p95": 1666.9,
+        "latency_ms_mean": 952.5,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 528.4,
+        "tokens_per_sec": 791.7,
+        "throughput_tokens_per_sec": 11083.9,
+        "wall_time_s": 1.8,
+        "gpu_hours": 0.0005,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-4b-serverless-few_shot",
+      "task": "serverless",
+      "model_id": "gemma-4b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.2904,
+          "std": 0.004,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 41.2623,
+          "std": 3.5021,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 6.4178,
+          "std": 0.6906,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 6.9401,
+          "std": 0.6262,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 910.5362,
+          "std": 215.213,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 457.5,
+        "latency_ms_p95": 960.8,
+        "latency_ms_mean": 549.0,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 288.3,
+        "tokens_per_sec": 791.7,
+        "throughput_tokens_per_sec": 11083.9,
+        "wall_time_s": 1.0,
+        "gpu_hours": 0.0003,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-phi-4b-adr-zero_shot",
+      "task": "adr",
+      "model_id": "phi-4b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8288,
+          "std": 0.0116,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8275,
+          "std": 0.0111,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8277,
+          "std": 0.0164,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.1824,
+          "std": 0.0159,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.037,
+          "std": 0.0075,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1271,
+          "std": 0.011,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0147,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.152,
+          "std": 0.0054,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 1674.1,
+        "latency_ms_p95": 3515.7,
+        "latency_ms_mean": 2009.0,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 1193.4,
+        "tokens_per_sec": 824.9,
+        "throughput_tokens_per_sec": 11548.1,
+        "wall_time_s": 39.8,
+        "gpu_hours": 0.011,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 284,
+        "errors": 1,
+        "truncated": 1
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-phi-4b-adr-few_shot",
+      "task": "adr",
+      "model_id": "phi-4b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8153,
+          "std": 0.0135,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8133,
+          "std": 0.0154,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.813,
+          "std": 0.0114,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.1535,
+          "std": 0.0102,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0277,
+          "std": 0.0024,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1132,
+          "std": 0.0024,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0106,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.1501,
+          "std": 0.0107,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 2114.6,
+        "latency_ms_p95": 4440.7,
+        "latency_ms_mean": 2537.6,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 1533.4,
+        "tokens_per_sec": 824.9,
+        "throughput_tokens_per_sec": 11548.1,
+        "wall_time_s": 50.2,
+        "gpu_hours": 0.014,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-phi-4b-traceability-zero_shot",
+      "task": "traceability",
+      "model_id": "phi-4b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.519,
+          "std": 0.0525,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.4094,
+          "std": 0.0347,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.4567,
+          "std": 0.036,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 1185.7,
+        "latency_ms_p95": 2490.0,
+        "latency_ms_mean": 1422.9,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 758.6,
+        "tokens_per_sec": 824.9,
+        "throughput_tokens_per_sec": 11548.1,
+        "wall_time_s": 1.5,
+        "gpu_hours": 0.0004,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-phi-4b-traceability-few_shot",
+      "task": "traceability",
+      "model_id": "phi-4b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.4983,
+          "std": 0.0088,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.3997,
+          "std": 0.0368,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.4425,
+          "std": 0.0207,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 1270.6,
+        "latency_ms_p95": 2668.4,
+        "latency_ms_mean": 1524.8,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 940.1,
+        "tokens_per_sec": 824.9,
+        "throughput_tokens_per_sec": 11548.1,
+        "wall_time_s": 1.6,
+        "gpu_hours": 0.0004,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 14,
+        "errors": 1,
+        "truncated": 1
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-phi-4b-diagram-zero_shot",
+      "task": "diagram",
+      "model_id": "phi-4b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.5662,
+          "std": 0.0072,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 31.9369,
+          "std": 0.2063,
+          "n": 339,
+          "non_finite": 0
+        },
+        "rmse": {
+          "mean": 0.0292,
+          "std": 0.0006,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2614,
+          "std": 0.0053,
+          "n": 339
+        },
+        "sre": {
+          "mean": 41.8929,
+          "std": 0.3369,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.2449,
+          "std": 0.0083,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 1927.1,
+        "latency_ms_p95": 4046.8,
+        "latency_ms_mean": 2312.5,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 1298.1,
+        "tokens_per_sec": 824.9,
+        "throughput_tokens_per_sec": 11548.1,
+        "wall_time_s": 163.3,
+        "gpu_hours": 0.0454,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-phi-4b-diagram-few_shot",
+      "task": "diagram",
+      "model_id": "phi-4b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.5586,
+          "std": 0.013,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 31.4356,
+          "std": 0.2903,
+          "n": 339,
+          "non_finite": 0
+        },
+        "rmse": {
+          "mean": 0.0327,
+          "std": 0.0007,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2743,
+          "std": 0.0054,
+          "n": 339
+        },
+        "sre": {
+          "mean": 41.2781,
+          "std": 0.3209,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.2393,
+          "std": 0.0054,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 1529.1,
+        "latency_ms_p95": 3211.2,
+        "latency_ms_mean": 1835.0,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 1158.8,
+        "tokens_per_sec": 824.9,
+        "throughput_tokens_per_sec": 11548.1,
+        "wall_time_s": 129.6,
+        "gpu_hours": 0.036,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-phi-4b-serverless-zero_shot",
+      "task": "serverless",
+      "model_id": "phi-4b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.2506,
+          "std": 0.0109,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 40.2721,
+          "std": 2.1803,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 4.8866,
+          "std": 1.441,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 4.9286,
+          "std": 0.6584,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 758.8218,
+          "std": 71.1854,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 1607.4,
+        "latency_ms_p95": 3375.5,
+        "latency_ms_mean": 1928.9,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 1045.6,
+        "tokens_per_sec": 824.9,
+        "throughput_tokens_per_sec": 11548.1,
+        "wall_time_s": 3.6,
+        "gpu_hours": 0.001,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 25,
+        "errors": 2,
+        "truncated": 2
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-phi-4b-serverless-few_shot",
+      "task": "serverless",
+      "model_id": "phi-4b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.2438,
+          "std": 0.0134,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 42.773,
+          "std": 8.0162,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 5.5814,
+          "std": 1.6153,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 3.583,
+          "std": 0.6773,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 830.5729,
+          "std": 74.2798,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 1496.5,
+        "latency_ms_p95": 3142.6,
+        "latency_ms_mean": 1795.8,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 1068.9,
+        "tokens_per_sec": 824.9,
+        "throughput_tokens_per_sec": 11548.1,
+        "wall_time_s": 3.4,
+        "gpu_hours": 0.0009,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-8b-adr-zero_shot",
+      "task": "adr",
+      "model_id": "qwen-8b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8348,
+          "std": 0.0143,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8354,
+          "std": 0.008,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8326,
+          "std": 0.0147,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.2153,
+          "std": 0.002,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0509,
+          "std": 0.0032,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1559,
+          "std": 0.0111,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0196,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.187,
+          "std": 0.0065,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 1773.8,
+        "latency_ms_p95": 3724.9,
+        "latency_ms_mean": 2128.5,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 622.4,
+        "tokens_per_sec": 445.8,
+        "throughput_tokens_per_sec": 6241.5,
+        "wall_time_s": 42.1,
+        "gpu_hours": 0.0117,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-8b-adr-few_shot",
+      "task": "adr",
+      "model_id": "qwen-8b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8255,
+          "std": 0.0091,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8249,
+          "std": 0.0116,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8269,
+          "std": 0.0077,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.2172,
+          "std": 0.0147,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0539,
+          "std": 0.0057,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1493,
+          "std": 0.016,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0208,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.195,
+          "std": 0.0057,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 2626.7,
+        "latency_ms_p95": 5516.1,
+        "latency_ms_mean": 3152.1,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 1073.0,
+        "tokens_per_sec": 445.8,
+        "throughput_tokens_per_sec": 6241.5,
+        "wall_time_s": 62.4,
+        "gpu_hours": 0.0173,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-8b-traceability-zero_shot",
+      "task": "traceability",
+      "model_id": "qwen-8b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.5367,
+          "std": 0.0118,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.4017,
+          "std": 0.0117,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.4592,
+          "std": 0.005,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 2033.6,
+        "latency_ms_p95": 4270.5,
+        "latency_ms_mean": 2440.3,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 825.8,
+        "tokens_per_sec": 445.8,
+        "throughput_tokens_per_sec": 6241.5,
+        "wall_time_s": 2.5,
+        "gpu_hours": 0.0007,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-8b-traceability-few_shot",
+      "task": "traceability",
+      "model_id": "qwen-8b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.5693,
+          "std": 0.0193,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.4546,
+          "std": 0.0169,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.5055,
+          "std": 0.0181,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 2776.7,
+        "latency_ms_p95": 5831.2,
+        "latency_ms_mean": 3332.1,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 1190.7,
+        "tokens_per_sec": 445.8,
+        "throughput_tokens_per_sec": 6241.5,
+        "wall_time_s": 3.5,
+        "gpu_hours": 0.001,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-8b-diagram-zero_shot",
+      "task": "diagram",
+      "model_id": "qwen-8b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.564,
+          "std": 0.004,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 32.039,
+          "std": 0.31,
+          "n": 339,
+          "non_finite": 0
+        },
+        "rmse": {
+          "mean": 0.0289,
+          "std": 0.0005,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2602,
+          "std": 0.0031,
+          "n": 339
+        },
+        "sre": {
+          "mean": 42.0084,
+          "std": 0.2725,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.2808,
+          "std": 0.0134,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 3586.2,
+        "latency_ms_p95": 7531.0,
+        "latency_ms_mean": 4303.4,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 1492.4,
+        "tokens_per_sec": 445.8,
+        "throughput_tokens_per_sec": 6241.5,
+        "wall_time_s": 303.9,
+        "gpu_hours": 0.0844,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-8b-diagram-few_shot",
+      "task": "diagram",
+      "model_id": "qwen-8b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.5724,
+          "std": 0.0128,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 32.598,
+          "std": 0.2441,
+          "n": 339,
+          "non_finite": 0
+        },
+        "rmse": {
+          "mean": 0.0292,
+          "std": 0.0011,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2565,
+          "std": 0.0087,
+          "n": 339
+        },
+        "sre": {
+          "mean": 42.2191,
+          "std": 0.3921,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.2788,
+          "std": 0.0018,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 2930.5,
+        "latency_ms_p95": 6154.1,
+        "latency_ms_mean": 3516.6,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 1195.9,
+        "tokens_per_sec": 445.8,
+        "throughput_tokens_per_sec": 6241.5,
+        "wall_time_s": 248.4,
+        "gpu_hours": 0.069,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-8b-serverless-zero_shot",
+      "task": "serverless",
+      "model_id": "qwen-8b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.2732,
+          "std": 0.0074,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 36.5826,
+          "std": 8.7707,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 5.6,
+          "std": 1.8713,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 6.3478,
+          "std": 1.3961,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 1036.3485,
+          "std": 197.0851,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 3127.0,
+        "latency_ms_p95": 6566.7,
+        "latency_ms_mean": 3752.4,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 1345.9,
+        "tokens_per_sec": 445.8,
+        "throughput_tokens_per_sec": 6241.5,
+        "wall_time_s": 7.0,
+        "gpu_hours": 0.002,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-8b-serverless-few_shot",
+      "task": "serverless",
+      "model_id": "qwen-8b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.2974,
+          "std": 0.0046,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 37.2809,
+          "std": 1.9178,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 5.9954,
+          "std": 1.3786,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 4.0214,
+          "std": 1.3813,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 956.5424,
+          "std": 178.645,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 1647.0,
+        "latency_ms_p95": 3458.8,
+        "latency_ms_mean": 1976.5,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 612.2,
+        "tokens_per_sec": 445.8,
+        "throughput_tokens_per_sec": 6241.5,
+        "wall_time_s": 3.7,
+        "gpu_hours": 0.001,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-llama-8b-adr-zero_shot",
+      "task": "adr",
+      "model_id": "llama-8b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8307,
+          "std": 0.0072,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8341,
+          "std": 0.0034,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8315,
+          "std": 0.0143,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.2027,
+          "std": 0.0034,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0443,
+          "std": 0.0072,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1506,
+          "std": 0.002,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0166,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.1536,
+          "std": 0.0034,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 1124.0,
+        "latency_ms_p95": 2360.3,
+        "latency_ms_mean": 1348.8,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 473.4,
+        "tokens_per_sec": 454.7,
+        "throughput_tokens_per_sec": 6366.0,
+        "wall_time_s": 26.7,
+        "gpu_hours": 0.0074,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-llama-8b-adr-few_shot",
+      "task": "adr",
+      "model_id": "llama-8b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8359,
+          "std": 0.0051,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.835,
+          "std": 0.0041,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8323,
+          "std": 0.0075,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.2009,
+          "std": 0.0021,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0503,
+          "std": 0.0065,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1559,
+          "std": 0.0033,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0207,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.1824,
+          "std": 0.0094,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 1362.8,
+        "latency_ms_p95": 2861.9,
+        "latency_ms_mean": 1635.3,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 439.5,
+        "tokens_per_sec": 454.7,
+        "throughput_tokens_per_sec": 6366.0,
+        "wall_time_s": 32.4,
+        "gpu_hours": 0.009,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-llama-8b-traceability-zero_shot",
+      "task": "traceability",
+      "model_id": "llama-8b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.5821,
+          "std": 0.0407,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.4777,
+          "std": 0.0122,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.5239,
+          "std": 0.0153,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 1010.1,
+        "latency_ms_p95": 2121.2,
+        "latency_ms_mean": 1212.1,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 382.3,
+        "tokens_per_sec": 454.7,
+        "throughput_tokens_per_sec": 6366.0,
+        "wall_time_s": 1.3,
+        "gpu_hours": 0.0004,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-llama-8b-traceability-few_shot",
+      "task": "traceability",
+      "model_id": "llama-8b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.4895,
+          "std": 0.0099,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.4359,
+          "std": 0.0274,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.4609,
+          "std": 0.0193,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 957.5,
+        "latency_ms_p95": 2010.8,
+        "latency_ms_mean": 1149.1,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 363.2,
+        "tokens_per_sec": 454.7,
+        "throughput_tokens_per_sec": 6366.0,
+        "wall_time_s": 1.2,
+        "gpu_hours": 0.0003,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-llama-8b-diagram-zero_shot",
+      "task": "diagram",
+      "model_id": "llama-8b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.5794,
+          "std": 0.0075,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 32.5155,
+          "std": 0.297,
+          "n": 339,
+          "non_finite": 1
+        },
+        "rmse": {
+          "mean": 0.028,
+          "std": 0.0004,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2455,
+          "std": 0.0077,
+          "n": 339
+        },
+        "sre": {
+          "mean": 42.3066,
+          "std": 0.2078,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.2914,
+          "std": 0.022,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 1135.9,
+        "latency_ms_p95": 2385.5,
+        "latency_ms_mean": 1363.1,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 367.0,
+        "tokens_per_sec": 454.7,
+        "throughput_tokens_per_sec": 6366.0,
+        "wall_time_s": 96.3,
+        "gpu_hours": 0.0267,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-llama-8b-diagram-few_shot",
+      "task": "diagram",
+      "model_id": "llama-8b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.5878,
+          "std": 0.0036,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 33.4103,
+          "std": 0.1833,
+          "n": 339,
+          "non_finite": 1
+        },
+        "rmse": {
+          "mean": 0.0264,
+          "std": 0.0008,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2299,
+          "std": 0.0037,
+          "n": 339
+        },
+        "sre": {
+          "mean": 43.159,
+          "std": 0.0779,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.3373,
+          "std": 0.0206,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 1238.9,
+        "latency_ms_p95": 2601.7,
+        "latency_ms_mean": 1486.7,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 467.6,
+        "tokens_per_sec": 454.7,
+        "throughput_tokens_per_sec": 6366.0,
+        "wall_time_s": 105.0,
+        "gpu_hours": 0.0292,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-llama-8b-serverless-zero_shot",
+      "task": "serverless",
+      "model_id": "llama-8b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.3002,
+          "std": 0.0083,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 40.9139,
+          "std": 10.3831,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 6.2318,
+          "std": 0.6218,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 4.1782,
+          "std": 1.5723,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 924.2121,
+          "std": 233.6551,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 1629.9,
+        "latency_ms_p95": 3422.9,
+        "latency_ms_mean": 1955.9,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 611.0,
+        "tokens_per_sec": 454.7,
+        "throughput_tokens_per_sec": 6366.0,
+        "wall_time_s": 3.7,
+        "gpu_hours": 0.001,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-llama-8b-serverless-few_shot",
+      "task": "serverless",
+      "model_id": "llama-8b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.2713,
+          "std": 0.0063,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 37.5146,
+          "std": 9.151,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 6.2107,
+          "std": 1.1637,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 4.6527,
+          "std": 1.5223,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 817.701,
+          "std": 170.2079,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 1783.3,
+        "latency_ms_p95": 3745.0,
+        "latency_ms_mean": 2140.0,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 667.3,
+        "tokens_per_sec": 454.7,
+        "throughput_tokens_per_sec": 6366.0,
+        "wall_time_s": 4.0,
+        "gpu_hours": 0.0011,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-9b-adr-zero_shot",
+      "task": "adr",
+      "model_id": "gemma-9b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8298,
+          "std": 0.0075,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8235,
+          "std": 0.0086,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8313,
+          "std": 0.0133,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.1775,
+          "std": 0.0119,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0469,
+          "std": 0.0049,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1373,
+          "std": 0.0074,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0161,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.1746,
+          "std": 0.0042,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 1578.9,
+        "latency_ms_p95": 3315.6,
+        "latency_ms_mean": 1894.6,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 529.5,
+        "tokens_per_sec": 406.6,
+        "throughput_tokens_per_sec": 5692.6,
+        "wall_time_s": 37.5,
+        "gpu_hours": 0.0104,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-9b-adr-few_shot",
+      "task": "adr",
+      "model_id": "gemma-9b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.83,
+          "std": 0.0111,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8318,
+          "std": 0.0145,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8246,
+          "std": 0.0103,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.2035,
+          "std": 0.0015,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0445,
+          "std": 0.0062,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1377,
+          "std": 0.0057,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0163,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.1603,
+          "std": 0.0087,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 1095.2,
+        "latency_ms_p95": 2300.0,
+        "latency_ms_mean": 1314.3,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 362.2,
+        "tokens_per_sec": 406.6,
+        "throughput_tokens_per_sec": 5692.6,
+        "wall_time_s": 26.0,
+        "gpu_hours": 0.0072,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-9b-traceability-zero_shot",
+      "task": "traceability",
+      "model_id": "gemma-9b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.5384,
+          "std": 0.0338,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.4369,
+          "std": 0.0328,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.4802,
+          "std": 0.0103,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 1720.0,
+        "latency_ms_p95": 3611.9,
+        "latency_ms_mean": 2064.0,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 614.7,
+        "tokens_per_sec": 406.6,
+        "throughput_tokens_per_sec": 5692.6,
+        "wall_time_s": 2.1,
+        "gpu_hours": 0.0006,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-9b-traceability-few_shot",
+      "task": "traceability",
+      "model_id": "gemma-9b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.5258,
+          "std": 0.0242,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.4094,
+          "std": 0.0335,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.4599,
+          "std": 0.028,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 1517.7,
+        "latency_ms_p95": 3187.1,
+        "latency_ms_mean": 1821.2,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 574.2,
+        "tokens_per_sec": 406.6,
+        "throughput_tokens_per_sec": 5692.6,
+        "wall_time_s": 1.9,
+        "gpu_hours": 0.0005,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-9b-diagram-zero_shot",
+      "task": "diagram",
+      "model_id": "gemma-9b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.6033,
+          "std": 0.0033,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 33.0468,
+          "std": 0.2643,
+          "n": 339,
+          "non_finite": 0
+        },
+        "rmse": {
+          "mean": 0.0275,
+          "std": 0.0012,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2363,
+          "std": 0.0074,
+          "n": 339
+        },
+        "sre": {
+          "mean": 42.9597,
+          "std": 0.3221,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.3394,
+          "std": 0.0056,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 1157.4,
+        "latency_ms_p95": 2430.6,
+        "latency_ms_mean": 1388.9,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 321.4,
+        "tokens_per_sec": 406.6,
+        "throughput_tokens_per_sec": 5692.6,
+        "wall_time_s": 98.1,
+        "gpu_hours": 0.0272,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-9b-diagram-few_shot",
+      "task": "diagram",
+      "model_id": "gemma-9b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.5877,
+          "std": 0.0051,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 32.5697,
+          "std": 0.3211,
+          "n": 339,
+          "non_finite": 1
+        },
+        "rmse": {
+          "mean": 0.0274,
+          "std": 0.0008,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2502,
+          "std": 0.0064,
+          "n": 339
+        },
+        "sre": {
+          "mean": 42.2785,
+          "std": 0.0381,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.3073,
+          "std": 0.0166,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 1953.9,
+        "latency_ms_p95": 4103.1,
+        "latency_ms_mean": 2344.7,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 636.2,
+        "tokens_per_sec": 406.6,
+        "throughput_tokens_per_sec": 5692.6,
+        "wall_time_s": 165.6,
+        "gpu_hours": 0.046,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-9b-serverless-zero_shot",
+      "task": "serverless",
+      "model_id": "gemma-9b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.2857,
+          "std": 0.0116,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 38.4032,
+          "std": 5.0799,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 5.6979,
+          "std": 2.023,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 3.7156,
+          "std": 0.3848,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 1005.3385,
+          "std": 82.1415,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 1849.9,
+        "latency_ms_p95": 3884.7,
+        "latency_ms_mean": 2219.9,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 681.1,
+        "tokens_per_sec": 406.6,
+        "throughput_tokens_per_sec": 5692.6,
+        "wall_time_s": 4.2,
+        "gpu_hours": 0.0012,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-9b-serverless-few_shot",
+      "task": "serverless",
+      "model_id": "gemma-9b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.298,
+          "std": 0.0072,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 41.387,
+          "std": 6.9646,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 5.2794,
+          "std": 2.1237,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 5.4157,
+          "std": 1.5988,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 1169.0294,
+          "std": 104.4205,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 762.7,
+        "latency_ms_p95": 1601.6,
+        "latency_ms_mean": 915.2,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 270.5,
+        "tokens_per_sec": 406.6,
+        "throughput_tokens_per_sec": 5692.6,
+        "wall_time_s": 1.7,
+        "gpu_hours": 0.0005,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-mistral-7b-adr-zero_shot",
+      "task": "adr",
+      "model_id": "mistral-7b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.826,
+          "std": 0.0117,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.825,
+          "std": 0.0074,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8215,
+          "std": 0.0091,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.2016,
+          "std": 0.0074,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.048,
+          "std": 0.0055,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1283,
+          "std": 0.0068,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0174,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.1664,
+          "std": 0.0124,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 1587.7,
+        "latency_ms_p95": 3334.1,
+        "latency_ms_mean": 1905.2,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 651.7,
+        "tokens_per_sec": 494.7,
+        "throughput_tokens_per_sec": 6925.9,
+        "wall_time_s": 37.7,
+        "gpu_hours": 0.0105,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-mistral-7b-adr-few_shot",
+      "task": "adr",
+      "model_id": "mistral-7b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8252,
+          "std": 0.0068,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8232,
+          "std": 0.0099,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8289,
+          "std": 0.0034,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.1873,
+          "std": 0.0097,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0419,
+          "std": 0.0051,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1378,
+          "std": 0.0108,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0175,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.1598,
+          "std": 0.008,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 843.7,
+        "latency_ms_p95": 1771.7,
+        "latency_ms_mean": 1012.4,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 278.7,
+        "tokens_per_sec": 494.7,
+        "throughput_tokens_per_sec": 6925.9,
+        "wall_time_s": 20.0,
+        "gpu_hours": 0.0056,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-mistral-7b-traceability-zero_shot",
+      "task": "traceability",
+      "model_id": "mistral-7b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.5825,
+          "std": 0.0081,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.4654,
+          "std": 0.027,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.5171,
+          "std": 0.0199,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 1575.6,
+        "latency_ms_p95": 3308.7,
+        "latency_ms_mean": 1890.7,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 698.5,
+        "tokens_per_sec": 494.7,
+        "throughput_tokens_per_sec": 6925.9,
+        "wall_time_s": 2.0,
+        "gpu_hours": 0.0005,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-mistral-7b-traceability-few_shot",
+      "task": "traceability",
+      "model_id": "mistral-7b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.5766,
+          "std": 0.019,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.4478,
+          "std": 0.0496,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.5016,
+          "std": 0.0238,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 1730.7,
+        "latency_ms_p95": 3634.6,
+        "latency_ms_mean": 2076.9,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 662.8,
+        "tokens_per_sec": 494.7,
+        "throughput_tokens_per_sec": 6925.9,
+        "wall_time_s": 2.2,
+        "gpu_hours": 0.0006,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-mistral-7b-diagram-zero_shot",
+      "task": "diagram",
+      "model_id": "mistral-7b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.5805,
+          "std": 0.0055,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 32.0873,
+          "std": 0.2933,
+          "n": 339,
+          "non_finite": 1
+        },
+        "rmse": {
+          "mean": 0.0292,
+          "std": 0.0014,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2637,
+          "std": 0.0039,
+          "n": 339
+        },
+        "sre": {
+          "mean": 42.0429,
+          "std": 0.3776,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.2849,
+          "std": 0.0138,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 1281.1,
+        "latency_ms_p95": 2690.4,
+        "latency_ms_mean": 1537.4,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 461.3,
+        "tokens_per_sec": 494.7,
+        "throughput_tokens_per_sec": 6925.9,
+        "wall_time_s": 108.6,
+        "gpu_hours": 0.0302,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-mistral-7b-diagram-few_shot",
+      "task": "diagram",
+      "model_id": "mistral-7b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.6001,
+          "std": 0.0052,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 32.7007,
+          "std": 0.1524,
+          "n": 339,
+          "non_finite": 1
+        },
+        "rmse": {
+          "mean": 0.0281,
+          "std": 0.0013,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2367,
+          "std": 0.0047,
+          "n": 339
+        },
+        "sre": {
+          "mean": 42.5395,
+          "std": 0.1291,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.3102,
+          "std": 0.0153,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 645.9,
+        "latency_ms_p95": 1356.3,
+        "latency_ms_mean": 775.0,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 269.2,
+        "tokens_per_sec": 494.7,
+        "throughput_tokens_per_sec": 6925.9,
+        "wall_time_s": 54.7,
+        "gpu_hours": 0.0152,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-mistral-7b-serverless-zero_shot",
+      "task": "serverless",
+      "model_id": "mistral-7b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.253,
+          "std": 0.0102,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 39.2167,
+          "std": 8.2624,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 4.9779,
+          "std": 1.8528,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 7.2301,
+          "std": 0.6808,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 1087.6928,
+          "std": 177.4527,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 1299.0,
+        "latency_ms_p95": 2727.9,
+        "latency_ms_mean": 1558.8,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 589.2,
+        "tokens_per_sec": 494.7,
+        "throughput_tokens_per_sec": 6925.9,
+        "wall_time_s": 2.9,
+        "gpu_hours": 0.0008,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-mistral-7b-serverless-few_shot",
+      "task": "serverless",
+      "model_id": "mistral-7b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.2927,
+          "std": 0.0096,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 36.6858,
+          "std": 4.9292,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 5.6083,
+          "std": 2.0423,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 5.8242,
+          "std": 1.2167,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 1180.9136,
+          "std": 116.2787,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 1110.5,
+        "latency_ms_p95": 2332.0,
+        "latency_ms_mean": 1332.6,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 464.2,
+        "tokens_per_sec": 494.7,
+        "throughput_tokens_per_sec": 6925.9,
+        "wall_time_s": 2.5,
+        "gpu_hours": 0.0007,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-14b-adr-zero_shot",
+      "task": "adr",
+      "model_id": "qwen-14b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8541,
+          "std": 0.0012,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8502,
+          "std": 0.0064,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8538,
+          "std": 0.002,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.2198,
+          "std": 0.0036,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0585,
+          "std": 0.0023,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1642,
+          "std": 0.0128,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0239,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.1999,
+          "std": 0.0111,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 4475.3,
+        "latency_ms_p95": 9398.1,
+        "latency_ms_mean": 5370.4,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 1136.6,
+        "tokens_per_sec": 278.0,
+        "throughput_tokens_per_sec": 3891.6,
+        "wall_time_s": 106.3,
+        "gpu_hours": 0.0295,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-14b-adr-few_shot",
+      "task": "adr",
+      "model_id": "qwen-14b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8505,
+          "std": 0.0057,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8508,
+          "std": 0.0117,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8575,
+          "std": 0.0056,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.2291,
+          "std": 0.0087,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.051,
+          "std": 0.0046,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1505,
+          "std": 0.0035,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0222,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.1868,
+          "std": 0.0144,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 3757.5,
+        "latency_ms_p95": 7890.8,
+        "latency_ms_mean": 4509.0,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 973.8,
+        "tokens_per_sec": 278.0,
+        "throughput_tokens_per_sec": 3891.6,
+        "wall_time_s": 89.2,
+        "gpu_hours": 0.0248,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-14b-traceability-zero_shot",
+      "task": "traceability",
+      "model_id": "qwen-14b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.564,
+          "std": 0.0355,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.4398,
+          "std": 0.0126,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.4933,
+          "std": 0.0096,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 4194.5,
+        "latency_ms_p95": 8808.5,
+        "latency_ms_mean": 5033.4,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 1066.5,
+        "tokens_per_sec": 278.0,
+        "throughput_tokens_per_sec": 3891.6,
+        "wall_time_s": 5.2,
+        "gpu_hours": 0.0015,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-14b-traceability-few_shot",
+      "task": "traceability",
+      "model_id": "qwen-14b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.6174,
+          "std": 0.0146,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.5222,
+          "std": 0.0248,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.5651,
+          "std": 0.0094,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 3952.4,
+        "latency_ms_p95": 8300.0,
+        "latency_ms_mean": 4742.9,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 1052.6,
+        "tokens_per_sec": 278.0,
+        "throughput_tokens_per_sec": 3891.6,
+        "wall_time_s": 4.9,
+        "gpu_hours": 0.0014,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-14b-diagram-zero_shot",
+      "task": "diagram",
+      "model_id": "qwen-14b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.6064,
+          "std": 0.0112,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 33.7965,
+          "std": 0.1899,
+          "n": 339,
+          "non_finite": 0
+        },
+        "rmse": {
+          "mean": 0.026,
+          "std": 0.0013,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2234,
+          "std": 0.0073,
+          "n": 339
+        },
+        "sre": {
+          "mean": 43.9015,
+          "std": 0.3391,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.3792,
+          "std": 0.017,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 3670.4,
+        "latency_ms_p95": 7707.8,
+        "latency_ms_mean": 4404.4,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 980.6,
+        "tokens_per_sec": 278.0,
+        "throughput_tokens_per_sec": 3891.6,
+        "wall_time_s": 311.1,
+        "gpu_hours": 0.0864,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-14b-diagram-few_shot",
+      "task": "diagram",
+      "model_id": "qwen-14b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.6062,
+          "std": 0.0096,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 33.8471,
+          "std": 0.2186,
+          "n": 339,
+          "non_finite": 0
+        },
+        "rmse": {
+          "mean": 0.0259,
+          "std": 0.0008,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2189,
+          "std": 0.0039,
+          "n": 339
+        },
+        "sre": {
+          "mean": 43.7361,
+          "std": 0.1775,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.3883,
+          "std": 0.0048,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 5285.3,
+        "latency_ms_p95": 11099.2,
+        "latency_ms_mean": 6342.4,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 1387.5,
+        "tokens_per_sec": 278.0,
+        "throughput_tokens_per_sec": 3891.6,
+        "wall_time_s": 447.9,
+        "gpu_hours": 0.1244,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-14b-serverless-zero_shot",
+      "task": "serverless",
+      "model_id": "qwen-14b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.3224,
+          "std": 0.0132,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 35.7606,
+          "std": 2.9976,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 6.1124,
+          "std": 1.143,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 4.1714,
+          "std": 1.448,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 1113.5175,
+          "std": 260.8569,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 3784.2,
+        "latency_ms_p95": 7946.8,
+        "latency_ms_mean": 4541.0,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 1027.9,
+        "tokens_per_sec": 278.0,
+        "throughput_tokens_per_sec": 3891.6,
+        "wall_time_s": 8.5,
+        "gpu_hours": 0.0024,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-14b-serverless-few_shot",
+      "task": "serverless",
+      "model_id": "qwen-14b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "bf16",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.3372,
+          "std": 0.0083,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 42.6191,
+          "std": 1.9925,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 8.465,
+          "std": 0.1922,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 4.4014,
+          "std": 2.1094,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 847.3291,
+          "std": 33.4293,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 5221.9,
+        "latency_ms_p95": 10966.1,
+        "latency_ms_mean": 6266.3,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 1388.7,
+        "tokens_per_sec": 278.0,
+        "throughput_tokens_per_sec": 3891.6,
+        "wall_time_s": 11.7,
+        "gpu_hours": 0.0033,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gpt-oss-20b-adr-zero_shot",
+      "task": "adr",
+      "model_id": "gpt-oss-20b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8456,
+          "std": 0.0124,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8394,
+          "std": 0.0117,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8447,
+          "std": 0.0159,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.228,
+          "std": 0.0142,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0598,
+          "std": 0.0048,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1696,
+          "std": 0.0023,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0233,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.1967,
+          "std": 0.0038,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 1420.4,
+        "latency_ms_p95": 2982.7,
+        "latency_ms_mean": 1704.4,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 1124.4,
+        "tokens_per_sec": 861.3,
+        "throughput_tokens_per_sec": 12058.6,
+        "wall_time_s": 33.7,
+        "gpu_hours": 0.0094,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gpt-oss-20b-adr-few_shot",
+      "task": "adr",
+      "model_id": "gpt-oss-20b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.844,
+          "std": 0.013,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8452,
+          "std": 0.0084,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8513,
+          "std": 0.0126,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.2404,
+          "std": 0.0136,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0614,
+          "std": 0.0045,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.175,
+          "std": 0.0087,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.024,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.1991,
+          "std": 0.0118,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 1714.7,
+        "latency_ms_p95": 3601.0,
+        "latency_ms_mean": 2057.7,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 1193.1,
+        "tokens_per_sec": 861.3,
+        "throughput_tokens_per_sec": 12058.6,
+        "wall_time_s": 40.7,
+        "gpu_hours": 0.0113,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gpt-oss-20b-traceability-zero_shot",
+      "task": "traceability",
+      "model_id": "gpt-oss-20b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.6934,
+          "std": 0.0359,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.5399,
+          "std": 0.0099,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.6065,
+          "std": 0.014,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 1339.4,
+        "latency_ms_p95": 2812.8,
+        "latency_ms_mean": 1607.3,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 904.4,
+        "tokens_per_sec": 861.3,
+        "throughput_tokens_per_sec": 12058.6,
+        "wall_time_s": 1.7,
+        "gpu_hours": 0.0005,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gpt-oss-20b-traceability-few_shot",
+      "task": "traceability",
+      "model_id": "gpt-oss-20b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.6468,
+          "std": 0.0281,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.5806,
+          "std": 0.0233,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.6119,
+          "std": 0.0246,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 1393.4,
+        "latency_ms_p95": 2926.1,
+        "latency_ms_mean": 1672.1,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 871.5,
+        "tokens_per_sec": 861.3,
+        "throughput_tokens_per_sec": 12058.6,
+        "wall_time_s": 1.7,
+        "gpu_hours": 0.0005,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gpt-oss-20b-diagram-zero_shot",
+      "task": "diagram",
+      "model_id": "gpt-oss-20b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.6117,
+          "std": 0.0066,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 34.1461,
+          "std": 0.0839,
+          "n": 339,
+          "non_finite": 0
+        },
+        "rmse": {
+          "mean": 0.0254,
+          "std": 0.0005,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2142,
+          "std": 0.0039,
+          "n": 339
+        },
+        "sre": {
+          "mean": 44.0289,
+          "std": 0.2538,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.4017,
+          "std": 0.0173,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 1772.9,
+        "latency_ms_p95": 3723.1,
+        "latency_ms_mean": 2127.5,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 1211.8,
+        "tokens_per_sec": 861.3,
+        "throughput_tokens_per_sec": 12058.6,
+        "wall_time_s": 150.3,
+        "gpu_hours": 0.0417,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gpt-oss-20b-diagram-few_shot",
+      "task": "diagram",
+      "model_id": "gpt-oss-20b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.6342,
+          "std": 0.0151,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 34.6421,
+          "std": 0.1522,
+          "n": 339,
+          "non_finite": 1
+        },
+        "rmse": {
+          "mean": 0.0226,
+          "std": 0.0009,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2037,
+          "std": 0.0026,
+          "n": 339
+        },
+        "sre": {
+          "mean": 44.6954,
+          "std": 0.2475,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.4257,
+          "std": 0.0025,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 995.2,
+        "latency_ms_p95": 2089.9,
+        "latency_ms_mean": 1194.2,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 556.5,
+        "tokens_per_sec": 861.3,
+        "throughput_tokens_per_sec": 12058.6,
+        "wall_time_s": 84.3,
+        "gpu_hours": 0.0234,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gpt-oss-20b-serverless-zero_shot",
+      "task": "serverless",
+      "model_id": "gpt-oss-20b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.3498,
+          "std": 0.0071,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 35.284,
+          "std": 7.9029,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 7.8182,
+          "std": 0.7386,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 4.6831,
+          "std": 0.809,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 981.0824,
+          "std": 313.0051,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 1460.5,
+        "latency_ms_p95": 3067.2,
+        "latency_ms_mean": 1752.7,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 1055.5,
+        "tokens_per_sec": 861.3,
+        "throughput_tokens_per_sec": 12058.6,
+        "wall_time_s": 3.3,
+        "gpu_hours": 0.0009,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gpt-oss-20b-serverless-few_shot",
+      "task": "serverless",
+      "model_id": "gpt-oss-20b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.3669,
+          "std": 0.007,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 37.0743,
+          "std": 3.6097,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 6.4097,
+          "std": 0.2517,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 5.8718,
+          "std": 1.3084,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 964.0795,
+          "std": 231.5623,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 1799.1,
+        "latency_ms_p95": 3778.2,
+        "latency_ms_mean": 2159.0,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 1369.5,
+        "tokens_per_sec": 861.3,
+        "throughput_tokens_per_sec": 12058.6,
+        "wall_time_s": 4.0,
+        "gpu_hours": 0.0011,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-27b-adr-zero_shot",
+      "task": "adr",
+      "model_id": "gemma-27b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8489,
+          "std": 0.0049,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8465,
+          "std": 0.0011,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8517,
+          "std": 0.0023,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.2582,
+          "std": 0.0136,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0631,
+          "std": 0.0065,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.189,
+          "std": 0.0098,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0282,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.2168,
+          "std": 0.0093,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 3510.5,
+        "latency_ms_p95": 7372.1,
+        "latency_ms_mean": 4212.6,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 546.1,
+        "tokens_per_sec": 171.8,
+        "throughput_tokens_per_sec": 2405.7,
+        "wall_time_s": 83.4,
+        "gpu_hours": 0.0232,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-27b-adr-few_shot",
+      "task": "adr",
+      "model_id": "gemma-27b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8701,
+          "std": 0.0053,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8716,
+          "std": 0.0063,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8718,
+          "std": 0.0029,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.2781,
+          "std": 0.0126,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0726,
+          "std": 0.0051,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1914,
+          "std": 0.0112,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0311,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.2209,
+          "std": 0.0102,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 2460.8,
+        "latency_ms_p95": 5167.7,
+        "latency_ms_mean": 2952.9,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 385.9,
+        "tokens_per_sec": 171.8,
+        "throughput_tokens_per_sec": 2405.7,
+        "wall_time_s": 58.4,
+        "gpu_hours": 0.0162,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-27b-traceability-zero_shot",
+      "task": "traceability",
+      "model_id": "gemma-27b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.7045,
+          "std": 0.0135,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.5721,
+          "std": 0.0311,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.6306,
+          "std": 0.0142,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 4083.4,
+        "latency_ms_p95": 8575.1,
+        "latency_ms_mean": 4900.1,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 663.4,
+        "tokens_per_sec": 171.8,
+        "throughput_tokens_per_sec": 2405.7,
+        "wall_time_s": 5.1,
+        "gpu_hours": 0.0014,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-27b-traceability-few_shot",
+      "task": "traceability",
+      "model_id": "gemma-27b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.6862,
+          "std": 0.0062,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.5656,
+          "std": 0.033,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.6196,
+          "std": 0.0212,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 1937.3,
+        "latency_ms_p95": 4068.2,
+        "latency_ms_mean": 2324.7,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 318.3,
+        "tokens_per_sec": 171.8,
+        "throughput_tokens_per_sec": 2405.7,
+        "wall_time_s": 2.4,
+        "gpu_hours": 0.0007,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-27b-diagram-zero_shot",
+      "task": "diagram",
+      "model_id": "gemma-27b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.611,
+          "std": 0.0135,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 33.9322,
+          "std": 0.2804,
+          "n": 339,
+          "non_finite": 1
+        },
+        "rmse": {
+          "mean": 0.026,
+          "std": 0.0013,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2221,
+          "std": 0.0061,
+          "n": 339
+        },
+        "sre": {
+          "mean": 43.7945,
+          "std": 0.3484,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.3645,
+          "std": 0.0154,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 3053.5,
+        "latency_ms_p95": 6412.3,
+        "latency_ms_mean": 3664.2,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 474.1,
+        "tokens_per_sec": 171.8,
+        "throughput_tokens_per_sec": 2405.7,
+        "wall_time_s": 258.8,
+        "gpu_hours": 0.0719,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-27b-diagram-few_shot",
+      "task": "diagram",
+      "model_id": "gemma-27b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.6552,
+          "std": 0.0057,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 35.1814,
+          "std": 0.1445,
+          "n": 339,
+          "non_finite": 0
+        },
+        "rmse": {
+          "mean": 0.0212,
+          "std": 0.0015,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.1907,
+          "std": 0.0058,
+          "n": 339
+        },
+        "sre": {
+          "mean": 45.6991,
+          "std": 0.2146,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.4704,
+          "std": 0.0172,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 2692.5,
+        "latency_ms_p95": 5654.3,
+        "latency_ms_mean": 3231.0,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 413.5,
+        "tokens_per_sec": 171.8,
+        "throughput_tokens_per_sec": 2405.7,
+        "wall_time_s": 228.2,
+        "gpu_hours": 0.0634,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-27b-serverless-zero_shot",
+      "task": "serverless",
+      "model_id": "gemma-27b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.3767,
+          "std": 0.0068,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 31.4282,
+          "std": 1.0711,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 5.9054,
+          "std": 1.8507,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 7.7926,
+          "std": 0.0875,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 1218.4475,
+          "std": 42.3207,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 3207.8,
+        "latency_ms_p95": 6736.4,
+        "latency_ms_mean": 3849.4,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 520.5,
+        "tokens_per_sec": 171.8,
+        "throughput_tokens_per_sec": 2405.7,
+        "wall_time_s": 7.2,
+        "gpu_hours": 0.002,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-gemma-27b-serverless-few_shot",
+      "task": "serverless",
+      "model_id": "gemma-27b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 1024,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": null,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.381,
+          "std": 0.0051,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 35.7757,
+          "std": 6.503,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 6.1479,
+          "std": 2.2736,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 3.8142,
+          "std": 1.3806,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 1173.8258,
+          "std": 168.0141,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 3938.1,
+        "latency_ms_p95": 8270.1,
+        "latency_ms_mean": 4725.8,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 615.3,
+        "tokens_per_sec": 171.8,
+        "throughput_tokens_per_sec": 2405.7,
+        "wall_time_s": 8.9,
+        "gpu_hours": 0.0025,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-32b-adr-zero_shot",
+      "task": "adr",
+      "model_id": "qwen-32b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8608,
+          "std": 0.0068,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8649,
+          "std": 0.0044,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8589,
+          "std": 0.0022,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.2786,
+          "std": 0.0088,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0793,
+          "std": 0.0016,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1924,
+          "std": 0.0096,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.031,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.2194,
+          "std": 0.0088,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 4668.3,
+        "latency_ms_p95": 9803.4,
+        "latency_ms_mean": 5602.0,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 636.8,
+        "tokens_per_sec": 147.1,
+        "throughput_tokens_per_sec": 2058.9,
+        "wall_time_s": 110.9,
+        "gpu_hours": 0.0308,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-32b-adr-few_shot",
+      "task": "adr",
+      "model_id": "qwen-32b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "bertscore_f1": {
+          "mean": 0.8566,
+          "std": 0.0058,
+          "n": 95
+        },
+        "bertscore_p": {
+          "mean": 0.8527,
+          "std": 0.0052,
+          "n": 95
+        },
+        "bertscore_r": {
+          "mean": 0.8541,
+          "std": 0.0067,
+          "n": 95
+        },
+        "rouge1": {
+          "mean": 0.2992,
+          "std": 0.0049,
+          "n": 95
+        },
+        "rouge2": {
+          "mean": 0.0733,
+          "std": 0.0014,
+          "n": 95
+        },
+        "rougeL": {
+          "mean": 0.1951,
+          "std": 0.0079,
+          "n": 95
+        },
+        "bleu": {
+          "mean": 0.0325,
+          "std": 0.0,
+          "n": 95
+        },
+        "meteor": {
+          "mean": 0.2315,
+          "std": 0.004,
+          "n": 95
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": {
+        "latency_ms_p50": 9170.0,
+        "latency_ms_p95": 19256.9,
+        "latency_ms_mean": 11003.9,
+        "tokens_in_mean": 900,
+        "tokens_out_mean": 1329.5,
+        "tokens_per_sec": 147.1,
+        "throughput_tokens_per_sec": 2058.9,
+        "wall_time_s": 217.8,
+        "gpu_hours": 0.0605,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 285,
+        "success": 285,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-32b-traceability-zero_shot",
+      "task": "traceability",
+      "model_id": "qwen-32b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.7875,
+          "std": 0.0187,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.6661,
+          "std": 0.0421,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.7204,
+          "std": 0.0177,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 9201.4,
+        "latency_ms_p95": 19322.9,
+        "latency_ms_mean": 11041.7,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 1321.4,
+        "tokens_per_sec": 147.1,
+        "throughput_tokens_per_sec": 2058.9,
+        "wall_time_s": 11.5,
+        "gpu_hours": 0.0032,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-32b-traceability-few_shot",
+      "task": "traceability",
+      "model_id": "qwen-32b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "precision": {
+          "mean": 0.8121,
+          "std": 0.0533,
+          "n": 5
+        },
+        "recall": {
+          "mean": 0.734,
+          "std": 0.0295,
+          "n": 5
+        },
+        "f1": {
+          "mean": 0.769,
+          "std": 0.0072,
+          "n": 5
+        }
+      },
+      "primary_metric": "f1",
+      "telemetry": {
+        "latency_ms_p50": 7850.5,
+        "latency_ms_p95": 16486.1,
+        "latency_ms_mean": 9420.6,
+        "tokens_in_mean": 14000,
+        "tokens_out_mean": 1101.8,
+        "tokens_per_sec": 147.1,
+        "throughput_tokens_per_sec": 2058.9,
+        "wall_time_s": 9.8,
+        "gpu_hours": 0.0027,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 15,
+        "success": 15,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-32b-diagram-zero_shot",
+      "task": "diagram",
+      "model_id": "qwen-32b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.6483,
+          "std": 0.0106,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 35.0784,
+          "std": 0.274,
+          "n": 339,
+          "non_finite": 0
+        },
+        "rmse": {
+          "mean": 0.0215,
+          "std": 0.0009,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2039,
+          "std": 0.0033,
+          "n": 339
+        },
+        "sre": {
+          "mean": 45.3218,
+          "std": 0.2722,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.4342,
+          "std": 0.0143,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 10460.3,
+        "latency_ms_p95": 21966.6,
+        "latency_ms_mean": 12552.4,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 1482.3,
+        "tokens_per_sec": 147.1,
+        "throughput_tokens_per_sec": 2058.9,
+        "wall_time_s": 886.5,
+        "gpu_hours": 0.2463,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-32b-diagram-few_shot",
+      "task": "diagram",
+      "model_id": "qwen-32b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "ssim": {
+          "mean": 0.6373,
+          "std": 0.0038,
+          "n": 339
+        },
+        "psnr": {
+          "mean": 34.5724,
+          "std": 0.2438,
+          "n": 339,
+          "non_finite": 0
+        },
+        "rmse": {
+          "mean": 0.0232,
+          "std": 0.0013,
+          "n": 339
+        },
+        "sam": {
+          "mean": 0.2041,
+          "std": 0.0035,
+          "n": 339
+        },
+        "sre": {
+          "mean": 44.5353,
+          "std": 0.2299,
+          "n": 339
+        },
+        "uiq": {
+          "mean": 0.4207,
+          "std": 0.0135,
+          "n": 339
+        }
+      },
+      "primary_metric": "ssim",
+      "telemetry": {
+        "latency_ms_p50": 4809.5,
+        "latency_ms_p95": 10100.0,
+        "latency_ms_mean": 5771.4,
+        "tokens_in_mean": 1700,
+        "tokens_out_mean": 672.9,
+        "tokens_per_sec": 147.1,
+        "throughput_tokens_per_sec": 2058.9,
+        "wall_time_s": 407.6,
+        "gpu_hours": 0.1132,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 1017,
+        "success": 1017,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-32b-serverless-zero_shot",
+      "task": "serverless",
+      "model_id": "qwen-32b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.3622,
+          "std": 0.0123,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 31.9668,
+          "std": 10.6188,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 6.4902,
+          "std": 1.9725,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 3.3608,
+          "std": 1.065,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 1066.1842,
+          "std": 283.7499,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 10341.6,
+        "latency_ms_p95": 21717.3,
+        "latency_ms_mean": 12409.9,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 1469.5,
+        "tokens_per_sec": 147.1,
+        "throughput_tokens_per_sec": 2058.9,
+        "wall_time_s": 23.3,
+        "gpu_hours": 0.0065,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "fake-qwen-32b-serverless-few_shot",
+      "task": "serverless",
+      "model_id": "qwen-32b",
+      "source": "inhouse",
+      "date": "2026-11-10",
+      "setup": {
+        "prompt_style": "few_shot",
+        "temperature": 0.2,
+        "max_tokens": 4096,
+        "seeds": [
+          0,
+          1,
+          2
+        ],
+        "thinking_enabled": false,
+        "quantization": "awq-int4",
+        "hf_revision": "0000000",
+        "engine": "vllm 0.18.0",
+        "hardware": "1x L40S 48GB"
+      },
+      "metrics": {
+        "codebleu": {
+          "mean": 0.3909,
+          "std": 0.0058,
+          "n": 9
+        },
+        "sloc": {
+          "mean": 35.3668,
+          "std": 7.9039,
+          "n": 9
+        },
+        "cyclomatic_complexity": {
+          "mean": 5.2924,
+          "std": 1.9402,
+          "n": 9
+        },
+        "cognitive_complexity": {
+          "mean": 5.2061,
+          "std": 0.7779,
+          "n": 9
+        },
+        "halstead_volume": {
+          "mean": 956.5983,
+          "std": 165.8926,
+          "n": 9
+        },
+        "function_tests": {
+          "mean": null,
+          "std": null,
+          "n": 0
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": {
+        "latency_ms_p50": 5913.5,
+        "latency_ms_p95": 12418.3,
+        "latency_ms_mean": 7096.2,
+        "tokens_in_mean": 3100,
+        "tokens_out_mean": 818.4,
+        "tokens_per_sec": 147.1,
+        "throughput_tokens_per_sec": 2058.9,
+        "wall_time_s": 13.3,
+        "gpu_hours": 0.0037,
+        "cost_usd": null
+      },
+      "completion": {
+        "total": 27,
+        "success": 27,
+        "errors": 0,
+        "truncated": 0
+      },
+      "provenance": {
+        "archbench_version": "0.1.0",
+        "git_commit": "0000000",
+        "link": null
+      }
+    },
+    {
+      "run_id": "paper-adr-gpt-4-zero_shot",
+      "task": "adr",
+      "model_id": "gpt-4",
+      "source": "paper",
+      "date": "2024-03-04",
+      "setup": {
+        "prompt_style": "zero_shot",
+        "variant": null
+      },
+      "metrics": {
+        "rouge1": {
+          "mean": 0.259,
+          "std": null,
+          "n": null
+        },
+        "bleu": {
+          "mean": 0.028,
+          "std": null,
+          "n": null
+        },
+        "meteor": {
+          "mean": 0.219,
+          "std": null,
+          "n": null
+        },
+        "bertscore_p": {
+          "mean": 0.847,
+          "std": null,
+          "n": null
+        },
+        "bertscore_r": {
+          "mean": 0.851,
+          "std": null,
+          "n": null
+        },
+        "bertscore_f1": {
+          "mean": 0.849,
+          "std": null,
+          "n": null
+        }
+      },
+      "primary_metric": "bertscore_f1",
+      "telemetry": null,
+      "completion": null,
+      "provenance": {
+        "archbench_version": null,
+        "git_commit": null,
+        "link": "https://github.com/sa4s-serc/ArchAI_ADR"
+      }
+    },
+    {
+      "run_id": "paper-serverless-deepseek-coder-v2-no_intervention",
+      "task": "serverless",
+      "model_id": "deepseek-coder-v2",
+      "source": "paper",
+      "date": "2024-02-04",
+      "setup": {
+        "prompt_style": null,
+        "variant": "no_intervention"
+      },
+      "metrics": {
+        "codebase_tests": {
+          "mean": 81,
+          "std": null,
+          "n": null
+        },
+        "function_tests": {
+          "mean": 13,
+          "std": null,
+          "n": null
+        },
+        "codebleu": {
+          "mean": 0.37,
+          "std": null,
+          "n": null
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": null,
+      "completion": null,
+      "provenance": {
+        "archbench_version": null,
+        "git_commit": null,
+        "link": "https://github.com/Meghanatedla/LLM-ComponentGen"
+      }
+    },
+    {
+      "run_id": "paper-serverless-deepseek-coder-v2-with_intervention",
+      "task": "serverless",
+      "model_id": "deepseek-coder-v2",
+      "source": "paper",
+      "date": "2024-02-04",
+      "setup": {
+        "prompt_style": null,
+        "variant": "with_intervention"
+      },
+      "metrics": {
+        "codebase_tests": {
+          "mean": 90,
+          "std": null,
+          "n": null
+        },
+        "function_tests": {
+          "mean": 71,
+          "std": null,
+          "n": null
+        }
+      },
+      "primary_metric": "codebleu",
+      "telemetry": null,
+      "completion": null,
+      "provenance": {
+        "archbench_version": null,
+        "git_commit": null,
+        "link": "https://github.com/Meghanatedla/LLM-ComponentGen"
+      }
+    },
+    {
+      "run_id": "paper-microservice-claude-code-incremental",
+      "task": "microservice",
+      "model_id": "claude-code",
+      "source": "paper",
+      "date": "2026-02-01",
+      "setup": {
+        "prompt_style": null,
+        "variant": "incremental"
+      },
+      "metrics": {
+        "test_pass_rate_p1": {
+          "mean": 73.7,
+          "std": null,
+          "n": null
+        },
+        "test_pass_rate_p2": {
+          "mean": 63.2,
+          "std": null,
+          "n": null
+        },
+        "avg_time_min": {
+          "mean": 7.8,
+          "std": null,
+          "n": null
+        },
+        "avg_cost_usd": {
+          "mean": 13.28,
+          "std": null,
+          "n": null
+        }
+      },
+      "primary_metric": "test_pass_rate_p1",
+      "telemetry": {
+        "cost_usd": 13.28
+      },
+      "completion": null,
+      "provenance": {
+        "archbench_version": null,
+        "git_commit": null,
+        "link": "https://doi.org/10.5281/zenodo.17863951"
+      }
+    }
+  ]
+}

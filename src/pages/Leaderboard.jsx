@@ -1,501 +1,236 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import adrGeneration from "../data/adrGenData.json";
-import serverlessData from "../data/serverlessData.json";
-import dynamicData from "../data/dynamicGenData.json";
-import traceabilityData from "../data/traceabilityData.json";
-import microserviceData from "../data/microserviceData.json";
-import diagramData from "../data/diagramData.json";
-import { sortData, getSortIcon } from "../utils/sorting";
-import TopBar from "../components/TopBar";
-import ExpandableText from "../components/ExpandableText";
-import MobileCategoryPicker from "../components/MobileCategoryPicker";
-import {
-  Layers,
-  GitBranch,
-  Sparkles,
-  BarChart3,
-  Boxes,
-  Network,
-  ChevronRight,
-  ExternalLink,
-  ClipboardList,
-  Medal,
-  Search,
-  X,
-} from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { Link, NavLink, useNavigate, useParams } from "react-router-dom";
+import ReactMarkdown from "react-markdown";
+import { ArrowDownWideNarrow, ArrowUpNarrowWide, ChevronRight, FileText } from "lucide-react";
+import { taskInfo } from "../data/taskInfo";
+import { useResults } from "../lib/ResultsContext";
+import { defaultMetric, metricsWithData, rowsFor } from "../lib/results";
+import { DIRECTION_LABEL, humanize } from "../lib/metrics";
+import { defaultPrompt, promptStyles } from "../lib/views";
+import { taskEntries } from "../lib/insights";
+import { TASK_ICONS } from "../lib/taskIcons";
+import ResultsTable from "../components/charts/ResultsTable";
+import { Dialog, ExternalIcon, SectionTitle, SizeSlider, fitsSize } from "../components/ui";
+import NotFound from "./NotFound";
 
-const taskMeta = [
-  { key: "architecture", icon: Layers, color: "from-blue-500 to-cyan-400", data: adrGeneration },
-  { key: "serverless", icon: GitBranch, color: "from-purple-500 to-pink-400", data: serverlessData },
-  { key: "dynamic", icon: Sparkles, color: "from-orange-500 to-yellow-400", data: dynamicData },
-  { key: "traceability", icon: BarChart3, color: "from-green-500 to-emerald-400", data: traceabilityData },
-  { key: "microservice", icon: Boxes, color: "from-red-500 to-rose-400", data: microserviceData },
-  { key: "diagram", icon: Network, color: "from-teal-500 to-cyan-400", data: diagramData },
-];
+function Example({ file, title, open, onClose }) {
+  const [text, setText] = useState(null);
+  const [failed, setFailed] = useState(false);
+  useEffect(() => {
+    if (!open || text !== null) return;
+    fetch(`/${file}`).then((r) => (r.ok ? r.text() : Promise.reject())).then(setText).catch(() => setFailed(true));
+  }, [open, file, text]);
+  return (
+    <Dialog open={open} onClose={onClose} title={title}>
+      {failed && <p className="text-sm">The example could not be loaded. <a href={`/${file}`} className="link">Open the file</a>.</p>}
+      {!failed && text === null && <p className="text-sm text-base-content/60">Loading…</p>}
+      {text && <div className="prose prose-sm max-w-none"><ReactMarkdown>{text}</ReactMarkdown></div>}
+    </Dialog>
+  );
+}
 
-const Leaderboard = () => {
+function Categories({ doc, current }) {
+  return (
+    <aside className="hidden w-64 shrink-0 border-r border-base-300/50 bg-base-200/30 md:block">
+      <nav aria-label="Tasks" className="sticky top-16 space-y-1 p-4">
+        <p className="mb-2 px-3 text-xs font-medium text-base-content/50">Tasks</p>
+        {Object.keys(doc.tasks).map((t) => {
+          const Icon = TASK_ICONS[t];
+          const count = new Set(rowsFor(doc, t).map((r) => r.model_id)).size;
+          return (
+            <NavLink
+              key={t}
+              to={`/leaderboard/${t}`}
+              className={({ isActive }) => `group flex items-center gap-3 rounded-xl px-3 py-3 transition-colors ${isActive ? "bg-primary/10 font-semibold text-primary shadow-sm" : "text-base-content/60 hover:bg-base-300/50 hover:text-base-content"}`}
+            >
+              <span className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${t === current ? "bg-primary/15" : "bg-base-300/50 group-hover:bg-primary/10"}`}>
+                <Icon size={16} aria-hidden="true" />
+              </span>
+              <span className="min-w-0">
+                <span className="block truncate text-sm">{taskInfo(t).shortName}</span>
+                <span className="text-[11px] font-normal text-base-content/45">{`${count} models`}</span>
+              </span>
+              {t === current && <ChevronRight size={14} className="ml-auto shrink-0 text-primary/50" aria-hidden="true" />}
+            </NavLink>
+          );
+        })}
+      </nav>
+    </aside>
+  );
+}
+
+export default function Leaderboard() {
+  const { taskId } = useParams();
   const navigate = useNavigate();
-  const [selectedIdx, setSelectedIdx] = useState(0);
-  const [microserviceView, setMicroserviceView] = useState("incremental");
-  const [serverlessView, setServerlessView] = useState("no_intervention");
-  const [traceabilityView, setTraceabilityView] = useState("all");
-  const [sortConfig, setSortConfig] = useState({ key: null, direction: "asc" });
-  const [searchQuery, setSearchQuery] = useState("");
-  const [categorySearchQuery, setCategorySearchQuery] = useState("");
-  const [mobileCategoryOpen, setMobileCategoryOpen] = useState(false);
+  const doc = useResults();
+  const task = doc.tasks[taskId];
+  const info = taskInfo(taskId);
+  const allRows = useMemo(() => (task ? rowsFor(doc, taskId) : []), [doc, taskId, task]);
+  const [metricKey, setMetricKey] = useState(null);
+  const [prompt, setPrompt] = useState(null);
+  const [variant, setVariant] = useState(null);
+  const [maxSize, setMaxSize] = useState(Infinity);
+  const [worstFirst, setWorstFirst] = useState(false);
+  const [exampleOpen, setExampleOpen] = useState(false);
 
-  const selectedTask = taskMeta[selectedIdx].key;
-  const taskData = taskMeta[selectedIdx].data;
+  useEffect(() => {
+    setMetricKey(null);
+    setVariant(null);
+    setWorstFirst(false);
+  }, [taskId]);
 
-  const processEntries = (key, entries) => {
-    if (key === "serverless") {
-      return entries.map((entry) => ({
-        ...entry,
-        codebase_tests_no_intervention: entry.no_intervention.codebase_tests,
-        function_tests_no_intervention: entry.no_intervention.function_tests,
-        codebase_tests_with_intervention: entry.with_intervention.codebase_tests,
-        function_tests_with_intervention: entry.with_intervention.function_tests,
-        source_lines_of_code: entry.no_intervention.source_lines_of_code,
-        cyclomatic_complexity: entry.no_intervention.cyclomatic_complexity,
-        cognitive_complexity: entry.no_intervention.cognitive_complexity,
-        halstead_volume: entry.no_intervention.halstead_volume,
-        codebleu: entry.no_intervention.codebleu,
-      }));
+  if (!task) return <NotFound />;
+
+  const styles = promptStyles(allRows).sort((a, b) => (a === "zero_shot" ? -1 : b === "zero_shot" ? 1 : 0));
+  const activePrompt = styles.includes(prompt) ? prompt : defaultPrompt(styles);
+  const base = taskEntries(doc, taskId, { prompt: styles.length > 1 ? activePrompt : null, variant });
+  const variants = base.variants;
+  const activeVariant = base.activeVariant;
+  const inTier = (r) => fitsSize(doc.models[r.model_id], maxSize);
+  const shownRows = base.rows.filter(inTier);
+  const available = metricsWithData(doc, taskId, shownRows);
+  const metric = available.find((m) => m.key === metricKey) ?? defaultMetric(doc, taskId, shownRows);
+  const repeats = Math.max(0, ...shownRows.map((r) => r.setup?.seeds?.length ?? 0));
+  const hasSizes = base.rows.some((r) => doc.models[r.model_id]?.params_b != null);
+  const sortBy = (key) => {
+    if (key === metric?.key) setWorstFirst((w) => !w);
+    else {
+      setMetricKey(key);
+      setWorstFirst(false);
     }
-    if (key === "microservice") {
-      return entries.map((entry) => ({
-        ...entry,
-        inc_p1: entry.incremental.test_pass_rate_p1,
-        inc_p2: entry.incremental.test_pass_rate_p2,
-        cs_p1: entry.clean_state.test_pass_rate_p1,
-        cs_p2: entry.clean_state.test_pass_rate_p2,
-        avg_time_min: entry.avg_time_min,
-        avg_cost_usd: entry.avg_cost_usd,
-      }));
-    }
-    return entries;
   };
 
-  const [tableData, setTableData] = useState(
-    processEntries("architecture", adrGeneration.entries)
-  );
-
-  const handleTaskChange = (idx) => {
-    setSelectedIdx(idx);
-    const meta = taskMeta[idx];
-    setTableData(processEntries(meta.key, meta.data.entries));
-    setSortConfig({ key: null, direction: "asc" });
-    setSearchQuery("");
-    setCategorySearchQuery("");
-    setMobileCategoryOpen(false);
-    setMicroserviceView("incremental");
-    setServerlessView("no_intervention");
-    setTraceabilityView("all");
-  };
-
-  const handleSort = (key) => {
-    const { sortedData, newSort } = sortData(tableData, key, sortConfig);
-    setTableData(sortedData);
-    setSortConfig(newSort);
-  };
-
-  const getMetrics = (task) => {
-    if (task === "serverless") {
-      if (serverlessView === "no_intervention") {
-        return [
-          { name: "Codebase Tests", key: "codebase_tests_no_intervention" },
-          { name: "Function Tests", key: "function_tests_no_intervention" },
-          { name: "Avg SLOC", key: "source_lines_of_code" },
-          { name: "Avg Cyclomatic", key: "cyclomatic_complexity" },
-          { name: "Avg Cognitive", key: "cognitive_complexity" },
-          { name: "Avg Halstead", key: "halstead_volume" },
-          { name: "Avg CodeBLEU", key: "codebleu" },
-        ];
-      }
-      return [
-        { name: "Codebase Tests", key: "codebase_tests_with_intervention" },
-        { name: "Function Tests", key: "function_tests_with_intervention" },
-      ];
-    }
-    if (task === "architecture") {
-      return [
-        { name: "ROUGE-1", key: "rouge1" },
-        { name: "BLEU", key: "bleu" },
-        { name: "METEOR", key: "meteor" },
-        { name: "BERTScore-P", key: "bertscore_p" },
-        { name: "BERTScore-R", key: "bertscore_r" },
-        { name: "BERTScore-F1", key: "bertscore_f1" },
-      ];
-    }
-    if (task === "traceability") {
-      return [
-        { name: "Precision", key: "precision" },
-        { name: "Recall", key: "recall" },
-        { name: "F1-Score", key: "f1" },
-        { name: "Weighted Avg F1", key: "weighted_avg_f1" },
-      ];
-    }
-    if (task === "microservice") {
-      if (microserviceView === "incremental") {
-        return [
-          { name: "Test Pass Rate (P1)", key: "inc_p1" },
-          { name: "Test Pass Rate (P2)", key: "inc_p2" },
-          { name: "Avg Time (min)", key: "avg_time_min" },
-          { name: "Avg Cost ($)", key: "avg_cost_usd" },
-        ];
-      }
-      return [
-        { name: "Test Pass Rate (P1)", key: "cs_p1" },
-        { name: "Test Pass Rate (P2)", key: "cs_p2" },
-        { name: "Avg Time (min)", key: "avg_time_min" },
-        { name: "Avg Cost ($)", key: "avg_cost_usd" },
-      ];
-    }
-    if (task === "diagram") {
-      return [
-        { name: "SSIM", key: "ssim" },
-        { name: "PSNR", key: "psnr" },
-        { name: "RMSE", key: "rmse" },
-      ];
-    }
-    return taskData.metrics.map((metric) => ({
-      name: metric.name,
-      key: metric.name.toLowerCase().replace(/-/g, "_"),
-    }));
-  };
-
-  // Filter by search - first by category if searching across categories
-  const filteredByCategory = taskMeta.filter((meta) =>
-    meta.data.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    meta.data.short_description.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
-  // Check if search has no results
-  const hasNoCategoryResults = searchQuery && filteredByCategory.length === 0;
-
-  const displayTask = taskMeta[selectedIdx];
-  const displayTableData = tableData;
-
-  // Filter table entries by category search query and traceability approach
-  const filteredData = displayTableData.filter((entry) => {
-    if (!entry.name.toLowerCase().includes(categorySearchQuery.toLowerCase())) return false;
-    if (selectedTask === "traceability" && traceabilityView !== "all") {
-      const approach = entry.approach || "";
-      if (traceabilityView === "sad") return approach.includes("from documentation");
-      if (traceabilityView === "code") return approach.includes("from source code");
-      if (traceabilityView === "baseline") return approach.includes("Manual") || approach.includes("Direct");
-    }
-    return true;
-  });
-
-  const getRankBadge = (index) => {
-    if (index === 0) return <span className="text-yellow-500">🥇</span>;
-    if (index === 1) return <span className="text-gray-400">🥈</span>;
-    if (index === 2) return <span className="text-amber-600">🥉</span>;
-    return <span className="text-base-content/40">{index + 1}</span>;
-  };
 
   return (
     <>
-      <TopBar
-        title="Leaderboard"
-        subtitle={taskData.title}
-        searchValue={searchQuery}
-        onSearchChange={setSearchQuery}
-        searchPlaceholder="Search leaderboard categories..."
-        hideMobileSearch
-      >
-        <button
-          onClick={() => navigate("/tasks")}
-          className="btn btn-sm btn-ghost rounded-xl gap-1.5 hidden sm:inline-flex"
-        >
-          <ClipboardList size={14} />
-          View Tasks
-        </button>
-      </TopBar>
+      <div className="flex min-h-screen">
+        <Categories doc={doc} current={taskId} />
+        <div className="min-w-0 flex-1 p-4 pb-16 sm:p-6 lg:p-8">
+          <label className="mb-5 block md:hidden">
+            <span className="mb-1 block text-xs text-base-content/50">Task</span>
+            <select value={taskId} onChange={(e) => navigate(`/leaderboard/${e.target.value}`)} className="select select-bordered select-sm w-full rounded-xl">
+              {Object.keys(doc.tasks).map((t) => <option key={t} value={t}>{doc.tasks[t].name}</option>)}
+            </select>
+          </label>
 
-      <div className="flex min-h-[calc(100vh-4rem)]">
-        {/* Left category panel */}
-        <aside className="hidden md:flex flex-col w-64 shrink-0 border-r border-base-300/50 bg-base-200/30">
-          <div className="p-4 space-y-2">
-            <p className="text-xs text-base-content/40 uppercase tracking-wider font-medium px-3 mb-2">
-              Categories
-            </p>
-            {filteredByCategory.map((meta) => {
-              const Icon = meta.icon;
-              const active = meta.key === displayTask.key;
-              return (
-                <div key={meta.key} className="tooltip tooltip-right w-full" data-tip={meta.data.title}>
-                  <button
-                    onClick={() => handleTaskChange(taskMeta.indexOf(meta))}
-                    className={`w-full flex items-center gap-3 px-3 py-3 rounded-xl text-left transition-all duration-200 group ${active
-                        ? "bg-primary/10 text-primary font-semibold shadow-sm"
-                        : "text-base-content/60 hover:bg-base-300/50 hover:text-base-content"
-                      }`}
-                  >
-                    <div
-                      className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 transition-all ${active ? "bg-primary/15" : "bg-base-300/50 group-hover:bg-primary/10"
-                        }`}
-                    >
-                      <Icon size={16} className={active ? "text-primary" : "text-base-content/50 group-hover:text-primary/70"} />
+          <div className="card-flat flex flex-col gap-3 p-4 sm:flex-row sm:items-start sm:gap-4 sm:p-5">
+            <span className="hidden h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary sm:flex">
+              {(() => {
+                const Icon = TASK_ICONS[taskId];
+                return <Icon size={20} aria-hidden="true" />;
+              })()}
+            </span>
+            <div className="min-w-0 flex-1">
+              <h1 className="text-xl font-bold leading-snug">{task.name}</h1>
+              <p className="mt-1 text-sm text-base-content/70">{info.summary}</p>
+              <details className="group mt-2 text-sm">
+                <summary className="inline-flex cursor-pointer list-none items-center gap-1 text-xs font-medium text-primary [&::-webkit-details-marker]:hidden">
+                  <ChevronRight size={13} className="transition-transform group-open:rotate-90" aria-hidden="true" />
+                  More about this task
+                </summary>
+                <p className="mt-2 leading-relaxed text-base-content/70">{info.description}</p>
+                <dl className="mt-3 grid gap-x-6 gap-y-2 sm:grid-cols-3">
+                  {info.facts.map(([k, v]) => (
+                    <div key={k}>
+                      <dt className="text-xs font-medium text-base-content/50">{k}</dt>
+                      <dd>{v}</dd>
                     </div>
-                    <div className="min-w-0">
-                      <span className="text-sm truncate block">{meta.data.title}</span>
-                      <span className="text-[10px] text-base-content/40">
-                        {meta.data.entries.length} entries
-                      </span>
-                    </div>
-                    {active && (
-                      <ChevronRight size={14} className="ml-auto text-primary/50 shrink-0" />
-                    )}
-                  </button>
-                </div>
-              );
-            })}
-          </div>
-        </aside>
-
-        {/* Main content */}
-        <div className="flex-1 p-4 sm:p-6 lg:p-8 overflow-x-auto pb-20 md:pb-8">
-          <MobileCategoryPicker
-            label="Choose Leaderboard"
-            items={taskMeta}
-            selectedIdx={selectedIdx}
-            open={mobileCategoryOpen}
-            onOpenChange={setMobileCategoryOpen}
-            onSelect={handleTaskChange}
-            getMeta={(meta) => ({
-              key: meta.key,
-              icon: meta.icon,
-              title: meta.data.title,
-              subtext: `${meta.data.entries.length} entries`,
-            })}
-            getSubtext={(meta) => `${meta.data.entries.length} entries`}
-          />
-
-          {hasNoCategoryResults ? (
-            <div className="flex items-center justify-center h-full min-h-[calc(100vh-8rem)]">
-              <div className="text-center">
-                <p className="text-xl font-semibold text-base-content/60 mb-2">No leaderboards found</p>
-                <p className="text-sm text-base-content/40 mb-6">
-                  No leaderboard categories match &quot;{searchQuery}&quot;. Try a different search term.
-                </p>
-                <button
-                  onClick={() => setSearchQuery("")}
-                  className="btn btn-sm btn-outline rounded-xl"
-                >
-                  Clear search
-                </button>
+                  ))}
+                </dl>
+              </details>
+              <div className="mt-2 flex flex-wrap gap-x-5 gap-y-1 text-xs">
+                {info.paperLink && <a href={info.paperLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">Paper <ExternalIcon size={12} /></a>}
+                {info.datasetLink && <a href={info.datasetLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">Dataset <ExternalIcon size={12} /></a>}
+                {info.codeLink && <a href={info.codeLink} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1 text-primary hover:underline">Code <ExternalIcon size={12} /></a>}
               </div>
             </div>
-          ) : (
-            <>
-            {/* Summary card */}
-            <div className="rounded-2xl bg-base-200/50 border border-base-300/50 p-5 mb-6">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                  <Medal size={22} className="text-primary" />
-                </div>
-                <div className="min-w-0">
-                  <h2 className="text-lg font-bold">{displayTask.data.title}</h2>
-                  <ExpandableText
-                    className="text-sm text-base-content/50"
-                    minLength={110}
-                  >
-                    {displayTask.data.short_description}
-                  </ExpandableText>
-                </div>
-              </div>
-            </div>
-
-          {/* Leaderboard Entry Searchbar */}
-          <div className="mb-6">
-            <p className="text-xs text-base-content/40 uppercase tracking-wider font-medium px-1 mb-3">
-              Filter Entries
-            </p>
-            <div className="relative">
-              <Search size={16} className="absolute left-3 top-1/2 transform -translate-y-1/2 text-base-content/40 pointer-events-none" />
-              <input
-                type="text"
-                placeholder="Search entries by name..."
-                value={categorySearchQuery}
-                onChange={(e) => setCategorySearchQuery(e.target.value)}
-                className="input input-bordered input-sm w-full pl-10 pr-10 text-xs rounded-lg focus:outline-none focus:ring-2 focus:ring-primary/50"
-              />
-              {categorySearchQuery && (
-                <button
-                  onClick={() => setCategorySearchQuery("")}
-                  className="absolute right-3 top-1/2 transform -translate-y-1/2 text-base-content/40 hover:text-base-content transition-colors"
-                  aria-label="Clear search"
-                >
-                  <X size={16} />
-                </button>
-              )}
-            </div>
-          </div>
-
-          {/* Microservice scenario toggle */}
-          {selectedTask === "microservice" && (
-            <div className="flex gap-2 mb-4">
-              {[
-                { key: "incremental", label: "Incremental" },
-                { key: "clean_state", label: "Clean State" },
-              ].map((view) => (
-                <button
-                  key={view.key}
-                  onClick={() => {
-                    setMicroserviceView(view.key);
-                    setSortConfig({ key: null, direction: "asc" });
-                  }}
-                  className={`px-4 py-1.5 rounded-xl text-xs font-medium transition-all ${
-                    microserviceView === view.key
-                      ? "bg-primary/10 text-primary border border-primary/20"
-                      : "text-base-content/50 border border-base-300/50 hover:bg-base-200/50"
-                  }`}
-                >
-                  {view.label}
-                </button>
-              ))}
-            </div>
-          )}
-
-          {/* Serverless intervention toggle */}
-          {selectedTask === "serverless" && (
-            <div className="flex gap-2 mb-4">
-              {[
-                { key: "no_intervention", label: "No Intervention" },
-                { key: "with_intervention", label: "With Intervention" },
-              ].map((view) => (
-                <button
-                  key={view.key}
-                  onClick={() => {
-                    setServerlessView(view.key);
-                    setSortConfig({ key: null, direction: "asc" });
-                  }}
-                  className={`px-4 py-1.5 rounded-xl text-xs font-medium transition-all ${
-                    serverlessView === view.key
-                      ? "bg-primary/10 text-primary border border-primary/20"
-                      : "text-base-content/50 border border-base-300/50 hover:bg-base-200/50"
-                  }`}
-                >
-                  {view.label}
-                </button>
-              ))}
-            </div>
-          )}
-
-          {/* Traceability approach toggle */}
-          {selectedTask === "traceability" && (
-            <div className="flex gap-2 mb-4 flex-wrap">
-              {[
-                { key: "all", label: "All" },
-                { key: "sad", label: "SAD-extracted" },
-                { key: "code", label: "Code-extracted" },
-                { key: "baseline", label: "Baselines" },
-              ].map((view) => (
-                <button
-                  key={view.key}
-                  onClick={() => {
-                    setTraceabilityView(view.key);
-                    setSortConfig({ key: null, direction: "asc" });
-                  }}
-                  className={`px-4 py-1.5 rounded-xl text-xs font-medium transition-all ${
-                    traceabilityView === view.key
-                      ? "bg-primary/10 text-primary border border-primary/20"
-                      : "text-base-content/50 border border-base-300/50 hover:bg-base-200/50"
-                  }`}
-                >
-                  {view.label}
-                </button>
-              ))}
-            </div>
-          )}
-
-          {/* Table */}
-          <div className="rounded-2xl border border-base-300/50 overflow-hidden">
-            <div className="overflow-x-auto -mx-4 sm:mx-0 px-4 sm:px-0">
-              <table className="table w-full min-w-[640px]">
-                <thead>
-                  <tr className="bg-base-200/50">
-                    <th className="w-14 text-xs font-semibold text-base-content/50">#</th>
-                    <th className="text-xs font-semibold text-base-content/50">Name</th>
-                    {getMetrics(selectedTask).map(({ name, key }) => (
-                      <th
-                        key={key}
-                        className="cursor-pointer hover:bg-base-300/30 text-xs font-semibold text-base-content/50 whitespace-nowrap transition-colors"
-                        onClick={() => handleSort(key)}
-                      >
-                        <span className="flex items-center gap-1">
-                          {name}
-                          <span className="text-[10px]">{getSortIcon(key, sortConfig)}</span>
-                        </span>
-                      </th>
-                    ))}
-                    <th
-                      className="cursor-pointer hover:bg-base-300/30 text-xs font-semibold text-base-content/50 whitespace-nowrap transition-colors"
-                      onClick={() => handleSort("date")}
-                    >
-                      <span className="flex items-center gap-1">
-                        Date
-                        <span className="text-[10px]">{getSortIcon("date", sortConfig)}</span>
-                      </span>
-                    </th>
-                    <th className="text-xs font-semibold text-base-content/50 w-14">Link</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {filteredData.map((entry) => {
-                    const originalIndex = displayTableData.findIndex(e => e.name === entry.name);
-                    return (
-                    <tr
-                      key={originalIndex}
-                      className="hover:bg-base-200/30 transition-colors"
-                    >
-                      <td className="text-center font-medium">
-                        {getRankBadge(originalIndex)}
-                      </td>
-                      <td className="font-semibold text-sm">{entry.name}</td>
-                      {getMetrics(selectedTask).map(({ key }) => (
-                        <td key={key} className="text-sm tabular-nums">
-                          {typeof entry[key] === "number"
-                            ? Number(entry[key]).toFixed(3)
-                            : entry[key]}
-                        </td>
-                      ))}
-                      <td className="text-sm text-base-content/60">{entry.date}</td>
-                      <td>
-                        {entry.link ? (
-                          <a
-                            href={entry.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="btn btn-ghost btn-xs btn-circle hover:text-primary transition-colors"
-                          >
-                            <ExternalLink size={14} />
-                          </a>
-                        ) : (
-                          <span className="text-base-content/20">—</span>
-                        )}
-                      </td>
-                    </tr>
-                    );
-                  })}
-                </tbody>
-              </table>
-            </div>
-            {filteredData.length === 0 && (
-              <div className="text-center py-12 text-base-content/40">
-                <p className="text-sm">No entries match your search.</p>
-              </div>
+            {info.exampleFile && (
+              <button type="button" onClick={() => setExampleOpen(true)} className="btn btn-sm btn-outline shrink-0 gap-1.5 self-start rounded-xl">
+                <FileText size={14} aria-hidden="true" /> View an example
+              </button>
             )}
           </div>
+
+          {metric && (
+            <>
+              <section className="mt-5 flex flex-col gap-3" aria-labelledby="ranking-title">
+                <div>
+                  <h2 id="ranking-title" className="text-lg font-bold">Overall ranking</h2>
+                  <p className="text-sm text-base-content/60">
+                    Every model ranked by {metric.display_name} ({DIRECTION_LABEL[metric.direction].toLowerCase()}), with every other score alongside.
+                    Select a column header to rank by it.{repeats > 1 ? " ± is the spread between repeated runs." : ""}
+                  </p>
+                </div>
+                <div className="flex flex-wrap items-end gap-x-5 gap-y-3 rounded-2xl border border-base-300/50 p-3">
+                  <label className="flex flex-col gap-1 text-xs">
+                    <span className="text-base-content/60">Rank by</span>
+                    <select value={metric.key} onChange={(e) => setMetricKey(e.target.value)} className="select select-bordered select-sm rounded-xl">
+                      {available.map((m) => <option key={m.key} value={m.key}>{m.display_name}</option>)}
+                    </select>
+                  </label>
+                  <div className="flex flex-col gap-1 text-xs">
+                    <span className="text-base-content/60">Order</span>
+                    <div role="group" aria-label="Order" className="join">
+                      {[[false, "Best first", ArrowDownWideNarrow], [true, "Worst first", ArrowUpNarrowWide]].map(([v, label, Icon]) => (
+                        <button
+                          key={label}
+                          type="button"
+                          aria-pressed={worstFirst === v}
+                          onClick={() => setWorstFirst(v)}
+                          className={`btn join-item btn-sm gap-1.5 font-medium ${worstFirst === v ? "btn-primary" : "btn-ghost border-base-300"}`}
+                        >
+                          <Icon size={14} aria-hidden="true" /> {label}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                  {styles.length > 1 && (
+                    <label className="flex flex-col gap-1 text-xs">
+                      <span className="text-base-content/60">Prompt</span>
+                      <select value={activePrompt} onChange={(e) => setPrompt(e.target.value)} className="select select-bordered select-sm rounded-xl">
+                        {styles.map((s) => <option key={s} value={s}>{humanize(s)}</option>)}
+                      </select>
+                    </label>
+                  )}
+                  {variants.length > 1 && (
+                    <label className="flex flex-col gap-1 text-xs">
+                      <span className="text-base-content/60">Setting</span>
+                      <select value={activeVariant} onChange={(e) => setVariant(e.target.value)} className="select select-bordered select-sm rounded-xl">
+                        {variants.map((v) => <option key={v} value={v}>{humanize(v)}</option>)}
+                      </select>
+                    </label>
+                  )}
+                  {hasSizes && <SizeSlider value={maxSize} onChange={setMaxSize} className="w-full sm:w-60" />}
+                </div>
+                {shownRows.length ? (
+                  <ResultsTable rows={shownRows} metrics={available} models={doc.models} sortKey={metric.key} reversed={worstFirst} onSort={sortBy} label={`${task.name} leaderboard`} />
+                ) : (
+                  <p className="card-flat p-5 text-sm text-base-content/60">No entries match these filters.</p>
+                )}
+              </section>
             </>
           )}
+
+          <section className="mt-10 flex flex-col gap-3">
+            <SectionTitle title="What the scores mean" />
+            <dl className="grid gap-3 sm:grid-cols-2">
+              {Object.entries(doc.metrics[taskId]).map(([key, m]) => (
+                <div key={key} className="rounded-xl border border-base-300/50 p-4">
+                  <dt className="flex flex-wrap items-baseline gap-x-2 text-sm font-semibold">
+                    {m.display_name}
+                    <span className="text-xs font-normal text-base-content/50">{DIRECTION_LABEL[m.direction]}</span>
+                  </dt>
+                  {info.metricNote(key) && <dd className="mt-1 text-sm text-base-content/65">{info.metricNote(key)}</dd>}
+                </div>
+              ))}
+            </dl>
+            <p className="text-sm text-base-content/60">
+              The full evaluation protocol is described in the <Link to="/methodology" className="text-primary hover:underline">methodology</Link>.
+            </p>
+          </section>
         </div>
       </div>
+      {info.exampleFile && <Example file={info.exampleFile} title={info.exampleTitle} open={exampleOpen} onClose={() => setExampleOpen(false)} />}
     </>
   );
-};
-
-export default Leaderboard;
+}

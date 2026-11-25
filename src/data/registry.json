@@ -1,0 +1,347 @@
+{
+  "schema_version": 1,
+  "tasks": {
+    "adr": {
+      "name": "Architecture Decision Record Generation",
+      "primary_metric": "bertscore_f1",
+      "inhouse": true
+    },
+    "traceability": {
+      "name": "Architecture Traceability Link Recovery",
+      "primary_metric": "f1",
+      "inhouse": true
+    },
+    "diagram": {
+      "name": "Architecture View Generation",
+      "primary_metric": "ssim",
+      "inhouse": true
+    },
+    "serverless": {
+      "name": "Serverless Component Generation",
+      "primary_metric": "codebleu",
+      "inhouse": true
+    },
+    "dynamic": {
+      "name": "Dynamic IoT Service Generation",
+      "primary_metric": "f1",
+      "inhouse": false
+    },
+    "microservice": {
+      "name": "Microservice Generation",
+      "primary_metric": "test_pass_rate_p1",
+      "inhouse": false
+    }
+  },
+  "metrics": {
+    "adr": {
+      "rouge1": {
+        "display_name": "ROUGE-1",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "rouge2": {
+        "display_name": "ROUGE-2",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "rougeL": {
+        "display_name": "ROUGE-L",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "bleu": {
+        "display_name": "BLEU",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "meteor": {
+        "display_name": "METEOR",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "bertscore_p": {
+        "display_name": "BERTScore P",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "bertscore_r": {
+        "display_name": "BERTScore R",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "bertscore_f1": {
+        "display_name": "BERTScore F1",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      }
+    },
+    "traceability": {
+      "precision": {
+        "display_name": "Precision",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "recall": {
+        "display_name": "Recall",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "f1": {
+        "display_name": "F1",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "weighted_avg_f1": {
+        "display_name": "Weighted F1",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      }
+    },
+    "diagram": {
+      "ssim": {
+        "display_name": "SSIM",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "psnr": {
+        "display_name": "PSNR",
+        "direction": "higher",
+        "unit": "dB",
+        "range": null
+      },
+      "rmse": {
+        "display_name": "RMSE",
+        "direction": "lower",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "sam": {
+        "display_name": "SAM",
+        "direction": "lower",
+        "unit": "radians",
+        "range": null
+      },
+      "sre": {
+        "display_name": "SRE",
+        "direction": "higher",
+        "unit": "dB",
+        "range": null
+      },
+      "uiq": {
+        "display_name": "UIQ",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          -1,
+          1
+        ]
+      }
+    },
+    "serverless": {
+      "codebleu": {
+        "display_name": "CodeBLEU",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "codebase_tests": {
+        "display_name": "Codebase Tests",
+        "direction": "higher",
+        "unit": "percent",
+        "range": [
+          0,
+          100
+        ]
+      },
+      "function_tests": {
+        "display_name": "Function Tests",
+        "direction": "higher",
+        "unit": "percent",
+        "range": [
+          0,
+          100
+        ]
+      },
+      "sloc": {
+        "display_name": "SLOC",
+        "direction": "none",
+        "unit": "lines",
+        "range": null
+      },
+      "cyclomatic_complexity": {
+        "display_name": "Cyclomatic",
+        "direction": "none",
+        "unit": "count",
+        "range": null
+      },
+      "cognitive_complexity": {
+        "display_name": "Cognitive",
+        "direction": "none",
+        "unit": "count",
+        "range": null
+      },
+      "halstead_volume": {
+        "display_name": "Halstead Vol.",
+        "direction": "none",
+        "unit": "count",
+        "range": null
+      }
+    },
+    "dynamic": {
+      "precision": {
+        "display_name": "Precision",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "recall": {
+        "display_name": "Recall",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "f1": {
+        "display_name": "F1",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "f3": {
+        "display_name": "F3",
+        "direction": "higher",
+        "unit": "score",
+        "range": [
+          0,
+          1
+        ]
+      },
+      "tokens": {
+        "display_name": "Tokens",
+        "direction": "lower",
+        "unit": "tokens",
+        "range": null
+      }
+    },
+    "microservice": {
+      "test_pass_rate_p1": {
+        "display_name": "Pass Rate (P1)",
+        "direction": "higher",
+        "unit": "percent",
+        "range": [
+          0,
+          100
+        ]
+      },
+      "test_pass_rate_p2": {
+        "display_name": "Pass Rate (P2)",
+        "direction": "higher",
+        "unit": "percent",
+        "range": [
+          0,
+          100
+        ]
+      },
+      "avg_time_min": {
+        "display_name": "Avg Time",
+        "direction": "lower",
+        "unit": "minutes",
+        "range": null
+      },
+      "avg_cost_usd": {
+        "display_name": "Avg Cost",
+        "direction": "lower",
+        "unit": "usd",
+        "range": null
+      }
+    }
+  },
+  "tiers": [
+    {
+      "id": "tiny",
+      "label": "≤4B",
+      "max_params_b": 4
+    },
+    {
+      "id": "small",
+      "label": "4–10B",
+      "max_params_b": 10
+    },
+    {
+      "id": "medium",
+      "label": "10–35B",
+      "max_params_b": 35
+    },
+    {
+      "id": "large",
+      "label": ">35B",
+      "max_params_b": null
+    }
+  ]
+}
